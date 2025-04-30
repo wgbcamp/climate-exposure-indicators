@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Climate Risk</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="titleContainer">
+      <div class="imfContainer">IMF</div>
+      <div>Climate Risk Dashboard</div>
+    </div>
+  </div>
+  <div id="viewDiv"></div>
+  <div class="bottomUIContainer">
+    <div class="topRow">
+      <div class="blank"></div>
+      <div class="dimensions">
+        <div class="mapDimensions">
+          <div>2D</div>
+        </div>
+        <div class="granularity">
+          <!-- <span>Granularity</span> -->
+          <i class="fa-solid fa-chart-simple fa-2xl"></i>
+          <i class="fa-solid fa-chevron-down fa-2xs"></i>
+        </div>
+      </div>
+    </div>
+    <div class="bottomRow">
+      <div class="scenariosPillContainer">
+        <div class="scenarios">
+          <i class="fa-regular fa-solid fa-globe fa-2xl"></i>
+          <i class="fa-regular fa-hourglass-half fa-2xl"></i>
+          <!-- <div class="scenarioButton">Baseline</div>
+          <div class="scenarioButton">Orderly</div>
+          <div class="scenarioButton">Disorderly</div>
+          <div class="scenarioButton">Hot House</div> -->
+        </div>
+      </div>
+      <div class="riskLevelContainer">
+        <div class="gradientTitleContainer">
+          <span>RISK LEVEL</span>
+        </div>
+        <div class="gradientContainer">
+          <div class="riskGradient"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<!-- Load Calcite -->
+<script src="https://js.arcgis.com/4.32/"></script>
+<script src="script.js"></script>
+</html>
