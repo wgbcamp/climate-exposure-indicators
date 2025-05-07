@@ -40,23 +40,42 @@
 
   .searchBar {
     height: 45px;
-    background-color: rgb(31, 31, 31);
+    background-color: rgb(45, 45, 45);    
     border-radius: 40px;
     margin-left: 7px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   }
 
   .searchIcon {
     color: white;
+    border-radius: 40px;
     width: 10%;
-    margin-left: 15px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .searchIcon:hover {
+    animation: hoverIn 0.5s forwards;
+  }
+
+  @keyframes hoverIn {
+    from {
+      background-color: rgb(45, 45, 45);
+    }
+    to {
+      background-color: rgb(65, 65, 65);
+    }
   }
 
   .searchField {
     color: white;
-    background-color: rgb(31, 31, 31);
+    background-color: rgba(45, 45, 45, 0);  
+    margin-right: 35px;  
     border: unset;
     outline: none;
     width: 80%;
@@ -64,14 +83,14 @@
 
   .mapChartSwitcher {
     border-radius: 40px;
-    background-color: rgb(31, 31, 31);
-    color: white;
+    background-color: rgb(45, 45, 45);    color: white;
     width: 45px;
     height: 45px;
     margin-right: 7px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   }
 
   .imfContainer {
@@ -94,9 +113,8 @@
     row-gap: 9px;
   }
 
-  .test {
-    background-color: rgb(31, 31, 31);
-    color: white;
+  .viewButtons {
+background-color: rgb(45, 45, 45);    color: white;
     border-radius: 70px;
     height: 45px;
     width: 82%;
@@ -104,17 +122,16 @@
     justify-content: center;
     align-items: center;
     font-weight: 700;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   }
-
-  .dataControls {
+    .dataControls {
     position: absolute;
     height: 35px;
     width: 170px;
     left: 7px;
     bottom: 30px;
     border-radius: 30px;
-    background-color: rgb(31, 31, 31);
-    color: rgb(238, 238, 238);
+    background-color: rgb(45, 45, 45);    color: rgb(238, 238, 238);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -122,6 +139,7 @@
     padding-left: 20px;
     padding-top: 3px;
     padding-bottom: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   }
 
   .imfLogo {
@@ -242,21 +260,20 @@
     height: 7px;
   }
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 800px) {
 
-    .blank {
-      width: 50%;
+    .searchControls {
+      background-color: rgb(65, 65, 65);
+      top: 0;
+      padding-top: 7px;
+      padding-bottom: 7px;
     }
 
-    .dimensions {
-      width: 30%;
+    .searchIcon {
+      width: 50px;
     }
 
-    .sortingPillContainer {
-      width: 60%;
-    }
-
-    .riskLevelContainer {
-      width: 30%;
+    .searchField {
+      width: 90%;
     }
   }
