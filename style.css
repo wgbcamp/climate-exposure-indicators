@@ -42,11 +42,62 @@
     margin-right: 5px;
   }
 
-  .bottomUIContainer {
-    height: 100px;
-    width: 100%;
+  .viewControls {
+    height: 155px;
+    width: 55px;
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
+    right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 9px;
+  }
+
+  .test {
+    background-color: rgb(31, 31, 31);
+    color: white;
+    border-radius: 70px;
+    height: 45px;
+    width: 82%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .dataControls {
+    position: absolute;
+    height: 35px;
+    width: 170px;
+    left: 15px;
+    bottom: 30px;
+    border-radius: 30px;
+    background-color: rgb(31, 31, 31);
+    color: rgb(238, 238, 238);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .imfLogo {
+    border-right: solid 1px rgb(65, 65, 65);
+    color: white;
+    padding-right: 15px;
+    font-weight: 900;
+    font-size: 18px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+  }
+
+  .fontawesome25px {
+    width: 25px;
   }
 
   .topRow {
@@ -128,7 +179,7 @@
     box-shadow: 0px 4px 20px 0px #0000002E;
     width: 40%;
     max-width: 175px;
-    height: 55%;    
+    height: 55%;
   }
 
   .gradientTitleContainer {
@@ -165,8 +216,8 @@
     .sortingPillContainer {
       width: 60%;
     }
-  
+
     .riskLevelContainer {
-      width: 30%;    
+      width: 30%;
     }
   }
