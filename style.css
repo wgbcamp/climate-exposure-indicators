@@ -28,11 +28,50 @@
     z-index: 1;
   }
 
-  .titleContainer {
+  .searchControls {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    column-gap: 10px;
+  }
+
+  .searchBar {
+    height: 45px;
+    background-color: rgb(31, 31, 31);
+    border-radius: 40px;
+    margin-left: 7px;
     display: flex;
-    justify-content: start;
-    padding-left: 30px;
-    font-weight: 400;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .searchIcon {
+    color: white;
+    width: 10%;
+    margin-left: 15px;
+  }
+
+  .searchField {
+    color: white;
+    background-color: rgb(31, 31, 31);
+    border: unset;
+    outline: none;
+    width: 80%;
+  }
+
+  .mapChartSwitcher {
+    border-radius: 40px;
+    background-color: rgb(31, 31, 31);
+    color: white;
+    width: 45px;
+    height: 45px;
+    margin-right: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .imfContainer {
@@ -47,7 +86,7 @@
     width: 55px;
     position: absolute;
     bottom: 30px;
-    right: 3px;
+    right: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +110,7 @@
     position: absolute;
     height: 35px;
     width: 170px;
-    left: 15px;
+    left: 7px;
     bottom: 30px;
     border-radius: 30px;
     background-color: rgb(31, 31, 31);

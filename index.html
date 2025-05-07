@@ -10,13 +10,16 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div class="header">
-    <div class="titleContainer">
-      <div class="imfContainer">IMF</div>
-      <div>Climate Risk Dashboard</div>
+  <div id="viewDiv"></div>
+  <div class="searchControls">
+    <div class="searchBar">
+      <div class="fa-solid fa-magnifying-glass fa-lg searchIcon"></div>
+      <input class="searchField" type="text" placeholder="search Climate risk indicator">
+    </div>
+    <div class="mapChartSwitcher">
+      <i id="switchIcon" class="fa-solid fa-globe fa-lg" onclick="switchMapChart()"></i>
     </div>
   </div>
-  <div id="viewDiv"></div>
   <div class="viewControls">
     <div class="test"><i class="fa-solid fa-compass fa-lg"></i></div>
     <div class="test"><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
