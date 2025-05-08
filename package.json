@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server climate-exposure-indicators -o -p 8080"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
     "url": "https://github.com/wgbcamp/climate-exposure-indicators/issues"
   },
   "homepage": "https://github.com/wgbcamp/climate-exposure-indicators#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
 }
