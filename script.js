@@ -1,7 +1,12 @@
-require(["esri/Map", "esri/views/MapView"], (Map, MapView) => {
+require(["esri/Map", "esri/views/MapView", "esri/Basemap"], (Map, MapView, Basemap) => {
 
   const map = new Map({
-    basemap: "topo-vector"
+    basemap: new Basemap({
+      portalItem: {
+        id: "6553466517dd4d5e8b0c518b8d6b64cb"
+      }
+    })
+    
   });
 
   const view = new MapView({
@@ -15,7 +20,7 @@ require(["esri/Map", "esri/views/MapView"], (Map, MapView) => {
 });
 
 const switchMapChart = () => {
-  
+
   const div = document.getElementById("switchIcon");
 
   if (div.classList.contains("fa-globe")) {
