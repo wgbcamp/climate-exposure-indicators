@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Climate Risk</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,11 +13,13 @@
   <div id="viewDiv"></div>
       <div class="searchControls">
         <div class="searchBar">
-          <div class="fa-solid fa-magnifying-glass fa-lg searchIcon"></div>
+          <div  class="searchIcon">
+            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+          </div>
           <input class="searchField" type="text" placeholder="search Climate risk indicator">
         </div>
         <div class="countryMapChartContainer">
-          <div class="countryBar">
+          <div class="countryBar" id="countryBar" onclick="showCountryList()">
             <i class="fa-solid fa-flag fa-lg countryIcon"></i>
             <div class="countryText">Country</div>
           </div>
@@ -25,6 +27,8 @@
             <i id="switchIcon" class="fa-solid fa-globe fa-lg" onclick="switchMapChart()"></i>
           </div>
       </div>
+      </div>
+      <div class="default" id="countrySelector">
       </div>
       <div class="viewControls">
         <div class="viewButtons"><i class="fa-solid fa-compass fa-lg"></i></div>
