@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Climate Risk</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1.0" />
   <meta name="description" content="" />
   <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -11,31 +11,32 @@
 </head>
 <body>
   <div id="viewDiv"></div>
-  <div class="searchControls">
-    <div class="searchBar">
-      <div class="fa-solid fa-magnifying-glass fa-lg searchIcon"></div>
-      <input class="searchField" type="text" placeholder="search Climate risk indicator">
-    </div>
-    <div class="emptySpace"></div>
-    <div class="countryBar">
-      <i class="fa-solid fa-flag fa-lg countryIcon"></i>
-      <div class="countryText">Country</div>
-    </div>
-    <div class="mapChartSwitcher">
-      <i id="switchIcon" class="fa-solid fa-globe fa-lg" onclick="switchMapChart()"></i>
-    </div>
-  </div>
-  <div class="viewControls">
-    <div class="viewButtons"><i class="fa-solid fa-compass fa-lg"></i></div>
-    <div class="viewButtons"><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
-    <div class="viewButtons">3D</div>
-  </div>
-  <div class="dataControls">
-    <div class="imfLogo">IMF</div>
-    <i class="fa-solid fa-tornado fa-lg fontawesome25px"></i>
-    <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
-    <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
-  </div>
+      <div class="searchControls">
+        <div class="searchBar">
+          <div class="fa-solid fa-magnifying-glass fa-lg searchIcon"></div>
+          <input class="searchField" type="text" placeholder="search Climate risk indicator">
+        </div>
+        <div class="countryMapChartContainer">
+          <div class="countryBar">
+            <i class="fa-solid fa-flag fa-lg countryIcon"></i>
+            <div class="countryText">Country</div>
+          </div>
+          <div class="mapChartSwitcher">
+            <i id="switchIcon" class="fa-solid fa-globe fa-lg" onclick="switchMapChart()"></i>
+          </div>
+      </div>
+      </div>
+      <div class="viewControls">
+        <div class="viewButtons"><i class="fa-solid fa-compass fa-lg"></i></div>
+        <div class="viewButtons"><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
+        <div class="viewButtons">3D</div>
+      </div>
+      <div class="dataControls">
+        <div class="imfLogo">IMF</div>
+        <i class="fa-solid fa-tornado fa-lg fontawesome25px"></i>
+        <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+        <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+      </div>
 </body>
 <!-- Load Calcite -->
 <script src="https://js.arcgis.com/4.32/"></script>
