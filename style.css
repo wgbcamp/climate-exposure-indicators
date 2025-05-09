@@ -34,7 +34,7 @@
     position: absolute;
     top: 15px;
     display: grid;
-    grid-template-columns: 1fr 50px;
+    grid-template-columns: 1fr 50px 0px;
     column-gap: 10px;
   }
 
@@ -47,6 +47,7 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    order: 0;
   }
 
   .searchIcon {
@@ -58,6 +59,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
   .searchIcon:hover {
@@ -82,6 +84,10 @@
     width: 80%;
   }
 
+  .emptySpace {
+    order: 4;
+  }
+
   .mapChartSwitcher {
     border-radius: 40px;
     background-color: rgb(45, 45, 45);    color: white;
@@ -92,6 +98,27 @@
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    order: 1;
+    cursor: pointer;
+  }
+
+  .countryBar {
+    width: 0;
+    height: 0;
+    order: 2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    cursor: pointer;
+  }
+
+  .countryIcon {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  .countryText {
+    opacity: 0;
+    width: 0;
   }
 
   .imfContainer {
@@ -125,6 +152,7 @@
     align-items: center;
     font-weight: 700;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    cursor: pointer;
   }
     .dataControls {
     position: absolute;
@@ -154,10 +182,12 @@
     display: flex;
     align-items: center;
     font-family: "Inter", sans-serif;
+    cursor: default;
   }
 
   .fontawesome25px {
     width: 25px;
+    cursor: pointer;
   }
 
   .topRow {
@@ -265,11 +295,47 @@
 
   @media screen and (min-width: 800px) {
 
+    .countryBar {
+      width: unset;
+      height: unset;
+      order: 2;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      color: white;
+      background-color: rgb(45, 45, 45);
+      border-radius: 40px;
+      height: 45px;
+      padding-left: 20px;
+    }
+
+    .countryText {
+      font-weight: 900;
+      padding-left: 12px;
+      opacity: unset;
+      width: unset;
+    }
+
+    .countryIcon {
+      height: unset;
+      width: unset;
+      opacity: 1;
+    }
+
     .searchControls {
-      background-color: rgb(65, 65, 65);
       top: 0;
       padding-top: 7px;
       padding-bottom: 7px;
+      grid-template-columns: 400px 1fr 150px 50px;
+    }
+
+    .searchBar {
+      order: 0;
+    }
+
+    .mapChartSwitcher {
+      margin-right: unset;
+      order: 3;
     }
 
     .searchIcon {
@@ -280,4 +346,8 @@
     .searchField {
       width: 90%;
     }
+
+    .emptySpace {
+    order: unset;
+  }
   }
