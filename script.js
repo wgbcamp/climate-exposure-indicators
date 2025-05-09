@@ -1,6 +1,14 @@
-require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/widgets/Legend"], (Map, MapView, FeatureLayer, Legend) => {
+var view;
 
-  const layer = new FeatureLayer({
+require([
+  "esri/Map", 
+  "esri/views/MapView", 
+  "esri/layers/FeatureLayer", 
+  "esri/views/SceneView",
+  "esri/widgets/Legend"], 
+  (Map, MapView, FeatureLayer, SceneView, Legend) => {
+
+  var layer = new FeatureLayer({
     // portalItem: {
     //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
     // }
@@ -8,20 +16,40 @@ require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/wid
     // url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
   });
 
-  const map = new Map({
+  var map = new Map({
     basemap: "topo-vector",
     layers: [layer]
   });
 
-  const view = new MapView({
+  view = new MapView({
     container: "viewDiv",
     map: map,
     zoom: 4,
-    center: [290, 25]
+    center: [33.939, 67.709]
   });
 
   view.ui.remove("zoom");
+
+  var globeView = new SceneView({
+
+    map: new Map({
+      basemap: "hybrid"
+    }),
+    container: "sceneDiv"
+  });
+
+  //the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation
+globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
+
 });
+
+
+
+function test() {
+  if (view) {
+    view.zoom=5;
+  }
+}
 
 const switchMapChart = () => {
 
@@ -308,5 +336,21 @@ const showCountryList = () => {
     div.appendChild(node);
   }
 
+}
 
+const switchView = () => {
+
+  const div = document.getElementById("view");
+  const view = document.getElementById("viewDiv");
+  const scene = document.getElementById("sceneDiv");
+
+  if (div.innerHTML === "3D") {
+    div.innerHTML = "2D";
+    view.style.zIndex = -1;
+    scene.style.zIndex = 0;
+  } else {
+    div.innerHTML = "3D";
+    view.style.zIndex = 0;
+    scene.style.zIndex = -1;
+  }
 }
