@@ -14,10 +14,10 @@
   <div id="sceneDiv"></div>
       <div class="searchControls">
         <div class="searchBar">
-          <div  class="searchIcon">
+          <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
             <i class="fa-solid fa-magnifying-glass fa-lg"></i>
           </div>
-          <input class="searchField" type="text" placeholder="search Climate risk indicator">
+          <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator">
         </div>
         <div class="countryMapChartContainer">
           <div class="countryBar" id="countryBar" onclick="showCountryList()">
@@ -43,7 +43,6 @@
         <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
       </div>
 </body>
-<!-- Load Calcite -->
 <script src="https://js.arcgis.com/4.32/"></script>
-<script src="script.js?v=1233"></script>
+<script src="script.js"></script>
 </html>

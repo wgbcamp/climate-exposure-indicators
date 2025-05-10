@@ -1,12 +1,14 @@
 var view;
+var locateAddress;
 
 require([
   "esri/Map", 
   "esri/views/MapView", 
   "esri/layers/FeatureLayer", 
   "esri/views/SceneView",
-  "esri/widgets/Legend"], 
-  (Map, MapView, FeatureLayer, SceneView, Legend) => {
+  "esri/widgets/Legend",
+  "esri/rest/locator"], 
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator) => {
 
   var layer = new FeatureLayer({
     // portalItem: {
@@ -17,9 +19,10 @@ require([
   });
 
   var map = new Map({
-    basemap: "topo-vector",
-    layers: [layer]
+    basemap: "dark-gray"
+    // layers: [layer]
   });
+
 
   view = new MapView({
     container: "viewDiv",
@@ -41,15 +44,60 @@ require([
   //the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation
 globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
 
-});
+document.getElementById("searchField").addEventListener('keydown', function (event) {
+  console.log(event)
+  if (event.key == "Enter") {
+      console.log(document.getElementById("searchField").value)
+      locateAddress(document.getElementById("searchField").value)
+    }
+})
 
+locateAddress = (value) => {
 
+  console.log(value)
 
-function test() {
-  if (view) {
-    view.zoom=5;
+  if (value === "searchIcon") {
+    value = document.getElementById("searchField").value;
+  } 
+
+  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+  var params = {
+    address: {
+      "SingleLine": value
+    },
+    maxLocations: 1
+  }
+
+  console.log(value);
+  if (value !== "") {
+    locator.addressToLocations(url, params)
+      .then((result) => {
+      if (result.length) {
+        var location = result[0].location;
+        view.goTo({
+          center: [location.longitude, location.latitude],
+          zoom: 5
+        });
+        globeView.goTo({
+          camera: {
+            position: [
+              location.longitude,
+              location.latitude,
+              50000
+            ]
+          },
+          center: [location.longitude, location.latitude],
+          zoom: 5
+        })
+      } else {
+        alert("Not found.")
+      }
+    })
   }
 }
+
+});
 
 const switchMapChart = () => {
 
@@ -326,13 +374,9 @@ const showCountryList = () => {
   }
 
   for (var i=0; i<countries.length; i++) {
-
     const node = document.createElement("div");
-    node.classList.add('countryStyle')
-    const textnode = document.createTextNode(countries[i]);
-    node.appendChild(textnode);
-    console.log(node.appendChild(textnode));
-
+    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)">${countries[i]}</div>`;
+    node.innerHTML = divContent;
     div.appendChild(node);
   }
 
