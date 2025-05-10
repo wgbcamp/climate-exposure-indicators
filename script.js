@@ -27,8 +27,11 @@ require([
   view = new MapView({
     container: "viewDiv",
     map: map,
-    zoom: 4,
-    center: [33.939, 67.709]
+    zoom: 3,
+    center: [33.939, 67.709],
+    constraints: {
+      minZoom: 2
+    }
   });
 
   view.ui.remove("zoom");
@@ -38,7 +41,10 @@ require([
     map: new Map({
       basemap: "hybrid"
     }),
-    container: "sceneDiv"
+    container: "sceneDiv",
+    zoom: 3,
+    center: [33.939, 67.709],
+
   });
 
   //the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation
@@ -69,15 +75,15 @@ locateAddress = (value) => {
     maxLocations: 1
   }
 
-  console.log(value);
   if (value !== "") {
     locator.addressToLocations(url, params)
       .then((result) => {
       if (result.length) {
+        document.activeElement.blur();
         var location = result[0].location;
         view.goTo({
           center: [location.longitude, location.latitude],
-          zoom: 5
+          zoom: 3
         });
         globeView.goTo({
           camera: {
@@ -88,7 +94,7 @@ locateAddress = (value) => {
             ]
           },
           center: [location.longitude, location.latitude],
-          zoom: 5
+          zoom: 4
         })
       } else {
         alert("Not found.")
