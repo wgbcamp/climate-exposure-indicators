@@ -1,121 +1,8 @@
+// global variables that are available to module import function and global functions
 var view;
 var locateAddress;
 
-require([
-  "esri/Map", 
-  "esri/views/MapView", 
-  "esri/layers/FeatureLayer", 
-  "esri/views/SceneView",
-  "esri/widgets/Legend",
-  "esri/rest/locator"], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator) => {
-
-  var layer = new FeatureLayer({
-    // portalItem: {
-    //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
-    // }
-
-    // url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
-  });
-
-  var map = new Map({
-    basemap: "dark-gray"
-    // layers: [layer]
-  });
-
-
-  view = new MapView({
-    container: "viewDiv",
-    map: map,
-    zoom: 3,
-    center: [33.939, 67.709],
-    constraints: {
-      minZoom: 2
-    }
-  });
-
-  view.ui.remove("zoom");
-
-  var globeView = new SceneView({
-
-    map: new Map({
-      basemap: "hybrid"
-    }),
-    container: "sceneDiv",
-    zoom: 3,
-    center: [33.939, 67.709],
-
-  });
-
-  //the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation
-globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
-
-document.getElementById("searchField").addEventListener('keydown', function (event) {
-  console.log(event)
-  if (event.key == "Enter") {
-      console.log(document.getElementById("searchField").value)
-      locateAddress(document.getElementById("searchField").value)
-    }
-})
-
-locateAddress = (value) => {
-
-  console.log(value)
-
-  if (value === "searchIcon") {
-    value = document.getElementById("searchField").value;
-  } 
-
-  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
-
-  var params = {
-    address: {
-      "SingleLine": value
-    },
-    maxLocations: 1
-  }
-
-  if (value !== "") {
-    locator.addressToLocations(url, params)
-      .then((result) => {
-      if (result.length) {
-        document.activeElement.blur();
-        var location = result[0].location;
-        view.goTo({
-          center: [location.longitude, location.latitude],
-          zoom: 3
-        });
-        globeView.goTo({
-          camera: {
-            position: [
-              location.longitude,
-              location.latitude,
-              50000
-            ]
-          },
-          center: [location.longitude, location.latitude],
-          zoom: 4
-        })
-      } else {
-        alert("Not found.")
-      }
-    })
-  }
-}
-
-});
-
-const switchMapChart = () => {
-
-  const div = document.getElementById("switchIcon");
-
-  if (div.classList.contains("fa-globe")) {
-    div.classList.replace("fa-globe", "fa-chart-simple")
-  } else {
-    div.classList.replace("fa-chart-simple", "fa-globe")
-  }
-}
-
+// ISO 3066 countries array
 const countries = [
 "Aruba",
 "Afghanistan",
@@ -368,26 +255,168 @@ const countries = [
 "Zimbabwe"
 ];
 
-const showCountryList = () => {
+// import esri modules and define parameters
+require([
+  "esri/Map", 
+  "esri/views/MapView", 
+  "esri/layers/FeatureLayer", 
+  "esri/views/SceneView",
+  "esri/widgets/Legend",
+  "esri/rest/locator",
+  "esri/geometry/Extent"
+], 
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, Extent) => {
 
-  const div = document.getElementById("countrySelector");
-  if (div.classList.contains("noCountrySelector")) {
-    div.classList.replace("noCountrySelector", "countrySelector")
-  } else if (div.classList.contains("default")) {
-    div.classList.replace("default", "countrySelector")
-  } else {
-    div.classList.replace("countrySelector", "noCountrySelector")
+// assign feature layer 
+  var layer = new FeatureLayer({
+    // portalItem: {
+    //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
+    // }
+
+    // url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
+  });
+
+// assign map and add basemap and layer properties 
+  var map = new Map({
+    basemap: "dark-gray"
+    // layers: [layer]
+  });
+
+// TBD
+  const restrictedExtent = new Extent({
+    xmin: -19900000,  // don't allow full wrap
+    ymin: -10000000,
+    xmax: 19900000,
+    ymax: 10000000,
+    spatialReference: { wkid: 102100 }
+  })
+
+// assign mapView and add viewpoint properties
+  view = new MapView({
+    container: "viewDiv",
+    map: map,
+    zoom: 3,
+    center: [33.939, 67.709],
+    constraints: {
+      geometry: restrictedExtent,
+      minZoom: 2,
+      maxZoom: 16
+    }
+  });
+
+// remove esri UI elements from mapView
+  view.ui.remove("zoom");
+
+// assign sceneView and add viewpoint properties
+  var globeView = new SceneView({
+
+    map: new Map({
+      basemap: "hybrid"
+    }),
+    container: "sceneDiv",
+    zoom: 3,
+    center: [33.939, 67.709],
+
+  });
+
+// remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
+globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
+
+// locateAddress function 
+locateAddress = (value) => {
+
+  // if search icon was clicked, then assign locateAddress parameter to the value of searchField div
+  if (value === "searchIcon") {
+    value = document.getElementById("searchField").value;
+  } 
+
+  // url to connect to esri Geocode Server
+  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+  // parameters to send to esri Geocode Server
+  var params = {
+
+    // assign locateAddress function parameter to single line address property value
+    address: {
+      "SingleLine": value
+    },
+
+    // only retrieve one location result
+    maxLocations: 1
   }
 
-  for (var i=0; i<countries.length; i++) {
-    const node = document.createElement("div");
-    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)">${countries[i]}</div>`;
-    node.innerHTML = divContent;
-    div.appendChild(node);
-  }
+  // if locateAddress function parameter is not blank, then run addressToLocations method
+  if (value !== "") {
+    locator.addressToLocations(url, params)
+      .then((result) => {
+      if (result.length) {
+        document.activeElement.blur();
+        var location = result[0].location;
 
+        // apply addressToLocations response to mapView viewpoint
+        view.goTo({
+          center: [location.longitude, location.latitude],
+          zoom: 3
+        });
+
+        // apply addressToLocations response to sceneView viewpoint
+        globeView.goTo({
+          camera: {
+            position: [
+              location.longitude,
+              location.latitude,
+              50000
+            ]
+          },
+          center: [location.longitude, location.latitude],
+          zoom: 4
+        })
+      } else {
+
+        // display browser alert if no result was contained in addressToLocations response
+        alert("Not found.")
+      }
+    })
+  }
 }
 
+});
+
+// switchMapChart function toggles between map and chart views
+const switchMapChart = () => {
+
+  const div = document.getElementById("switchIcon");
+
+  if (div.classList.contains("fa-globe")) {
+    div.classList.replace("fa-globe", "fa-chart-simple")
+  } else {
+    div.classList.replace("fa-chart-simple", "fa-globe")
+  }
+}
+
+// showCountryList function toggles the state of the countrySelector div
+const showCountryList = () => {
+
+    const div = document.getElementById("countrySelector");
+
+    if (div.classList.contains("noCountrySelector")) {
+      div.classList.replace("noCountrySelector", "countrySelector")
+    } else if (div.classList.contains("default")) {
+      div.classList.replace("default", "countrySelector")
+    } else {
+      div.classList.replace("countrySelector", "noCountrySelector")
+    }
+
+    // loop through the countries array and append divs to the countrySelector div
+    for (var i=0; i<countries.length; i++) {
+      const node = document.createElement("div");
+      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)">${countries[i]}</div>`;
+      node.innerHTML = divContent;
+      div.appendChild(node);
+    }
+}
+
+// switchView function toggles between mapView and sceneView div z-index
 const switchView = () => {
 
   const div = document.getElementById("view");
@@ -404,3 +433,18 @@ const switchView = () => {
     scene.style.zIndex = -1;
   }
 }
+
+// add event listener for Enter key and space bar to countryBar div to run showCountryList
+document.getElementById("countryBar").addEventListener('keydown', function (event) {
+  console.log(event.key)
+  if (event.key == "Enter" || event.key == " ") {
+    showCountryList();
+  }
+})
+
+// add event listener for Enter key to searchField div to run locateAddress
+document.getElementById("searchField").addEventListener('keydown', function (event) {
+  if (event.key == "Enter") {
+      locateAddress(document.getElementById("searchField").value)
+    }
+})
