@@ -325,6 +325,7 @@ globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
 // locateAddress function 
 locateAddress = (value) => {
 
+  console.log(value);
   // if search icon was clicked, then assign locateAddress parameter to the value of searchField div
   if (value === "searchIcon") {
     value = document.getElementById("searchField").value;
@@ -395,6 +396,8 @@ const switchMapChart = () => {
 }
 
 // showCountryList function toggles the state of the countrySelector div
+
+var countryList = false;
 const showCountryList = () => {
 
     const div = document.getElementById("countrySelector");
@@ -408,11 +411,17 @@ const showCountryList = () => {
     }
 
     // loop through the countries array and append divs to the countrySelector div
-    for (var i=0; i<countries.length; i++) {
-      const node = document.createElement("div");
-      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)">${countries[i]}</div>`;
-      node.innerHTML = divContent;
-      div.appendChild(node);
+    // when the popup is active 
+    if (div.classList.contains("countrySelector")) {
+      for (var i=0; i<countries.length; i++) {
+          const node = document.createElement("div");
+          var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+          node.innerHTML = divContent;
+          div.appendChild(node);
+        }
+    } else {
+      // clear the countrySelector div when the popup is inactive
+      div.innerHTML = '';
     }
 }
 
@@ -433,18 +442,3 @@ const switchView = () => {
     scene.style.zIndex = -1;
   }
 }
-
-// add event listener for Enter key and space bar to countryBar div to run showCountryList
-document.getElementById("countryBar").addEventListener('keydown', function (event) {
-  console.log(event.key)
-  if (event.key == "Enter" || event.key == " ") {
-    showCountryList();
-  }
-})
-
-// add event listener for Enter key to searchField div to run locateAddress
-document.getElementById("searchField").addEventListener('keydown', function (event) {
-  if (event.key == "Enter") {
-      locateAddress(document.getElementById("searchField").value)
-    }
-})
