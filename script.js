@@ -263,9 +263,10 @@ require([
   "esri/views/SceneView",
   "esri/widgets/Legend",
   "esri/rest/locator",
-  "esri/geometry/Extent"
+  "esri/geometry/SpatialReference",
+  "esri/core/reactiveUtils"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, Extent) => {
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils) => {
 
 // assign feature layer 
   var layer = new FeatureLayer({
@@ -281,16 +282,7 @@ require([
     basemap: "dark-gray"
     // layers: [layer]
   });
-
-// TBD
-  const restrictedExtent = new Extent({
-    xmin: -19900000,  // don't allow full wrap
-    ymin: -10000000,
-    xmax: 19900000,
-    ymax: 10000000,
-    spatialReference: { wkid: 102100 }
-  })
-
+  
 // assign mapView and add viewpoint properties
   view = new MapView({
     container: "viewDiv",
@@ -298,14 +290,37 @@ require([
     zoom: 3,
     center: [33.939, 67.709],
     constraints: {
-      geometry: restrictedExtent,
       minZoom: 2,
       maxZoom: 16
+    },
+    spatialReference: {
+      wkid: 3857,
+      isWrappable: true
     }
   });
 
 // remove esri UI elements from mapView
   view.ui.remove("zoom");
+
+//
+const minLat = -70;
+const maxLat = 85;
+
+reactiveUtils.when(() => view.stationary, () => {
+  const center = view.center;
+  const clampedLat = Math.max(Math.min(center.latitude, maxLat), minLat);
+
+  if (clampedLat !== center.latitude) {
+    view.center = {
+      latitude: clampedLat,
+      longitude: center.longitude
+    }
+
+    view.goTo({
+      center: [center.longitude, clampedLat.latitude]
+    });
+  }
+})
 
 // assign sceneView and add viewpoint properties
   var globeView = new SceneView({
