@@ -1,48 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Climate Risk</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
-  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
+  <div class="searchControls">
+    <div class="searchBar">
+      <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
+        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+      </div>
+      <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
+    </div>
+    <div class="countryMapChartContainer">
+      <div class="countryBar" id="countryBar" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};" tabindex="0">
+        <i class="fa-solid fa-flag fa-lg countryIcon"></i>
+        <div class="countryText">Country</div>
+      </div>
+      <div class="mapChartSwitcher" onclick="switchMapChart()" onkeydown="if(event.key === 'Enter'){switchMapChart()};" tabindex="0">
+        <i id="switchIcon" class="fa-solid fa-globe fa-lg"></i>
+      </div>
+    </div>
+  </div>
+  <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
+  <div class="dataControls">
+    <div class="imfLogo">IMF</div>
+    <div tabindex="0">
+      <i class="fa-solid fa-tornado fa-lg fontawesome25px"></i>
+    </div>
+    <div tabindex="0">
+      <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+    </div>
+    <div tabindex="0">
+      <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+    </div>
+  </div>
+  <div class="viewControls">
+    <div class="viewButtons" tabindex="0">
+      <div><i class="fa-solid fa-compass fa-lg"></i></div>
+    </div>
+    <div class="viewButtons" tabindex="0">
+      <div><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
+    </div>
+    <div class="viewButtons" onclick="switchView()" onkeydown="if(event.key === 'Enter'){switchView()}" tabindex="0">
+      <div id="view">3D</div>
+    </div>
+  </div>
   <div id="viewDiv"></div>
   <div id="sceneDiv"></div>
-      <div class="searchControls">
-        <div class="searchBar">
-          <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
-            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-          </div>
-          <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator">
-        </div>
-        <div class="countryMapChartContainer">
-          <div class="countryBar" id="countryBar" onclick="showCountryList()">
-            <i class="fa-solid fa-flag fa-lg countryIcon"></i>
-            <div class="countryText">Country</div>
-          </div>
-          <div class="mapChartSwitcher">
-            <i id="switchIcon" class="fa-solid fa-globe fa-lg" onclick="switchMapChart()"></i>
-          </div>
-      </div>
-      </div>
-      <div class="default" id="countrySelector">
-      </div>
-      <div class="viewControls">
-        <div class="viewButtons"><i class="fa-solid fa-compass fa-lg"></i></div>
-        <div class="viewButtons"><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
-        <div class="viewButtons" id="view" onclick="switchView()">3D</div>
-      </div>
-      <div class="dataControls">
-        <div class="imfLogo">IMF</div>
-        <i class="fa-solid fa-tornado fa-lg fontawesome25px"></i>
-        <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
-        <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
-      </div>
 </body>
 <script src="https://js.arcgis.com/4.32/"></script>
 <script src="script.js"></script>
+
 </html>
