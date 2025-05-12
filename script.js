@@ -328,7 +328,7 @@ reactiveUtils.when(() => view.stationary, () => {
   globeView = new SceneView({
 
     map: new Map({
-      basemap: "hybrid"
+      basemap: "dark-gray"
     }),
     container: "sceneDiv",
     zoom: 3,
