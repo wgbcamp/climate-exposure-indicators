@@ -1,6 +1,8 @@
 // global variables that are available to module import function and global functions
 var view;
 var locateAddress;
+var camera;
+var globeView;
 
 // ISO 3066 countries array
 const countries = [
@@ -323,7 +325,7 @@ reactiveUtils.when(() => view.stationary, () => {
 })
 
 // assign sceneView and add viewpoint properties
-  var globeView = new SceneView({
+  globeView = new SceneView({
 
     map: new Map({
       basemap: "hybrid"
@@ -456,4 +458,16 @@ const switchView = () => {
     view.style.zIndex = 0;
     scene.style.zIndex = -1;
   }
+}
+
+// orients camera north
+const orientNorth = () => {
+
+  view.goTo({
+    rotation: 0
+  });
+
+  globeView.goTo({
+    heading: 0
+  })
 }
