@@ -3,6 +3,7 @@ var view;
 var locateAddress;
 var camera;
 var globeView;
+var map;
 
 // ISO 3066 countries array
 const countries = [
@@ -257,6 +258,55 @@ const countries = [
 "Zimbabwe"
 ];
 
+const scenarios = [
+  {year: 1980, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"},
+  {year: 2030, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2030/VectorTileServer"},
+  {year: 2050, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2050/VectorTileServer"},
+  {year: 2080, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2080/VectorTileServer"}
+]
+
+var vectorObjects = [
+
+];
+
+// function getVectorObjects(url) {
+//   return new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("GET", url);
+//     xhr.onload = () => {
+//       if (xhr.status == 200) {
+//         resolve(xhr.response);
+//       } else {
+//         reject(new Error(`Failed to receive 200 status code from url: ${url}.`));
+//       }
+//     };
+//     xhr.onerror = () => {
+//       reject(new Error("Other network error occurred."));
+//     }
+//     xhr.send();
+//   });
+// }
+
+// getVectorObjects(scenarios[0].url)
+//   .then(response0 => {
+//     vectorObjects.push(response0);
+//     return getVectorObjects(scenarios[1].url);
+//   })
+//   .then(response1 => {
+//     vectorObjects.push(response1);
+//     return getVectorObjects(scenarios[2].url);
+//   })
+//   .then(response2 => {
+//     vectorObjects.push(response2);
+//     return getVectorObjects(scenarios[3].url);
+//   })
+//   .then(response3 => {
+//     vectorObjects.push(response3);
+//   })
+//   .catch(error => {
+//     console.error("An error has been caught:", error);
+//   });
+
 // import esri modules and define parameters
 require([
   "esri/Map", 
@@ -266,9 +316,11 @@ require([
   "esri/widgets/Legend",
   "esri/rest/locator",
   "esri/geometry/SpatialReference",
-  "esri/core/reactiveUtils"
+  "esri/core/reactiveUtils",
+  "esri/widgets/TimeSlider",
+  "esri/layers/VectorTileLayer"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils) => {
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, TimeSlider, VectorTileLayer) => {
 
 // assign feature layer 
   var layer = new FeatureLayer({
@@ -279,12 +331,19 @@ require([
     // url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
   });
 
+  var vtlayer = new VectorTileLayer({
+    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
+  });
+
 // assign map and add basemap and layer properties 
-  var map = new Map({
+  map = new Map({
     basemap: "dark-gray"
     // layers: [layer]
+
   });
   
+  map.add(vtlayer);
+
 // assign mapView and add viewpoint properties
   view = new MapView({
     container: "viewDiv",
@@ -338,6 +397,48 @@ reactiveUtils.when(() => view.stationary, () => {
 
 // remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
 globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
+
+const timeSlider = new TimeSlider({
+  container: "timeSliderDiv",
+  view: view,
+  // show data within a given time range
+  // in this case data within one year
+  mode: "instant",
+  stops: {
+    dates: [
+      new Date(1980, 0, 1),
+      new Date(2030, 0, 1),
+      new Date(2050, 0, 1),
+      new Date(2080, 0, 1)
+    ]
+  },
+  fullTimeExtent: { // entire extent of the timeSlider
+    start: new Date(1980, 0, 1),
+    end: new Date(2080, 0, 1)
+  },
+  timeExtent: { // location of timeSlider thumbs
+    start: new Date(1980, 0, 1),
+    end: new Date(1980, 1, 1)
+  }
+});
+view.ui.add(timeSlider, "manual");
+
+reactiveUtils.watch(
+  () => timeSlider.timeExtent,
+  (value) => {
+    console.log(JSON.stringify(value.start).slice(1,5));
+    for (var i=0; i<scenarios.length; i++) {
+      if (JSON.stringify(value.start).slice(1,5) == scenarios[i].year) {
+        console.log(scenarios[i].year);
+        map.remove(vtlayer);
+        vtlayer = new VectorTileLayer({
+          url: scenarios[i].url
+        });
+        map.add(vtlayer);
+      }
+    }
+  }
+);
 
 // locateAddress function 
 locateAddress = (value) => {
