@@ -318,9 +318,10 @@ require([
   "esri/geometry/SpatialReference",
   "esri/core/reactiveUtils",
   "esri/widgets/TimeSlider",
-  "esri/layers/VectorTileLayer"
+  "esri/layers/VectorTileLayer",
+  "esri/widgets/Slider"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, TimeSlider, VectorTileLayer) => {
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, TimeSlider, VectorTileLayer, Slider) => {
 
 // assign feature layer 
   var layer = new FeatureLayer({
@@ -398,37 +399,30 @@ reactiveUtils.when(() => view.stationary, () => {
 // remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
 globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
 
-const timeSlider = new TimeSlider({
-  container: "timeSliderDiv",
-  view: view,
-  // show data within a given time range
-  // in this case data within one year
-  mode: "instant",
-  stops: {
-    dates: [
-      new Date(1980, 0, 1),
-      new Date(2030, 0, 1),
-      new Date(2050, 0, 1),
-      new Date(2080, 0, 1)
-    ]
-  },
-  fullTimeExtent: { // entire extent of the timeSlider
-    start: new Date(1980, 0, 1),
-    end: new Date(2080, 0, 1)
-  },
-  timeExtent: { // location of timeSlider thumbs
-    start: new Date(1980, 0, 1),
-    end: new Date(1980, 1, 1)
+const slider = new Slider({
+  container: "sliderDiv",
+  min: 1980,
+  max: 2080,
+  values: [1980],
+  steps: [1980,2030,2050,2080],
+  tickConfigs: [{
+    mode: "position",
+    values: [1980,2030,2050,2080]
+  }],
+  visibleElements: {
+    rangeLabels: true,
+    labels: true
   }
-});
-view.ui.add(timeSlider, "manual");
+})
+
+view.ui.add(slider, "manual");
 
 reactiveUtils.watch(
-  () => timeSlider.timeExtent,
+  () => slider.values,
   (value) => {
-    console.log(JSON.stringify(value.start).slice(1,5));
+    console.log(value);
     for (var i=0; i<scenarios.length; i++) {
-      if (JSON.stringify(value.start).slice(1,5) == scenarios[i].year) {
+      if (value == scenarios[i].year) {
         console.log(scenarios[i].year);
         map.remove(vtlayer);
         vtlayer = new VectorTileLayer({
