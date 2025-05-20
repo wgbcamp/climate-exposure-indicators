@@ -265,48 +265,6 @@ const scenarios = [
   {year: 2080, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2080/VectorTileServer"}
 ]
 
-var vectorObjects = [
-
-];
-
-// function getVectorObjects(url) {
-//   return new Promise((resolve, reject) => {
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("GET", url);
-//     xhr.onload = () => {
-//       if (xhr.status == 200) {
-//         resolve(xhr.response);
-//       } else {
-//         reject(new Error(`Failed to receive 200 status code from url: ${url}.`));
-//       }
-//     };
-//     xhr.onerror = () => {
-//       reject(new Error("Other network error occurred."));
-//     }
-//     xhr.send();
-//   });
-// }
-
-// getVectorObjects(scenarios[0].url)
-//   .then(response0 => {
-//     vectorObjects.push(response0);
-//     return getVectorObjects(scenarios[1].url);
-//   })
-//   .then(response1 => {
-//     vectorObjects.push(response1);
-//     return getVectorObjects(scenarios[2].url);
-//   })
-//   .then(response2 => {
-//     vectorObjects.push(response2);
-//     return getVectorObjects(scenarios[3].url);
-//   })
-//   .then(response3 => {
-//     vectorObjects.push(response3);
-//   })
-//   .catch(error => {
-//     console.error("An error has been caught:", error);
-//   });
-
 // import esri modules and define parameters
 require([
   "esri/Map", 
@@ -410,24 +368,20 @@ const slider = new Slider({
     values: [1980,2030,2050,2080]
   }],
   visibleElements: {
-    rangeLabels: true,
-    labels: true
+    rangeLabels: true
   }
 })
 
 view.ui.add(slider, "manual");
 
-reactiveUtils.watch(
-  () => slider.values,
-  (value) => {
-    console.log(value);
+reactiveUtils.watch(() => slider.values, (value) => {
     for (var i=0; i<scenarios.length; i++) {
       if (value == scenarios[i].year) {
-        console.log(scenarios[i].year);
         map.remove(vtlayer);
         vtlayer = new VectorTileLayer({
           url: scenarios[i].url
         });
+        updateThumbLabel(value);
         map.add(vtlayer);
       }
     }
@@ -565,4 +519,43 @@ const orientNorth = () => {
   globeView.goTo({
     heading: 0
   })
+}
+
+// when slider is moved, update the value of the thumb label
+const updateThumbLabel = (value) => {
+  document.getElementById("sliderThumbLabel").innerHTML = value;
+}
+
+// when a data control is clicked, remove or add class
+
+const toggleData = (value) => {
+  var list = document.querySelectorAll('div.animateDataControls, div.hideDataControls, div.default');
+  for (var i=0; i<list.length; i++) {
+    if (list[i].classList.contains(value.slice(1)) && list[i].classList.contains("animateDataControls")) {
+      list[i].classList.add("hideDataControls");
+      list[i].classList.remove("animateDataControls");
+    } else if (list[i].classList.contains(value.slice(1)) && list[i].classList.contains("hideDataControls")) {
+      list[i].classList.add("animateDataControls");
+      list[i].classList.remove("hideDataControls");
+    } else if (list[i].classList.contains(value.slice(1))) {
+      list[i].classList.add("animateDataControls");
+      list[i].classList.remove("default");
+   } else if (list[i].classList.contains("animateDataControls")) {
+      list[i].classList.add("hideDataControls");
+      list[i].classList.remove("animateDataControls");
+    }
+  }
+}
+
+// toggleScenario
+const applyScenario = (value) => {
+  var list = document.querySelectorAll('div.scenario');
+  for (var i=0; i<list.length; i++) {
+    if (list[i].classList.contains('activeScenario')) {
+      list[i].classList.remove('activeScenario');
+    }
+    if (list[i].classList.contains(value)) {
+      list[i].classList.add('activeScenario');
+    }
+  }
 }

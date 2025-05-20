@@ -60,19 +60,22 @@
 
   .searchControls {
     height: 50px;
-    width: calc(100% - 14px);
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(45, 45, 45);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     position: absolute;
-    top: 10px;
-    left: 7px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content:center;
     z-index: 2;
   }
 
   .searchBar {
-    height: 45px;
-    background-color: rgb(45, 45, 45);    
-    border-radius: 40px;
+    height: 32px;
+    background-color: rgb(65, 65, 65);    
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,15 +124,19 @@
     order: 4;
   }
 
+  .mapChartContainer {
+    width: 65px;
+    display: flex;
+    justify-content: center;
+  }
+
   .mapChartSwitcher {
-    border-radius: 40px;
     background-color: rgb(45, 45, 45);    color: white;
     width: 45px;
     height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     cursor: pointer;
   }
 
@@ -170,8 +177,8 @@
   .viewControls {
     height: 155px;
     width: 55px;
-    position: absolute;
-    bottom: 30px;
+    position: fixed;
+    top: 100px;
     right: 7px;
     display: flex;
     align-items: end;
@@ -183,7 +190,8 @@
 
   .viewButtons {
     font-family: "Inter", sans-serif;
-    background-color: rgb(45, 45, 45);    color: white;
+    background-color: rgb(45, 45, 45);    
+    color: white;
     border-radius: 70px;
     height: 45px;
     width: 82%;
@@ -195,59 +203,157 @@
     cursor: pointer;
   }
     .dataControls {
-    position: absolute;
-    height: 35px;
-    width: 170px;
-    left: 7px;
-    bottom: 30px;
-    border-radius: 30px;
-    background-color: rgb(45, 45, 45);    color: rgb(238, 238, 238);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    position: fixed;
+    height: 55px;
+    width: 100%;
+    bottom: 0px;
+    background-color: rgb(65, 65, 65);    
+    color: rgb(238, 238, 238);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding-right: 20px;
-    padding-left: 20px;
     padding-top: 3px;
     padding-bottom: 3px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    z-index: 2;
+    z-index: 5;
+  }
+
+  .dataButtonContainer {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+ }
+
+  .dataIconContainer {
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dataName {
+    padding-top: 4px;
+    font-size: 12px;
   }
 
   .scenarioDiv {
     position: absolute;
-    bottom: 30px;
-    left: 100px;
+    bottom: 0px;
     background-color: rgb(65, 65, 65);
-    width: 400px;
+    width: 100%;
     z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
-    height: 60px;
-    border: 1px solid white;
-    border-radius: 20px;
+    gap: 8px;
+    height: 75px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   .scenario {
     color: white;
     background-color: rgb(85, 85, 85);
+    font-size: 15px;
+    font-weight: 600;
     border-radius: 20px;
+    height: 36px;
+    width: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #00000000;
+    cursor: pointer;
+  }
+
+  .activeScenario {
+    border: 1px solid #009CDE;
+  }
+
+  .sliderThumbLabel {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    position: fixed;
+    bottom: 61px;
+    height: 75px;
+    width: 20%;
+    left: 0;
+    z-index: 2;
+    background-color: rgb(65, 65, 65);
+    border-top-left-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
   }
 
   #sliderDiv {
-    bottom: 30px;
     height: 75px;
-    width: 500px;
-    left: calc(50% - 250px);
-    background-color: rgb(45, 45, 45);
+    width: 70%;
+    left: 20%;
+    background-color: rgb(65, 65, 65);
     color: white;
   }
 
+  .sliderBackground {
+    position: fixed;
+    bottom: 61px;
+    width: 70%;
+    height: 75px;
+    left: 20%;
+    background-color: rgb(65, 65, 65);
+  }
+
+  .sliderEmptySpace {
+    height: 75px;
+    width: 10%;
+    position: fixed;
+    bottom: 61px;
+    left: 90%;
+    z-index: 2;
+    background-color: rgb(65, 65, 65);
+    border-top-right-radius: 10px;
+  }
+
+  .animateDataControls {
+      animation: revealDataOption 0.1s forwards;
+  }
+
+  .hideDataControls {
+      animation: hideDataOption 0.1s forwards;
+  }
+
+  .default {
+
+  }
+
+      @keyframes revealDataOption {
+      from {
+          bottom: 0px
+      }
+      to {
+          bottom: 61px
+      }
+    }
+
+      @keyframes hideDataOption {
+      from {
+          bottom: 61px
+      }
+      to {
+          bottom: 0px
+      }
+    }
+
   .imfLogo {
-    border-right: solid 1px rgb(65, 65, 65);
     color: white;
-    padding-right: 15px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
     font-weight: 900;
     font-size: 18px;
     height: 70%;
@@ -312,29 +418,7 @@
     align-items: center;
   }
 
-  .scenariosPillContainer {
-    background-color: white;
-    box-shadow: 0px 4px 20px 0px #0000002E;
-    width: 50%;
-    height: 100%;
-    border-radius: 50px;
-  }
 
-  .scenarios {
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 10px;
-  }
-
-  .scenarioButton {
-    background-color: #DEDEDE;
-    font-weight: 600;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-radius: 20px;
-  }
 
   .riskLevelContainer {
     background-color: white;

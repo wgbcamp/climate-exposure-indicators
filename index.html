@@ -15,9 +15,11 @@
 
 <body>
   <div class="searchControls">
+        <div class="imfLogo">IMF</div>
+
     <div class="searchBar">
       <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
-        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+        <i class="fa-solid fa-magnifying-glass fa-md"></i>
       </div>
       <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
     </div>
@@ -26,31 +28,46 @@
         <i class="fa-solid fa-flag fa-lg countryIcon"></i>
         <div class="countryText">Country</div>
       </div>
-      <div class="mapChartSwitcher" onclick="switchMapChart()" onkeydown="if(event.key === 'Enter'){switchMapChart()};" tabindex="0">
-        <i id="switchIcon" class="fa-solid fa-globe fa-lg"></i>
+      <div class="mapChartContainer">
+        <div class="mapChartSwitcher" onclick="switchMapChart()" onkeydown="if(event.key === 'Enter'){switchMapChart()};" tabindex="0">
+          <i id="switchIcon" class="fa-solid fa-globe fa-lg"></i>
+        </div>
       </div>
     </div>
   </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
   <div class="dataControls">
-    <div class="imfLogo">IMF</div>
-    <div tabindex="0">
-      <i class="fa-solid fa-tornado fa-lg fontawesome25px"></i>
+    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('.scenariosElement')">
+      <div class="dataIconContainer">
+        <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
+      </div>  
+      <div class="dataName">Scenarios</div>
     </div>
-    <div tabindex="0">
-      <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('.layersElement')">
+      <div class="dataIconContainer">
+        <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+      </div>
+      <div class="dataName">Layers</div>
     </div>
-    <div tabindex="0">
-      <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('.timelineElement')">
+      <div class="dataIconContainer">
+        <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+      </div>
+      <div class="dataName">Timeline</div>
     </div>
   </div>
-  <div class="scenarioDiv">
-    <div class="scenario">Baseline</div>
-    <div class="scenario">Orderly</div>
-    <div class="scenario">Disorderly</div>
-    <div class="scenario">Hot House</div>
+  <div class="sliderThumbLabel animateDataControls timelineElement" id="sliderThumbLabel">1980</div>
+  <div id="sliderDiv" class="animateDataControls timelineElement"></div>
+  <div class="sliderBackground animateDataControls timelineElement"></div>
+  <div class="sliderEmptySpace animateDataControls timelineElement"></div>
+
+  <div class="scenarioDiv scenariosElement default">
+    <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
+    <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
+    <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
+    <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
   </div>
-     <div id="sliderDiv"></div>
+
   <div class="viewControls">
     <div class="viewButtons" onclick="orientNorth()" tabindex="0">
       <div><i class="fa-solid fa-compass fa-lg"></i></div>
