@@ -14,25 +14,42 @@
 </head>
 
 <body>
-  <div class="searchControls">
-        <div class="imfLogo">IMF</div>
-
-    <div class="searchBar">
-      <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
-        <i class="fa-solid fa-magnifying-glass fa-md"></i>
+    <div class="header">
+          <div class="imfLogo">IMF</div>
+      <div class="searchBar">
+        <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
+          <i class="fa-solid fa-magnifying-glass fa-md"></i>
+        </div>
+        <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
       </div>
-      <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
-    </div>
-    <div class="countryMapChartContainer">
-      <div class="countryBar" id="countryBar" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};" tabindex="0">
-        <i class="fa-solid fa-flag fa-lg countryIcon"></i>
-        <div class="countryText">Country</div>
-      </div>
-      <div class="mapChartContainer">
-        <div class="mapChartSwitcher" onclick="switchMapChart()" onkeydown="if(event.key === 'Enter'){switchMapChart()};" tabindex="0">
-          <i id="switchIcon" class="fa-solid fa-globe fa-lg"></i>
+      <div class="countryMapChartContainer">
+        <div class="countryBar" id="countryBar" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};" tabindex="0">
+          <i class="fa-solid fa-flag fa-lg countryIcon"></i>
+          <div class="countryText">Country</div>
+        </div>
+        <div class="mapChartContainer">
+          <div class="mapChartSwitcher" onclick="switchMapChart()" onkeydown="if(event.key === 'Enter'){switchMapChart()};" tabindex="0">
+            <i id="switchIcon" class="fa-solid fa-globe fa-lg"></i>
+          </div>
         </div>
       </div>
+    </div>
+  <div class="header2">
+    <div class="chartMapDivContainer">
+      <div id="mapDiv" class="chartMapDiv mapDiv cmID selectedButton" onclick="toggleMapChart(this.id)">
+        <i class="fa-solid fa-globe fa-lg"></i>
+        Map
+      </div>
+      <div id="chartDiv" class="chartMapDiv chartDiv cmID" onclick="toggleMapChart(this.id)">
+        <i class="fa-solid fa-chart-line"></i>
+        Chart
+      </div>
+    </div>
+    <div class="smallWidthSearchBar">
+      <input id="smallWidthSearchField" class="smallWidthSearchField" type="text" placeholder="search" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
+      <div id="smallWidthSearchIcon" class="searchIcon" onclick="locateAddress(this.id)">
+          <i class="fa-solid fa-magnifying-glass fa-md"></i>
+        </div>
     </div>
   </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>

@@ -391,11 +391,12 @@ reactiveUtils.watch(() => slider.values, (value) => {
 // locateAddress function 
 locateAddress = (value) => {
 
-  console.log(value);
   // if search icon was clicked, then assign locateAddress parameter to the value of searchField div
   if (value === "searchIcon") {
     value = document.getElementById("searchField").value;
-  } 
+  } else if (value === "smallWidthSearchIcon") {
+    value = document.getElementById("smallWidthSearchField").value;
+  }
 
   // url to connect to esri Geocode Server
   var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
@@ -557,5 +558,23 @@ const applyScenario = (value) => {
     if (list[i].classList.contains(value)) {
       list[i].classList.add('activeScenario');
     }
+  }
+}
+
+// toggle between map and chart views on click
+const toggleMapChart = (value) => {
+
+  var list = document.querySelectorAll('div.cmID');
+  for (var i=0; i<list.length; i++) {
+    if (list[i].classList.contains('selectedButton')) {
+      
+    }
+  }
+
+  var button = document.getElementById(value);
+  if (button.classList.contains('selectedButton')) {
+    button.classList.remove('selectedButton');
+  } else {
+    button.classList.add('selectedButton');
   }
 }

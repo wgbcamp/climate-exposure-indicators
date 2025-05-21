@@ -39,26 +39,51 @@
     height: calc(100% - 10px);
   }
 
-  .header {
-    height: 65px;
-    width: 100%;
-    background-color: #002649;
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    z-index: 1;
-  }
-
   .testme {
     background-color: red;
   }
 
-  .searchControls {
+  .chartMapDivContainer {
+    height: 100%;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    padding-left: 10px;
+  }
+
+  .chartMapDiv {
+    width: 80px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mapDiv {
+    height: 82%;
+    background-color: rgb(65, 65, 65);
+    padding-left: 10px;
+    padding-right: 7px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  .chartDiv {    
+    height: 82%;
+    background-color: rgb(65, 65, 65);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 8px;
+    padding-right: 10px;
+    border-left: 1px solid rgb(45, 45, 45);
+  }
+
+  .selectedButton {
+    
+  }
+
+  .header {
     height: 50px;
     width: 100%;
     padding-top: 5px;
@@ -72,28 +97,26 @@
     z-index: 2;
   }
 
-  .searchBar {
-    height: 32px;
-    background-color: rgb(65, 65, 65);    
-    border-radius: 10px;
+  .header2 {
+    border-top: 1px solid rgb(65, 65, 65);
+    height: 40px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    order: 0;
-    overflow: hidden;
+    background-color: rgb(45, 45, 45);
+    z-index: 10;
+    position: absolute;
+    top: 60px;
+  }
+
+  .searchBar {
+    height: 0;
+        visibility: hidden;
+
   }
 
   .searchIcon {
-    color: white;
-    border-radius: 40px;
-    width: 60px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 5px;
+    height: 0;
   }
 
   .searchIcon:hover {
@@ -131,13 +154,37 @@
   }
 
   .mapChartSwitcher {
-    background-color: rgb(45, 45, 45);    color: white;
+    background-color: rgb(45, 45, 45);
+    color: white;
     width: 45px;
     height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+  }
+
+  .smallWidthSearchBar {
+    background-color: rgb(65, 65, 65);
+    height: 50px;
+    width: 75%;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    overflow: hidden;
+  }
+
+  .smallWidthSearchField {
+    background-color: rgb(65, 65, 65);
+    font-size: 16px;
+    color: white;
+    margin-right: 35px;  
+    border: unset;
+    outline: none;
+    width: 80%;
   }
 
   .countryBar {
@@ -456,6 +503,19 @@
 
   @media screen and (min-width: 800px) {
 
+    .searchBar {
+      height: 32px;
+      background-color: rgb(65, 65, 65);    
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+      order: 0;
+      overflow: hidden;
+      visibility: visible;
+    }
+
     .countryBar {
       width: 120px;
       height: unset;
@@ -554,12 +614,17 @@
       opacity: 1;
     }
 
-    .searchControls {
-      /* grid-template-columns: 1fr 1fr 150px 50px; */
-    }
-
     .searchIcon {
       padding-left: unset;
+      color: white;
+      border-radius: 40px;
+      width: 60px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin-right: 5px;
     }
 
     .searchField {
