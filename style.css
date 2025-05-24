@@ -12,6 +12,7 @@
     height: 100%;
     width: 100%;
     background-color: rgb(29 34 36);
+    outline: none;
   }
 
   #viewDiv {
@@ -121,7 +122,7 @@
   }
 
   .header2 {
-    border-top: 1px solid rgb(100, 100, 100);
+    border-top: 1px solid rgb(60, 60, 60);
     height: 55px;
     width: 100%;
     display: flex;
@@ -131,8 +132,6 @@
     z-index: 6;
     position: absolute;
     top: 60px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -1px, 
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
   .searchBar {
@@ -611,7 +610,7 @@
 
   .sidebar {
     position: absolute;
-    top: 116px;
+    top: 115px;
     height: calc(100% - 116px);
     width: 100%;
     z-index: 5;
@@ -693,7 +692,7 @@
     font-weight: 700;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(60, 60, 60);
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -704,7 +703,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(60, 60, 60);
     padding-right: 15px;
   }
 
@@ -718,7 +717,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(60, 60, 60);
     padding-top: 16px;
     padding-bottom: 16px;
   }
@@ -735,6 +734,10 @@
 
   .riskFactorChoiceProceed {
     padding-right: 15px;
+  }
+
+  .removeOutline {
+    -webkit-tap-highlight-color: transparent;
   }
 
   @media screen and (min-width: 800px) {

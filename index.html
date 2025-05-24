@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body>
+<body class="removeOutline">
     <div class="header">
           <div class="sidebarButton" onclick="toggleSidebar()">
             <i class="fa-solid fa-sliders fa-lg"></i>
@@ -39,8 +39,8 @@
       </div>
     </div>
   <div class="header2">
-    <div class="chartMapDivContainer">
-      <div id="mapDiv" class="chartMapDiv mapDiv cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
+    <div class="chartMapDivContainer ">
+      <div id="mapDiv" class="chartMapDiv mapDiv cmID  defaultSelectedButton" onclick="toggleMapChart(this.id)">
         <i class="fa-solid fa-globe fa-lg"></i>
         <div>Map</div>
       </div>
@@ -86,7 +86,7 @@
       </div>  
       <div class="dataName">Scenarios</div>
     </div>
-    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('layersElement')">
+    <div tabindex="0" class="dataButtonContainer">
       <div class="dataIconContainer">
         <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
       </div>
