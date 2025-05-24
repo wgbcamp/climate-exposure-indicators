@@ -4,6 +4,7 @@ var locateAddress;
 var camera;
 var globeView;
 var map;
+var globeMap;
 
 // ISO 3066 countries array
 const countries = [
@@ -294,6 +295,10 @@ require([
     url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
   });
 
+  var globeVtLayer = new VectorTileLayer({
+    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
+  })
+
 // assign map and add basemap and layer properties 
   map = new Map({
     basemap: "dark-gray"
@@ -342,17 +347,23 @@ reactiveUtils.when(() => view.stationary, () => {
   }
 })
 
+globeMap = new Map({
+  basemap: "dark-gray"
+});
+
 // assign sceneView and add viewpoint properties
   globeView = new SceneView({
 
-    map: new Map({
-      basemap: "dark-gray"
-    }),
+    map: globeMap,
     container: "sceneDiv",
     zoom: 3,
     center: [33.939, 67.709],
 
   });
+
+  // globeView.map.add(vtlayer);
+  globeMap.add(globeVtLayer);
+
 
 // remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
 globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
@@ -372,17 +383,25 @@ const slider = new Slider({
   }
 })
 
-view.ui.add(slider, "manual");
-
 reactiveUtils.watch(() => slider.values, (value) => {
     for (var i=0; i<scenarios.length; i++) {
       if (value == scenarios[i].year) {
+
+        globeMap.remove(globeVtLayer);
         map.remove(vtlayer);
+
         vtlayer = new VectorTileLayer({
           url: scenarios[i].url
         });
+
+        globeVtLayer = new VectorTileLayer({
+          url: scenarios[i].url
+        })
+
         updateThumbLabel(value);
+
         map.add(vtlayer);
+        globeMap.add(globeVtLayer);
       }
     }
   }
@@ -528,23 +547,35 @@ const updateThumbLabel = (value) => {
 }
 
 // when a data control is clicked, remove or add class
-
+var bgStatus = true;
 const toggleData = (value) => {
-  var list = document.querySelectorAll('div.animateDataControls, div.hideDataControls, div.default');
-  for (var i=0; i<list.length; i++) {
-    if (list[i].classList.contains(value.slice(1)) && list[i].classList.contains("animateDataControls")) {
-      list[i].classList.add("hideDataControls");
-      list[i].classList.remove("animateDataControls");
-    } else if (list[i].classList.contains(value.slice(1)) && list[i].classList.contains("hideDataControls")) {
-      list[i].classList.add("animateDataControls");
-      list[i].classList.remove("hideDataControls");
-    } else if (list[i].classList.contains(value.slice(1))) {
-      list[i].classList.add("animateDataControls");
-      list[i].classList.remove("default");
-   } else if (list[i].classList.contains("animateDataControls")) {
-      list[i].classList.add("hideDataControls");
-      list[i].classList.remove("animateDataControls");
+  var list = document.querySelectorAll('div.sliderControls, div.scenarioDiv');
+  var background = document.getElementById('sliderBackground');
+  var elementVisible = false;
+ 
+  for (var i=0; i<list.length; i++){
+    if (list[i].classList.contains(value) && !list[i].classList.contains('unfadeDataButtons')) {
+      list[i].classList.add('unfadeDataButtons');
+      list[i].style.pointerEvents = 'auto';
+      list[i].classList.remove('fadeDataButtons');
+      elementVisible = true;
+    } else if (list[i].classList.contains(value) && list[i].classList.contains('unfadeDataButtons')) {
+      list[i].classList.add('fadeDataButtons');
+      list[i].style.pointerEvents = 'none';
+      list[i].classList.remove('unfadeDataButtons');
+    } else if (!list[i].classList.contains(value) && list[i].classList.contains('unfadeDataButtons')) {
+      list[i].classList.add('fadeDataButtons');
+      list[i].style.pointerEvents = 'none';
+      list[i].classList.remove('unfadeDataButtons');
     }
+  }
+
+  if (elementVisible == false) {
+    background.classList.add('hideDataControls');
+    background.classList.remove('animateDataControls');
+  } else {
+    background.classList.add('animateDataControls');
+    background.classList.remove('hideDataControls');
   }
 }
 
@@ -563,18 +594,26 @@ const applyScenario = (value) => {
 
 // toggle between map and chart views on click
 const toggleMapChart = (value) => {
-
   var list = document.querySelectorAll('div.cmID');
   for (var i=0; i<list.length; i++) {
-    if (list[i].classList.contains('selectedButton')) {
-      
+    if ((list[i].classList.contains('selectedButton') 
+      || list[i].classList.contains('defaultSelectedButton'))
+       && list[i].id !== value) {
+      for (var a=0; a<list.length; a++) {
+        if (list[a].classList.contains('defaultSelectedButton')) {
+          list[a].classList.remove('defaultSelectedButton');
+        } else {
+          list[a].classList.toggle('selectedButton');
+        }
+        
+      }
     }
   }
 
-  var button = document.getElementById(value);
-  if (button.classList.contains('selectedButton')) {
-    button.classList.remove('selectedButton');
-  } else {
-    button.classList.add('selectedButton');
-  }
+  // var button = document.getElementById(value);
+  // if (button.classList.contains('selectedButton')) {
+  //   button.classList.remove('selectedButton');
+  // } else {
+  //   button.classList.add('selectedButton');
+  // }
 }

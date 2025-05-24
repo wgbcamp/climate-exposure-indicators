@@ -1,5 +1,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+  :root {
+    --blackGlass: rgba(8, 8, 8, 0.5);
+    --glass: rgba(29, 29, 29, 0.7);
+  }
+
   html,
   body {
     margin: 0;
@@ -21,7 +26,7 @@
     position: absolute;
     top: 0;
     background-color: rgb(29 34 36);
-    z-index: -1;
+    z-index: -10;
   }
 
   .mapControlsFlexbox {
@@ -44,12 +49,15 @@
   }
 
   .chartMapDivContainer {
-    height: 100%;
+    height: 40.8px;
     width: 160px;
     display: flex;
     align-items: center;
-    margin-right: 16px;
-    padding-left: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    /* border: 1px solid rgb(100, 100, 100); */
+    background-color: rgb(100, 100, 100);
   }
 
   .chartMapDiv {
@@ -58,52 +66,70 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    user-select: none;
   }
 
   .mapDiv {
-    height: 82%;
-    background-color: rgb(65, 65, 65);
-    padding-left: 10px;
+    height: 100%;
+    background-color: rgb(45, 45, 45);    
     padding-right: 7px;
+    padding-left: 10px;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
   }
 
   .chartDiv {    
-    height: 82%;
-    background-color: rgb(65, 65, 65);
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(45, 45, 45);    
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-left: 8px;
-    padding-right: 10px;
-    border-left: 1px solid rgb(45, 45, 45);
+    padding-right: 5px;
+  }
+
+  .defaultSelectedButton {
+    background-color: #0a84ff;
   }
 
   .selectedButton {
-    
+    animation: animateButtonSelection 0.1s ease-in forwards;
+  }
+
+  @keyframes animateButtonSelection {
+    from{
+      background-color: rgb(45, 45, 45);    
+    }
+    to {
+      background-color: #0a84ff;
+    }
   }
 
   .header {
     height: 50px;
     width: 100%;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgb(45, 45, 45);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content:center;
     z-index: 2;
   }
 
   .header2 {
-    border-top: 1px solid rgb(65, 65, 65);
-    height: 40px;
+    border-top: 1px solid rgb(100, 100, 100);
+    height: 55px;
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: rgb(45, 45, 45);
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);
     z-index: 10;
     position: absolute;
     top: 60px;
@@ -111,7 +137,8 @@
 
   .searchBar {
     height: 0;
-        visibility: hidden;
+    width: 0;
+    visibility: hidden;
 
   }
 
@@ -129,7 +156,7 @@
       background-color: rgb(45, 45, 45);
     }
     to {
-      background-color: rgb(65, 65, 65);
+      background-color: rgb(100, 100, 100);
     }
   }
 
@@ -165,26 +192,35 @@
   }
 
   .smallWidthSearchBar {
-    background-color: rgb(65, 65, 65);
-    height: 50px;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--glass);
+    height: 40.8px;
     width: 75%;
-    height: 32px;
     border-radius: 10px;
+    padding-right: 10px;
+    margin-right: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
     overflow: hidden;
   }
 
+  .smallWidthSearchIcon {
+    color: white;
+  }
+
   .smallWidthSearchField {
-    background-color: rgb(65, 65, 65);
+    background-color: rgba(255, 0, 0, 0);
+    background: transparent;
     font-size: 16px;
     color: white;
+    margin-left:10px;
     margin-right: 35px;  
     border: unset;
     outline: none;
     width: 80%;
+    height: 100%;
   }
 
   .countryBar {
@@ -225,7 +261,7 @@
     height: 155px;
     width: 55px;
     position: fixed;
-    top: 100px;
+    top: 135px;
     right: 7px;
     display: flex;
     align-items: end;
@@ -237,7 +273,7 @@
 
   .viewButtons {
     font-family: "Inter", sans-serif;
-    background-color: rgb(45, 45, 45);    
+    background-color: rgb(100, 100, 100);    
     color: white;
     border-radius: 70px;
     height: 45px;
@@ -258,7 +294,7 @@
     height: 55px;
     width: 100%;
     bottom: 0px;
-    background-color: rgb(65, 65, 65);    
+    
     color: rgb(238, 238, 238);
     display: flex;
     justify-content: space-around;
@@ -287,9 +323,11 @@
   }
 
   .scenarioDiv {
+    pointer-events: none;
+    cursor: pointer;
+    opacity: 0;
     position: absolute;
-    bottom: 0px;
-    background-color: rgb(65, 65, 65);
+    bottom: 55px;
     width: 100%;
     z-index: 2;
     display: flex;
@@ -297,8 +335,6 @@
     align-items: center;
     gap: 8px;
     height: 75px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
   }
 
   .scenario {
@@ -317,20 +353,26 @@
   }
 
   .activeScenario {
-    border: 1px solid #009CDE;
+    animation: animateActiveScenario 0.1s ease-in forwards;
+  }
+
+  @keyframes animateActiveScenario {
+    from {
+      background-color: rgb(85, 85, 85);
+    }
+    to {
+      background-color: #0a84ff;
+    }
   }
 
   .sliderThumbLabel {
     color: white;
     font-size: 20px;
     font-weight: 600;
-    position: fixed;
-    bottom: 61px;
     height: 75px;
     width: 20%;
     left: 0;
     z-index: 2;
-    background-color: rgb(65, 65, 65);
     border-top-left-radius: 10px;
     display: flex;
     justify-content: center;
@@ -341,29 +383,50 @@
   #sliderDiv {
     height: 75px;
     width: 70%;
-    left: 20%;
-    background-color: rgb(65, 65, 65);
     color: white;
+    z-index: 2;
+    background: transparent;
   }
 
   .sliderBackground {
     position: fixed;
-    bottom: 61px;
-    width: 70%;
-    height: 75px;
-    left: 20%;
-    background-color: rgb(65, 65, 65);
+    bottom: 0px;
+    width: 100%;
+    height: 69px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);    
+    z-index: 1;
+    display: flex;
+    align-items: start;
   }
 
-  .sliderEmptySpace {
+  .sliderControls {
+    position: absolute;
+    bottom: 55px;
+    z-index: 3;
     height: 75px;
-    width: 10%;
-    position: fixed;
-    bottom: 61px;
-    left: 90%;
-    z-index: 2;
-    background-color: rgb(65, 65, 65);
-    border-top-right-radius: 10px;
+    width: 100%;
+    display: flex;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .esri-slider__segment, .esri-slider__segment-1 {
+    background-color: white;
+  }
+
+  .esri-slider__tick {
+    background-color: white;
+  }
+
+  .esri-attribution {
+    background: transparent;
+  }
+
+  .esri-view {
+    --esri-view-outline: 0px solid rgba(0,0,0,0);
   }
 
   .animateDataControls {
@@ -374,31 +437,53 @@
       animation: hideDataOption 0.1s forwards;
   }
 
-  .default {
-
-  }
-
       @keyframes revealDataOption {
       from {
-          bottom: 0px
+         height: 69px;
       }
       to {
-          bottom: 61px
+          height: 130px;
       }
     }
 
       @keyframes hideDataOption {
       from {
-          bottom: 61px
+          height: 130px;
       }
       to {
-          bottom: 0px
+         height: 69px;
       }
     }
 
+  .fadeDataButtons {
+    animation: 0.1s linear fadeDataButtons forwards; 
+  }
+
+  .unfadeDataButtons {
+    animation: 0.1s linear unfadeDataButtons forwards;
+    }
+
+  @keyframes fadeDataButtons {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes unfadeDataButtons {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .imfLogo {
     color: white;
-    width: 90px;
+    width: 70px;
     display: flex;
     justify-content: center;
     font-weight: 900;
@@ -501,11 +586,35 @@
     font-size: 0px;
   }
 
+  .title {
+    color: white;
+    width: 300px;
+    display: flex;
+    justify-content: start;
+    font-weight: 700;
+    font-size: 18px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    cursor: default;
+    border-left: 2px solid white;
+    padding-left: 10px;
+    margin-left: 2px;
+  }
+
+  .sidebarButton {
+    color: white;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
   @media screen and (min-width: 800px) {
 
     .searchBar {
       height: 32px;
-      background-color: rgb(65, 65, 65);    
+      width: unset;
+      background-color: rgb(100, 100, 100);    
       border-radius: 10px;
       display: flex;
       justify-content: space-between;
