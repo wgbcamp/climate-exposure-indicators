@@ -609,11 +609,34 @@ const toggleMapChart = (value) => {
       }
     }
   }
+}
 
-  // var button = document.getElementById(value);
-  // if (button.classList.contains('selectedButton')) {
-  //   button.classList.remove('selectedButton');
-  // } else {
-  //   button.classList.add('selectedButton');
-  // }
+//toggles sidebar that contain hazards and exposures
+const toggleSidebar = () => {
+  var sidebar = document.getElementById('sidebar');
+  var dataControls = document.getElementById('dataControls');
+  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+  if (!sidebar.classList.contains('enableSidebar')) {
+    sidebar.classList.add('enableSidebar');
+    sidebar.classList.remove('disableSidebar', 'defaultSidebar');
+    dataControls.classList.add('disableDataControls');
+    dataControls.classList.remove('enableDataControls');
+    for (var i=0; i<dataDivs.length; i++) {
+      if (dataDivs[i].id == 'sliderControls') {
+        if (dataDivs[i].classList.contains('unfadeDataButtons')) {
+          dataDivs[i].classList.add('disableDataControls');
+        }
+      } else {
+        dataDivs[i].classList.add('disableDataControls');
+      }
+    }
+  } else {
+    sidebar.classList.add('disableSidebar');
+    sidebar.classList.remove('enableSidebar');
+    dataControls.classList.add('enableDataControls');
+    dataControls.classList.remove('disableDataControls');
+    for (var i=0; i<dataDivs.length; i++) {
+      dataDivs[i].classList.remove('disableDataControls');
+    }
+  }
 }

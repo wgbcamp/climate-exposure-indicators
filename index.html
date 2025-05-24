@@ -15,7 +15,7 @@
 
 <body>
     <div class="header">
-          <div class="sidebarButton">
+          <div class="sidebarButton" onclick="toggleSidebar()">
             <i class="fa-solid fa-sliders fa-lg"></i>
           </div>
           <div class="imfLogo">IMF</div>
@@ -57,7 +57,29 @@
     </div>
   </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
-  <div class="dataControls">
+  <div id="sidebar" class="sidebar defaultSidebar">
+    <div class="riskFactorTitleContainer">
+      <div class="riskFactorTitle">Risk Factors</div>
+      <div class="exitSidebar" onclick="toggleSidebar()">
+        <i class="fa-solid fa-xmark fa-lg"></i>
+      </div>
+    </div>
+    <div class="riskFactorChoiceContainer">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon fa-solid fa-water fa-xl"></i>
+        <div class="choiceTitle">Hazards</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    </div>
+    <div class="riskFactorChoiceContainer">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon fa-solid fa-house-crack fa-xl"></i>
+        <div class="choiceTitle">Exposures</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    </div>
+  </div>
+  <div id="dataControls" class="dataControls">
     <div tabindex="0" class="dataButtonContainer" onclick="toggleData('scenariosElement')">
       <div class="dataIconContainer">
         <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
@@ -77,12 +99,13 @@
       <div class="dataName">Timeline</div>
     </div>
   </div>
+
   <div id="sliderBackground" class="sliderBackground timelineElement">
-    <div class="sliderControls timelineElement">
+    <div id="sliderControls" class="sliderControls timelineElement">
       <div class="sliderThumbLabel  timelineElement" id="sliderThumbLabel">1980</div>
       <div id="sliderDiv"></div>
     </div>
-    <div class="scenarioDiv scenariosElement default">
+    <div id="scenarioDiv" class="scenarioDiv scenariosElement default">
       <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
       <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
       <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
