@@ -659,7 +659,7 @@ const toggleSidebar = () => {
 }
 
 //toggles hazardsSidebar
-const toggleHazardsSidebar = () => {
+const toggleHazardsSidebar = (value) => {
   var hazardsSidebar = document.getElementById('hazardsSidebar');
   var sidebar = document.getElementById('sidebar');
   if (hazardsSidebar.classList.contains('enableSidebar')) {
@@ -679,10 +679,16 @@ const toggleHazardsSidebar = () => {
       riskFactor[i].classList.add('fadeDataButtons');
     }
   }
+  var dataControls = document.getElementById('dataControls');
+  if (value == 'exit') {
+    dataControls.classList.add('enableDataControls');
+    dataControls.classList.remove('disableDataControls');
+  }
+
 }
 
 //toggles exposuresSidebar
-const toggleExposuresSidebar = () => {
+const toggleExposuresSidebar = (value) => {
   var exposuresSidebar = document.getElementById('exposuresSidebar');
   var sidebar = document.getElementById('sidebar');
   if (exposuresSidebar.classList.contains('enableSidebar')) {
@@ -701,5 +707,10 @@ const toggleExposuresSidebar = () => {
       riskFactor[i].classList.remove('unfadeDataButtons');
       riskFactor[i].classList.add('fadeDataButtons');
     }
+  }
+  var dataControls = document.getElementById('dataControls');
+  if (value == 'exit') {
+    dataControls.classList.add('enableDataControls');
+    dataControls.classList.remove('disableDataControls');
   }
 }
