@@ -65,18 +65,64 @@
       </div>
     </div>
     <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest">
+      <div class="riskFactorChoiceNest" onclick="toggleHazardsSidebar()">
         <i class="riskFactorChoiceIcon fa-solid fa-water fa-xl"></i>
         <div class="choiceTitle">Hazards</div>
       </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleHazardsSidebar()"></i>
     </div>
     <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest">
+      <div class="riskFactorChoiceNest" onclick="toggleExposuresSidebar()">
         <i class="riskFactorChoiceIcon fa-solid fa-house-crack fa-xl"></i>
         <div class="choiceTitle">Exposures</div>
       </div>
       <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    </div>
+  </div>
+  <div id="hazardsSidebar" class="hazardsSidebar defaultSidebar">
+    <div class="hazardsTitleContainer">
+      <div class="hazardsTitle">Hazards</div>
+      <div class="exitHazards" onclick="toggleHazardsSidebar()">
+        <i class="fa-solid fa-xmark fa-lg"></i>
+      </div>
+    </div>
+    <div class="hazardsChoiceContainer">
+      <div class="hazardsChoiceNest">
+        <div class="choiceTitle">Riverine Flooding</div>
+      </div>
+    </div>
+    <div class="hazardsChoiceContainer">
+      <div class="hazardsChoiceNest">
+        <div class="choiceTitle">Coastal Flooding</div>
+      </div>
+    </div>
+  </div>
+  <div id="exposuresSidebar" class="exposuresSidebar defaultSidebar">
+    <div class="exposuresTitleContainer">
+      <div class="exposuresTitle">Exposures</div>
+      <div class="exitExposures" onclick="toggleExposuresSidebar()">
+        <i class="fa-solid fa-xmark fa-lg"></i>
+      </div>
+    </div>
+    <div class="exposuresChoiceContainer">
+      <div class="exposuresChoiceNest">
+        <div class="choiceTitle">Buildings</div>
+      </div>
+    </div>
+    <div class="exposuresChoiceContainer">
+      <div class="exposuresChoiceNest">
+        <div class="choiceTitle">GDP</div>
+      </div>
+    </div>
+    <div class="exposuresChoiceContainer">
+      <div class="exposuresChoiceNest">
+        <div class="choiceTitle">Urban GDP</div>
+      </div>
+    </div>
+    <div class="exposuresChoiceContainer">
+      <div class="exposuresChoiceNest">
+        <div class="choiceTitle">Population</div>
+      </div>
     </div>
   </div>
   <div id="dataControls" class="dataControls">

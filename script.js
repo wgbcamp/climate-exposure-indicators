@@ -639,4 +639,67 @@ const toggleSidebar = () => {
       dataDivs[i].classList.remove('disableDataControls');
     }
   }
+
+  //resets the state of the hazards and exposures sidebars
+  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
+  for (var i=0; i<riskFactor.length; i++) {
+    riskFactor[i].classList.remove('fadeDataButtons');
+    riskFactor[i].classList.add('unfadeDataButtons');
+  }
+  var hazardsSidebar = document.getElementById('hazardsSidebar');
+  if (hazardsSidebar.classList.contains('enableSidebar')) {
+    hazardsSidebar.classList.remove('enableSidebar');
+    hazardsSidebar.classList.add('disableSidebar');
+  }
+  var exposuresSidebar = document.getElementById('exposuresSidebar');
+  if (exposuresSidebar.classList.contains('enableSidebar')) {
+    exposuresSidebar.classList.remove('enableSidebar');
+    exposuresSidebar.classList.add('disableSidebar');
+  }
+}
+
+//toggles hazardsSidebar
+const toggleHazardsSidebar = () => {
+  var hazardsSidebar = document.getElementById('hazardsSidebar');
+  var sidebar = document.getElementById('sidebar');
+  if (hazardsSidebar.classList.contains('enableSidebar')) {
+    hazardsSidebar.classList.add('disableSidebar');
+    hazardsSidebar.classList.remove('enableSidebar');
+    sidebar.classList.remove('enableSidebar');
+    sidebar.classList.add('disableSidebar');
+  } else {
+    hazardsSidebar.classList.add('enableSidebar');
+    hazardsSidebar.classList.remove('defaultSidebar');
+    hazardsSidebar.classList.remove('disableSidebar');
+  }
+  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
+  for (var i=0; i<riskFactor.length; i++) {
+    if (riskFactor[i].classList.contains('unfadeDataButtons')) {
+      riskFactor[i].classList.remove('unfadeDataButtons');
+      riskFactor[i].classList.add('fadeDataButtons');
+    }
+  }
+}
+
+//toggles exposuresSidebar
+const toggleExposuresSidebar = () => {
+  var exposuresSidebar = document.getElementById('exposuresSidebar');
+  var sidebar = document.getElementById('sidebar');
+  if (exposuresSidebar.classList.contains('enableSidebar')) {
+    exposuresSidebar.classList.add('disableSidebar');
+    exposuresSidebar.classList.remove('enableSidebar');
+    sidebar.classList.remove('enableSidebar');
+    sidebar.classList.add('disableSidebar');
+  } else {
+    exposuresSidebar.classList.add('enableSidebar');
+    exposuresSidebar.classList.remove('defaultSidebar');
+    exposuresSidebar.classList.remove('disableSidebar');
+  }
+  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
+  for (var i=0; i<riskFactor.length; i++) {
+    if (riskFactor[i].classList.contains('unfadeDataButtons')) {
+      riskFactor[i].classList.remove('unfadeDataButtons');
+      riskFactor[i].classList.add('fadeDataButtons');
+    }
+  }
 }
