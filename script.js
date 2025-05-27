@@ -658,19 +658,20 @@ const toggleSidebar = () => {
   }
 }
 
-//toggles hazardsSidebar
-const toggleHazardsSidebar = (value) => {
-  var hazardsSidebar = document.getElementById('hazardsSidebar');
+//toggles risk factor sidebars
+const toggleRiskFactorSidebar = (type, value) => {
+  var riskFactorSidebar = document.getElementById(type);
   var sidebar = document.getElementById('sidebar');
-  if (hazardsSidebar.classList.contains('enableSidebar')) {
-    hazardsSidebar.classList.add('disableSidebar');
-    hazardsSidebar.classList.remove('enableSidebar');
+  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+  if (riskFactorSidebar.classList.contains('enableSidebar')) {
+    riskFactorSidebar.classList.add('disableSidebar');
+    riskFactorSidebar.classList.remove('enableSidebar');
     sidebar.classList.remove('enableSidebar');
     sidebar.classList.add('disableSidebar');
   } else {
-    hazardsSidebar.classList.add('enableSidebar');
-    hazardsSidebar.classList.remove('defaultSidebar');
-    hazardsSidebar.classList.remove('disableSidebar');
+    riskFactorSidebar.classList.add('enableSidebar');
+    riskFactorSidebar.classList.remove('defaultSidebar');
+    riskFactorSidebar.classList.remove('disableSidebar');
   }
   var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
   for (var i=0; i<riskFactor.length; i++) {
@@ -683,34 +684,10 @@ const toggleHazardsSidebar = (value) => {
   if (value == 'exit') {
     dataControls.classList.add('enableDataControls');
     dataControls.classList.remove('disableDataControls');
-  }
-
-}
-
-//toggles exposuresSidebar
-const toggleExposuresSidebar = (value) => {
-  var exposuresSidebar = document.getElementById('exposuresSidebar');
-  var sidebar = document.getElementById('sidebar');
-  if (exposuresSidebar.classList.contains('enableSidebar')) {
-    exposuresSidebar.classList.add('disableSidebar');
-    exposuresSidebar.classList.remove('enableSidebar');
-    sidebar.classList.remove('enableSidebar');
-    sidebar.classList.add('disableSidebar');
-  } else {
-    exposuresSidebar.classList.add('enableSidebar');
-    exposuresSidebar.classList.remove('defaultSidebar');
-    exposuresSidebar.classList.remove('disableSidebar');
-  }
-  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
-  for (var i=0; i<riskFactor.length; i++) {
-    if (riskFactor[i].classList.contains('unfadeDataButtons')) {
-      riskFactor[i].classList.remove('unfadeDataButtons');
-      riskFactor[i].classList.add('fadeDataButtons');
+    for (var i=0; i<dataDivs.length; i++) {
+        if (dataDivs[i].classList.contains('disableDataControls')) {
+          dataDivs[i].classList.remove('disableDataControls');
+        }
     }
-  }
-  var dataControls = document.getElementById('dataControls');
-  if (value == 'exit') {
-    dataControls.classList.add('enableDataControls');
-    dataControls.classList.remove('disableDataControls');
   }
 }

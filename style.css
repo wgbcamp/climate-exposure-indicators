@@ -751,8 +751,6 @@
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);
     overflow: hidden;
   }
   
@@ -815,8 +813,6 @@
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);
     overflow: hidden;
   }
 

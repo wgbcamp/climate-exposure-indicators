@@ -65,24 +65,24 @@
       </div>
     </div>
     <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest" onclick="toggleHazardsSidebar()">
+      <div class="riskFactorChoiceNest" onclick="toggleRiskFactorSidebar('hazardsSidebar')">
         <i class="riskFactorChoiceIcon fa-solid fa-water fa-xl"></i>
         <div class="choiceTitle">Hazards</div>
       </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleHazardsSidebar()"></i>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('hazardsSidebar')"></i>
     </div>
     <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest" onclick="toggleExposuresSidebar()">
+      <div class="riskFactorChoiceNest" onclick="toggleRiskFactorSidebar('exposuresSidebar')">
         <i class="riskFactorChoiceIcon fa-solid fa-house-crack fa-xl"></i>
         <div class="choiceTitle">Exposures</div>
       </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
     </div>
   </div>
   <div id="hazardsSidebar" class="hazardsSidebar defaultSidebar">
     <div class="hazardsTitleContainer">
       <div class="hazardsTitle">Hazards</div>
-      <div class="exitHazards" onclick="toggleHazardsSidebar('exit')">
+      <div class="exitHazards" onclick="toggleRiskFactorSidebar('hazardsSidebar', 'exit')">
         <i class="fa-solid fa-xmark fa-lg"></i>
       </div>
     </div>
@@ -100,7 +100,7 @@
   <div id="exposuresSidebar" class="exposuresSidebar defaultSidebar">
     <div class="exposuresTitleContainer">
       <div class="exposuresTitle">Exposures</div>
-      <div class="exitExposures" onclick="toggleExposuresSidebar('exit')">
+      <div class="exitExposures" onclick="toggleRiskFactorSidebar('exposuresSidebar', 'exit')">
         <i class="fa-solid fa-xmark fa-lg"></i>
       </div>
     </div>
