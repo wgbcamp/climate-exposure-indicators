@@ -691,3 +691,40 @@ const toggleRiskFactorSidebar = (type, value) => {
     }
   }
 }
+
+// zoom function
+const zoomInOut = (value) => {
+  if (value == '+') {
+    view.zoom++;
+    globeView.zoom++;
+  }
+
+  if (value == '-') {
+    view.zoom--;
+    globeView.zoom--;
+  }
+}
+
+// acquire user geolocation
+const success = (value) => {
+  console.log(value)
+  view.goTo({
+    center: [value.coords.longitude, value.coords.latitude],
+    zoom: 7
+  });
+  globeView.goTo({
+    center: [value.coords.longitude, value.coords.latitude],
+    zoom: 7
+  });
+}
+
+const error = (value) => {
+  console.log(value);
+  alert(value.message);
+} 
+
+const geolocate = () => {
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
+

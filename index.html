@@ -158,18 +158,29 @@
       <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
     </div>
   </div>
+  <div class="viewControlsContainer">
+    <div class="viewControls">
+      <div class="viewButtons" onclick="orientNorth()" tabindex="0">
+        <div><i class="fa-solid fa-compass fa-lg"></i></div>
+      </div>
+      <div class="viewButtons" tabindex="0">
+        <div><i class="fa-solid fa-location-crosshairs fa-lg" onclick="geolocate()"></i></div>
+      </div>
+    </div>
+    <div class="zoomControls">
+      <div class="viewButtons" onclick="zoomInOut('+')">
+        <div><i class="fa-solid fa-plus fa-lg"></i></div>
+      </div>
+      <div class="viewButtons" onclick="zoomInOut('-')">
+        <div><i class="fa-solid fa-minus fa-lg"></i></div>
+      </div>
+    </div>
+    <div class="dimensionControls">
+      <div class="viewButtons" onclick="switchView()" onkeydown="if(event.key === 'Enter'){switchView()}" tabindex="0">
+        <div id="view">3D</div>
+      </div>
+    </div>
 
-
-  <div class="viewControls">
-    <div class="viewButtons" onclick="orientNorth()" tabindex="0">
-      <div><i class="fa-solid fa-compass fa-lg"></i></div>
-    </div>
-    <div class="viewButtons" tabindex="0">
-      <div><i class="fa-solid fa-location-crosshairs fa-lg"></i></div>
-    </div>
-    <div class="viewButtons" onclick="switchView()" onkeydown="if(event.key === 'Enter'){switchView()}" tabindex="0">
-      <div id="view">3D</div>
-    </div>
   </div>
   <div id="viewDiv"></div>
   <div id="sceneDiv"></div>
