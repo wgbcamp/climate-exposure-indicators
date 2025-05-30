@@ -946,6 +946,7 @@
 
   .headerSection1 {
     display: flex;
+    align-items: center;
   }
 
   .headerSection2 {
