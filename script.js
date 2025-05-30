@@ -415,6 +415,8 @@ locateAddress = (value) => {
     value = document.getElementById("searchField").value;
   } else if (value === "smallWidthSearchIcon") {
     value = document.getElementById("smallWidthSearchField").value;
+  } else if (value === "largeWidthSearchIcon") {
+    value = document.getElementById("largeWidthSearchField").value;
   }
 
   // url to connect to esri Geocode Server
