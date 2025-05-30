@@ -20,12 +20,6 @@
           </div>
           <div class="imfLogo">IMF</div>
           <div class="title">Climate Risk Indicators</div>
-      <div class="searchBar">
-        <div id="searchIcon" class="searchIcon" onclick="locateAddress(this.id)">
-          <i class="fa-solid fa-magnifying-glass fa-md"></i>
-        </div>
-        <input id="searchField" class="searchField" type="text" placeholder="search Climate risk indicator" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
-      </div>
       <div class="countryMapChartContainer">
         <div class="countryBar" id="countryBar" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};" tabindex="0">
           <i class="fa-solid fa-flag fa-lg countryIcon"></i>
@@ -125,39 +119,38 @@
       </div>
     </div>
   </div>
-  <div id="dataControls" class="dataControls">
-    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('scenariosElement')">
-      <div class="dataIconContainer">
-        <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
-      </div>  
-      <div class="dataName">Scenarios</div>
-    </div>
-    <div tabindex="0" class="dataButtonContainer">
-      <div class="dataIconContainer">
-        <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+    <div id="dataControls" class="dataControls">
+      <div tabindex="0" class="dataButtonContainer" onclick="toggleData('scenariosElement')">
+        <div class="dataIconContainer">
+          <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
+        </div>  
+        <div class="dataName">Scenarios</div>
       </div>
-      <div class="dataName">Layers</div>
-    </div>
-    <div tabindex="0" class="dataButtonContainer" onclick="toggleData('timelineElement')">
-      <div class="dataIconContainer">
-        <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+      <div tabindex="0" class="dataButtonContainer">
+        <div class="dataIconContainer">
+          <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
+        </div>
+        <div class="dataName">Layers</div>
       </div>
-      <div class="dataName">Timeline</div>
+      <div tabindex="0" class="dataButtonContainer" onclick="toggleData('timelineElement')">
+        <div class="dataIconContainer">
+          <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
+        </div>
+        <div class="dataName">Timeline</div>
+      </div>
     </div>
-  </div>
-
-  <div id="sliderBackground" class="sliderBackground timelineElement">
-    <div id="sliderControls" class="sliderControls timelineElement">
-      <div class="sliderThumbLabel  timelineElement" id="sliderThumbLabel">1980</div>
-      <div id="sliderDiv"></div>
+    <div id="dataOptionsContainer" class="dataOptionsContainer timelineElement">
+      <div id="sliderControls" class="sliderControls timelineElement">
+        <div class="sliderThumbLabel  timelineElement" id="sliderThumbLabel">1980</div>
+        <div id="sliderDiv"></div>
+      </div>
+      <div id="scenarioDiv" class="scenarioDiv scenariosElement default">
+        <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
+        <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
+        <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
+        <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
+      </div>
     </div>
-    <div id="scenarioDiv" class="scenarioDiv scenariosElement default">
-      <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
-      <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
-      <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
-      <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
-    </div>
-  </div>
   <div class="viewControlsContainer">
     <div class="viewControls">
       <div class="viewButtons" onclick="orientNorth()" tabindex="0">

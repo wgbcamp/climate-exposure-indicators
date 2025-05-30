@@ -550,7 +550,7 @@ const updateThumbLabel = (value) => {
 var bgStatus = true;
 const toggleData = (value) => {
   var list = document.querySelectorAll('div.sliderControls, div.scenarioDiv');
-  var background = document.getElementById('sliderBackground');
+  var background = document.getElementById('dataOptionsContainer');
   var elementVisible = false;
  
   for (var i=0; i<list.length; i++){
@@ -611,16 +611,27 @@ const toggleMapChart = (value) => {
   }
 }
 
-//toggles sidebar that contain hazards and exposures
+// toggles sidebar that contain hazards and exposures
 const toggleSidebar = () => {
   var sidebar = document.getElementById('sidebar');
   var dataControls = document.getElementById('dataControls');
+  var dataOptionsContainer = document.getElementById('dataOptionsContainer');
   var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
   if (!sidebar.classList.contains('enableSidebar')) {
     sidebar.classList.add('enableSidebar');
     sidebar.classList.remove('disableSidebar', 'defaultSidebar');
     dataControls.classList.add('disableDataControls');
     dataControls.classList.remove('enableDataControls');
+    //
+    
+    if (dataOptionsContainer.classList.contains('animateDataControls')) {
+      dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
+    } else {
+      dataOptionsContainer.classList.add('removeDataControlsWithoutAnimate');
+      dataOptionsContainer.classList.remove('hideDataControls');
+    }
+    dataOptionsContainer.classList.remove('animateDataControls');
+    
     for (var i=0; i<dataDivs.length; i++) {
       if (dataDivs[i].id == 'sliderControls') {
         if (dataDivs[i].classList.contains('unfadeDataButtons')) {
@@ -635,6 +646,16 @@ const toggleSidebar = () => {
     sidebar.classList.remove('enableSidebar');
     dataControls.classList.add('enableDataControls');
     dataControls.classList.remove('disableDataControls');
+    // dataOptionsContainer.classList.add('enableDataControls');
+    // dataOptionsContainer.classList.remove('removeDataControls');
+    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
+      dataOptionsContainer.classList.add('animateDataControls');
+    } else {
+
+    }
+    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
+    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
+
     for (var i=0; i<dataDivs.length; i++) {
       dataDivs[i].classList.remove('disableDataControls');
     }
@@ -663,6 +684,7 @@ const toggleRiskFactorSidebar = (type, value) => {
   var riskFactorSidebar = document.getElementById(type);
   var sidebar = document.getElementById('sidebar');
   var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+  var dataOptionsContainer = document.getElementById('dataOptionsContainer');
   if (riskFactorSidebar.classList.contains('enableSidebar')) {
     riskFactorSidebar.classList.add('disableSidebar');
     riskFactorSidebar.classList.remove('enableSidebar');
@@ -684,6 +706,15 @@ const toggleRiskFactorSidebar = (type, value) => {
   if (value == 'exit') {
     dataControls.classList.add('enableDataControls');
     dataControls.classList.remove('disableDataControls');
+
+    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
+      dataOptionsContainer.classList.add('animateDataControls');
+    }
+    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
+    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
+
+   
+
     for (var i=0; i<dataDivs.length; i++) {
         if (dataDivs[i].classList.contains('disableDataControls')) {
           dataDivs[i].classList.remove('disableDataControls');
