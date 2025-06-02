@@ -449,6 +449,12 @@ locateAddress = (value) => {
         });
 
         // apply addressToLocations response to sceneView viewpoint
+        var setZoom = 4;
+
+        if (globeView.zoom > 4) {
+          setZoom = globeView.zoom;
+        }
+
         globeView.goTo({
           camera: {
             position: [
@@ -458,7 +464,7 @@ locateAddress = (value) => {
             ]
           },
           center: [location.longitude, location.latitude],
-          zoom: 4
+          zoom: setZoom
         })
       } else {
 
@@ -488,30 +494,29 @@ const switchMapChart = () => {
 var countryList = false;
 const showCountryList = () => {
 
-    const div = document.getElementById("countrySelector");
+    const div = document.getElementById("countryResults");
 
-    if (div.classList.contains("noCountrySelector")) {
-      div.classList.replace("noCountrySelector", "countrySelector")
-    } else if (div.classList.contains("default")) {
-      div.classList.replace("default", "countrySelector")
-    } else {
-      div.classList.replace("countrySelector", "noCountrySelector")
-    }
-
-    // loop through the countries array and append divs to the countrySelector div
-    // when the popup is active 
-    if (div.classList.contains("countrySelector")) {
-      for (var i=0; i<countries.length; i++) {
-          const node = document.createElement("div");
-          var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
-          node.innerHTML = divContent;
-          div.appendChild(node);
-        }
-    } else {
-      // clear the countrySelector div when the popup is inactive
-      div.innerHTML = '';
-    }
+    for (var i=0; i<countries.length; i++) {
+    const node = document.createElement("div");
+    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+    node.innerHTML = divContent;
+    div.appendChild(node);
+  }
 }
+
+const filterCountryList = (value) => {
+  const div = document.getElementById("countryResults");
+  div.innerHTML = '';
+  for (var i=0; i< countries.length; i++) {
+    if (countries[i].toLowerCase().includes(value.toLowerCase())) {
+      const node = document.createElement("div");
+      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+      node.innerHTML = divContent;
+      div.appendChild(node);
+    }
+  }
+}
+
 
 // switchView function toggles between mapView and sceneView div z-index
 const switchView = () => {
@@ -619,12 +624,14 @@ const toggleSidebar = () => {
   var dataControls = document.getElementById('dataControls');
   var dataOptionsContainer = document.getElementById('dataOptionsContainer');
   var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+  const searchSideBar = document.getElementById('searchSidebar');
+
   if (!sidebar.classList.contains('enableSidebar')) {
     sidebar.classList.add('enableSidebar');
     sidebar.classList.remove('disableSidebar', 'defaultSidebar');
     dataControls.classList.add('disableDataControls');
     dataControls.classList.remove('enableDataControls');
-    //
+   
     
     if (dataOptionsContainer.classList.contains('animateDataControls')) {
       dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
@@ -679,6 +686,16 @@ const toggleSidebar = () => {
     exposuresSidebar.classList.remove('enableSidebar');
     exposuresSidebar.classList.add('disableSidebar');
   }
+
+  if (searchSideBar.classList.contains('enableSidebar')) {
+    searchSideBar.classList.add('disableSidebar');
+    searchSideBar.classList.remove('enableSidebar');
+  }
+
+  if (searchButtonContainer.classList.contains('selectedButton')) {
+    searchButtonContainer.classList.add('removeSelectedButton');
+    searchButtonContainer.classList.remove('selectedButton');
+  } 
 }
 
 //toggles risk factor sidebars
@@ -723,6 +740,89 @@ const toggleRiskFactorSidebar = (type, value) => {
         }
     }
   }
+
+  if (searchButtonContainer.classList.contains('selectedButton')) {
+    searchButtonContainer.classList.add('removeSelectedButton');
+    searchButtonContainer.classList.remove('selectedButton');
+  } 
+}
+
+//toggle search side bar
+const toggleSearchBar = () => {
+  showCountryList();
+  const searchSideBar = document.getElementById('searchSidebar');
+
+  var sidebar = document.getElementById('sidebar');
+  var dataControls = document.getElementById('dataControls');
+  var dataOptionsContainer = document.getElementById('dataOptionsContainer');
+  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+
+  var searchButtonContainer = document.getElementById('searchButtonContainer');
+
+  if (!searchSideBar.classList.contains('enableSidebar')) {
+    searchSideBar.classList.add('enableSidebar');
+    searchSideBar.classList.remove('disableSidebar');
+    searchSideBar.classList.remove('defaultSidebar');
+
+    dataControls.classList.add('disableDataControls');
+    dataControls.classList.remove('enableDataControls');
+
+    if (dataOptionsContainer.classList.contains('animateDataControls')) {
+    dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
+    } else {
+      dataOptionsContainer.classList.add('removeDataControlsWithoutAnimate');
+      dataOptionsContainer.classList.remove('hideDataControls');
+    }
+    dataOptionsContainer.classList.remove('animateDataControls');
+
+  } else {
+    searchSideBar.classList.add('disableSidebar');
+    searchSideBar.classList.remove('enableSidebar');
+    searchSideBar.classList.remove('defaultSidebar');
+
+    dataControls.classList.add('enableDataControls');
+    dataControls.classList.remove('disableDataControls');
+
+    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
+      dataOptionsContainer.classList.add('animateDataControls');
+    } else {
+
+    }
+    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
+    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
+
+  }
+
+  for (var i=0; i<dataDivs.length; i++) {
+    if (dataDivs[i].classList.contains('disableDataControls')) {
+      dataDivs[i].classList.remove('disableDataControls');
+    }
+  }
+
+  if (sidebar.classList.contains('enableSidebar')) {
+    sidebar.classList.add('disableSidebar');
+    sidebar.classList.remove('enableSidebar');
+  }
+
+  var hazardsSidebar = document.getElementById('hazardsSidebar');
+  if (hazardsSidebar.classList.contains('enableSidebar')) {
+    hazardsSidebar.classList.remove('enableSidebar');
+    hazardsSidebar.classList.add('disableSidebar');
+  }
+  var exposuresSidebar = document.getElementById('exposuresSidebar');
+  if (exposuresSidebar.classList.contains('enableSidebar')) {
+    exposuresSidebar.classList.remove('enableSidebar');
+    exposuresSidebar.classList.add('disableSidebar');
+  }
+
+  if (!searchButtonContainer.classList.contains('selectedButton')) {
+    searchButtonContainer.classList.add('selectedButton');
+    searchButtonContainer.classList.remove('removeSelectedButton');
+  } else {
+    searchButtonContainer.classList.add('removeSelectedButton');
+    searchButtonContainer.classList.remove('selectedButton');
+  }
+    
 }
 
 // zoom function
@@ -759,5 +859,4 @@ const error = (value) => {
 const geolocate = () => {
   navigator.geolocation.getCurrentPosition(success, error);
 }
-
 

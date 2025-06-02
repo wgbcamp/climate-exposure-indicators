@@ -45,10 +45,6 @@
     height: calc(100% - 10px);
   }
 
-  .testme {
-    background-color: red;
-  }
-
   .chartMapDivContainer {
     height: 40.8px;
     width: 160px;
@@ -98,12 +94,25 @@
     animation: animateButtonSelection 0.1s ease-in forwards;
   }
 
+  .removeSelectedButton {
+    animation: removeAnimateButtonSelection 0.1s ease-in forwards;
+  }
+
   @keyframes animateButtonSelection {
     from{
-      background-color: rgb(45, 45, 45);    
+    background-color: rgba(100, 100, 100, 0.5);
     }
     to {
       background-color: #0a84ff;
+    }
+  }
+
+    @keyframes removeAnimateButtonSelection {
+    from{
+      background-color: #0a84ff;
+    }
+    to {
+    background-color: rgba(100, 100, 100, 0.5);
     }
   }
 
@@ -119,7 +128,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 6;
+    z-index: 20;
   }
 
   .header2 {
@@ -149,7 +158,8 @@
       background-color: rgb(45, 45, 45);
     }
     to {
-      background-color: rgb(100, 100, 100);
+    background-color: rgba(100, 100, 100, 0.6);
+ 
     }
   }
 
@@ -178,8 +188,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
-    overflow: hidden;
   }
 
   .largeWidthSearchIcon {
@@ -197,6 +207,27 @@
     outline: none;
     width: 80%;
     height: 100%;
+  }
+
+  .countryListContainer {
+    position: fixed;
+    top: 45px;
+    width: 100%;
+    z-index: 6;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+
+  .countryList {
+    /* 42.8 */
+    height: 300px;
+    width: 50px;
+    margin-right: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: red;
   }
 
   .smallWidthSearchBar {
@@ -229,17 +260,6 @@
     outline: none;
     width: 80%;
     height: 100%;
-  }
-
-  .countryBar {
-    width: 0;
-    height: 0;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    cursor: pointer;
-  }
-
-  .countryBar:hover {
-    animation: hoverIn 0.5s forwards;
   }
 
   .countryIcon {
@@ -680,7 +700,7 @@
 
   .sidebar {
     position: absolute;
-    top: 115px;
+    top: 116px;
     height: calc(100% - 116px);
     width: 100%;
     z-index: 5;
@@ -694,11 +714,11 @@
   }
 
   .enableSidebar {
-    animation: enableSidebarAnimation 0.3s ease-in forwards;
+    animation: enableSidebarAnimation 0.3s forwards;
   }
 
   .disableSidebar {
-    animation: disableSidebarAnimation 0.3s ease-out forwards;
+    animation: disableSidebarAnimation 0.3s forwards;
   }
 
   @keyframes enableSidebarAnimation {
@@ -784,7 +804,6 @@
     width: 100%;
     color: white;
     font-family: "Inter", sans-serif;
-    font-style: 20px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -816,7 +835,7 @@
 
   .hazardsSidebar {
     position: absolute;
-    top: 115px;
+    top: 59px;
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
@@ -825,6 +844,7 @@
   
   .hazardsTitleContainer {
     display: flex;
+    border-bottom: 1px solid rgb(60, 60, 60);
   }
 
   .hazardsTitle {
@@ -832,12 +852,10 @@
     width: 100%;
     color: white;
     font-family: "Inter", sans-serif;
-    font-style: 20px;
     font-weight: 700;
     font-size: 18px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -849,7 +867,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
     padding-right: 15px;
     cursor: pointer;
   }
@@ -859,7 +876,6 @@
     width: 100%;
     color: white;
     font-family: "Inter", sans-serif;
-    font-style: 20px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -879,7 +895,7 @@
 
   .exposuresSidebar {
     position: absolute;
-    top: 115px;
+    top: 59px;
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
@@ -888,6 +904,7 @@
 
   .exposuresTitleContainer {
     display: flex;
+    border-bottom: 1px solid rgb(60, 60, 60);
   }
 
   .exposuresTitle {
@@ -895,12 +912,10 @@
     width: 100%;
     color: white;
     font-family: "Inter", sans-serif;
-    font-style: 20px;
     font-weight: 700;
     font-size: 18px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -912,7 +927,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
     padding-right: 15px;
     cursor: pointer;
   }
@@ -922,7 +936,6 @@
     width: 100%;
     color: white;
     font-family: "Inter", sans-serif;
-    font-style: 20px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -947,11 +960,142 @@
   .headerSection1 {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   .headerSection2 {
     display: flex;
+    justify-content: flex-end;
     width: 650px;
+    margin-right: 15px;
+  }
+
+  .searchSidebar {
+    position: absolute;
+    top: 116px;
+    height: calc(100% - 116px);
+    width: 100%;
+    z-index: 6;
+    overflow: hidden;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);    
+  }
+
+  .searchSidebarTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(60, 60, 60);
+  }
+
+  .searchBar {
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);    
+    height: 50px;
+    width: calc(100% - 30px);
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .searchSidebarTitle {
+    height: 50px;
+    width: 100%;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: default;
+  }
+
+  .exitSearchBar {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 15px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+
+  .searchBarSearchField {
+    background-color: rgba(255, 0, 0, 0);
+    background: transparent;
+    font-size: 16px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 35px;  
+    border: unset;
+    outline: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .searchBarSearchFieldContainer {
+    display: flex;
+    color: white;
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  .countryResultsContainer {
+    padding-top: 30px;
+  }
+
+  .countryResultsTitle {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 15px;
+  }
+
+  .countryResults {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .countryResultsBorder {
+    border-radius: 15px;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);  
+    height: 500px;
+    width: calc(100% - 30px);
+    margin-left: 15px;
+    margin-top: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .countryStyle {
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .countryStyle:hover {
+    animation: hoverIn 0.5s forwards;
+  }
+
+  .searchButtonContainer {
+    display: none;
   }
 
   @media screen and (min-width: 900px) {
@@ -1000,7 +1144,37 @@
     .sidebar {
       top: 59px;
       height: calc(100% - 59px);
+      width: 550px;
     }
+
+    .hazardsSidebar {
+      width: 550px;
+    }
+
+    .exposuresSidebar {
+      width: 550px;
+    }
+
+    .searchSidebar {
+      top: 59px;
+      height: calc(100% - 59px);
+      width: 550px;
+  }
+
+    .searchButtonContainer {
+      border-radius: 10px;
+      background-color: rgba(100, 100, 100, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      height: 40px;
+      width: 80px;
+      padding-left: 10px;
+      padding-right: 10px;
+      cursor: pointer;    
+  }
+    
   }
 
   /* needs to be evaluated & removed */
@@ -1076,18 +1250,6 @@
       padding-top: 10px;
       padding-bottom: 10px;
       animation: fadeOut 0.1s forwards;
-    }
-
-    .countryStyle {
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      cursor: pointer;
-    }
-
-    .countryStyle:hover {
-      animation: hoverIn 0.5s forwards;
     }
 
     .countryText {

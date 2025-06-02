@@ -24,7 +24,7 @@
       </div>
       <div class="headerSection2">
           <div class="chartMapDivContainer collapseMaxWidth">
-            <div id="mapDiv" class="chartMapDiv mapDiv cmID  defaultSelectedButton" onclick="toggleMapChart(this.id)">
+            <div id="mapDiv" class="chartMapDiv mapDiv cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
               <i class="fa-solid fa-globe fa-lg"></i>
               <div>Map</div>
             </div>
@@ -33,11 +33,9 @@
               <div>Chart</div>
             </div>
           </div>
-          <div class="largeWidthSearchBar collapseMaxWidth">
-            <input id="largeWidthSearchField" class="largeWidthSearchField" type="text" placeholder="search" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
-            <div id="largeWidthSearchIcon" class="largeWidthSearchIcon" onclick="locateAddress(this.id)">
-                <i class="fa-solid fa-magnifying-glass fa-md"></i>
-              </div>
+          <div id="searchButtonContainer" class="searchButtonContainer" onclick="toggleSearchBar()">
+            <i class="fas fa-search"></i>
+            <div>Search</div>
           </div>
       </div>
 
@@ -132,6 +130,28 @@
     <div class="exposuresChoiceContainer">
       <div class="exposuresChoiceNest">
         <div class="choiceTitle">Population</div>
+      </div>
+    </div>
+  </div>
+  <div id="searchSidebar" class="searchSidebar defaultSidebar">
+    <div class="searchSidebarTitleContainer">
+          <div class="searchSidebarTitle">Search</div>
+          <div class="exitSearchBar" onclick="">
+            <i class="fa-solid fa-xmark fa-lg" onclick="toggleSearchBar()"></i>
+          </div>
+    </div>
+    <div class="searchBar">
+      <div class="searchBarSearchFieldContainer">
+        <i class="fa-solid fa-magnifying-glass fa-md"></i>
+          <input id="searchBarSearchField" class="searchBarSearchField" type="text" placeholder="Search for a country" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
+      </div>
+    </div>
+    <div class="countryResultsContainer">
+      <div class="countryResultsTitle">
+        Country Results
+      </div>
+      <div class="countryResultsBorder">
+        <div id="countryResults" class="countryResults"></div>
       </div>
     </div>
   </div>
