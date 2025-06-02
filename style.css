@@ -132,8 +132,7 @@
   }
 
   .header2 {
-    border-top: 1px solid rgb(60, 60, 60);
-    height: 55px;
+    height: 56px;
     width: 100%;
     display: flex;
     align-items: center;
