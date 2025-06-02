@@ -238,7 +238,6 @@
     padding-right: 10px;
     margin-right: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
     overflow: hidden;
@@ -246,6 +245,7 @@
 
   .smallWidthSearchIcon {
     color: white;
+    padding-left: 10px;
   }
 
   .smallWidthSearchField {
@@ -981,23 +981,11 @@
   }
 
   .searchSidebarTitleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    display: none;
   }
 
   .searchBar {
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);    
-    height: 50px;
-    width: calc(100% - 30px);
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
+    display: none;
   }
 
   .searchSidebarTitle {
@@ -1175,7 +1163,27 @@
       padding-right: 10px;
       cursor: pointer;    
   }
+
+   .searchSidebarTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(60, 60, 60);
+  }
     
+  .searchBar {
+    display: flex;
+    backdrop-filter: saturate(180%) blur(20px); 
+    background-color: var(--blackGlass);    
+    height: 50px;
+    width: calc(100% - 30px);
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 15px;
+    align-items: center;
+  }
+
   }
 
   /* needs to be evaluated & removed */
