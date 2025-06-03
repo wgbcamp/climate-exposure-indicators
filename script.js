@@ -759,7 +759,6 @@ const toggleRiskFactorSidebar = (type, value) => {
 
 //toggle search side bar
 const toggleSearchBar = () => {
-  showCountryList();
   const searchSideBar = document.getElementById('searchSidebar');
 
   var sidebar = document.getElementById('sidebar');
@@ -883,3 +882,5 @@ const geolocate = () => {
   navigator.geolocation.getCurrentPosition(success, error);
 }
 
+
+showCountryList();
