@@ -57,11 +57,11 @@
         <div>Chart</div>
       </div>
     </div>
-    <div class="smallWidthSearchBar" onclick="">
+    <div class="smallWidthSearchBar" onclick="tapSmallSearch();" onkeydown="if(event.key === 'Enter'){deactivateSmallSearch()};">
       <div id="smallWidthSearchIcon" class="smallWidthSearchIcon" onclick="locateAddress(this.id)">
         <i class="fa-solid fa-magnifying-glass fa-md"></i>
       </div>
-      <input id="smallWidthSearchField" class="smallWidthSearchField" type="text" placeholder="search" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" tabindex="0">
+      <input id="smallWidthSearchField" class="smallWidthSearchField" type="text" placeholder="search" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
     </div>
   </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>

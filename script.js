@@ -498,22 +498,32 @@ const showCountryList = () => {
 
     for (var i=0; i<countries.length; i++) {
     const node = document.createElement("div");
-    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
     node.innerHTML = divContent;
     div.appendChild(node);
   }
 }
 
+// filters the country list based on user input onkeyup
 const filterCountryList = (value) => {
   const div = document.getElementById("countryResults");
   div.innerHTML = '';
   for (var i=0; i< countries.length; i++) {
     if (countries[i].toLowerCase().includes(value.toLowerCase())) {
       const node = document.createElement("div");
-      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id)" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
       node.innerHTML = divContent;
       div.appendChild(node);
     }
+  }
+}
+
+// fill the input field text of the search bars when user selects a country results item
+const fillInputWithResult = (value) => {
+  const searchFields = document.querySelectorAll('input.smallWidthSearchField, input.searchBarSearchField');
+  for (var i=0; i<searchFields.length; i++) {
+    searchFields[i].value = value;
+    console.log(searchFields[i]);
   }
 }
 
@@ -823,6 +833,19 @@ const toggleSearchBar = () => {
     searchButtonContainer.classList.remove('selectedButton');
   }
     
+}
+
+const tapSmallSearch = () => {
+  const searchSideBar = document.getElementById('searchSidebar');
+  if (!searchSideBar.classList.contains('enableSidebar')) {
+    toggleSearchBar();
+  }
+}
+
+const deactivateSmallSearch = () => {
+  if (window.innerWidth <= 900) {
+    toggleSearchBar();
+  }
 }
 
 // zoom function

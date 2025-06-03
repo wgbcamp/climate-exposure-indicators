@@ -117,7 +117,7 @@
   }
 
   .header {
-    height: 50px;
+    height: 51px;
     width: 100%;
     backdrop-filter: saturate(180%) blur(20px); 
     background-color: var(--blackGlass);
@@ -141,7 +141,7 @@
     background-color: var(--blackGlass);
     z-index: 6;
     position: absolute;
-    top: 60px;
+    top: 61px;
   }
 
   .searchIcon {
