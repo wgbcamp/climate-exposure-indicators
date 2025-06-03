@@ -1185,6 +1185,29 @@
 
   }
 
+  @media screen and (max-height: 531px) {
+    .viewControlsContainer {
+      flex-direction: row;
+    }
+
+    .viewControls, .zoomControls {
+      flex-direction: row;
+      height: 40px;
+      width: 90px;
+    }
+
+    .dimensionControls {
+      height: 40px;
+    }
+  }
+
+  @media screen and (max-height: 531px) and (min-width: 900px) {
+
+    .viewControlsContainer {
+      top: 79px;
+    }
+  } 
+
   /* needs to be evaluated & removed */
   @media screen and (min-width: 800px) {
 
