@@ -283,14 +283,15 @@ require([
   (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, TimeSlider, VectorTileLayer, Slider) => {
 
 // assign feature layer 
-  var layer = new FeatureLayer({
-    // portalItem: {
-    //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
-    // }
+  // var layer = new FeatureLayer({
+  //   // portalItem: {
+  //   //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
+  //   // }
 
-    // url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
-  });
+  //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
+  // });
 
+  
   var vtlayer = new VectorTileLayer({
     url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
   });

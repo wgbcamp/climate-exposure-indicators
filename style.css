@@ -704,7 +704,9 @@
     z-index: 5;
     backdrop-filter: saturate(180%) blur(20px); 
     background-color: var(--blackGlass);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
   }
 
   .defaultSidebar {
@@ -837,7 +839,9 @@
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
   }
   
   .hazardsTitleContainer {
@@ -897,7 +901,9 @@
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
   }
 
   .exposuresTitleContainer {
@@ -974,9 +980,11 @@
     height: calc(100% - 116px);
     width: 100%;
     z-index: 6;
-    overflow: hidden;
     backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);    
+    background-color: var(--blackGlass); 
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;   
   }
 
   .searchSidebarTitleContainer {
