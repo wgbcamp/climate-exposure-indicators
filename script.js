@@ -377,10 +377,12 @@ const slider = new Slider({
   steps: [1980,2030,2050,2080],
   tickConfigs: [{
     mode: "position",
-    values: [1980,2030,2050,2080]
+    values: [1980,2030,2050,2080],
+    labelsVisible: true
   }],
+
   visibleElements: {
-    rangeLabels: true
+    rangeLabels: false
   }
 })
 

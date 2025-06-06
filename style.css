@@ -437,7 +437,7 @@
   }
 
   #sliderDiv {
-    height: 75px;
+    height: 35px;
     width: 70%;
     color: white;
     z-index: 2;
@@ -504,11 +504,11 @@
       @keyframes removeDataAfterAnimate {
         from {
           opacity: 1;
-          height: 130px;
+          height: 140px;
         }
         to {
           opacity: 0;
-          height: 130px;
+          height: 140px;
         }
       }
 
@@ -528,13 +528,13 @@
          height: 69px;
       }
       to {
-          height: 130px;
+          height: 140px;
       }
     }
 
       @keyframes hideDataOption {
       from {
-          height: 130px;
+          height: 140px;
       }
       to {
          height: 69px;
@@ -1193,7 +1193,7 @@
 
   }
 
-  @media screen and (max-height: 531px) {
+  @media screen and (max-height: 551px) {
     .viewControlsContainer {
       flex-direction: row;
     }
