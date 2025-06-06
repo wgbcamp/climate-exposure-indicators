@@ -313,11 +313,11 @@ require([
   view = new MapView({
     container: "viewDiv",
     map: map,
-    zoom: 3,
-    center: [33.939, 67.709],
+    zoom: 2,
+    center: [-38.9465, 7.775],
     constraints: {
-      minZoom: 2,
-      maxZoom: 16
+      minZoom: 3,
+      maxZoom: 10
     },
     spatialReference: {
       wkid: 3857,
@@ -357,8 +357,13 @@ globeMap = new Map({
 
     map: globeMap,
     container: "sceneDiv",
-    zoom: 3,
-    center: [33.939, 67.709],
+    center: [-38.9465, 7.775],
+    zoom: 4,
+    constraints: {
+     altitude: {
+      min: 150000
+     }
+    },
 
   });
 
@@ -885,5 +890,16 @@ const geolocate = () => {
   navigator.geolocation.getCurrentPosition(success, error);
 }
 
+const home = () => {
+  view.goTo({
+    center: [-38.9465, 7.775],
+    zoom: 2
+  });
+
+  globeView.goTo({
+    center: [-38.9465, 7.775],
+    zoom: 4,
+  });
+}
 
 showCountryList();
