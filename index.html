@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>Global Exposure Indicators</title>
@@ -14,6 +13,8 @@
 </head>
 
 <body class="removeOutline">
+
+  <!-- This is the header bar -->
     <div class="header">
       <div class="headerSection1">
           <div class="sidebarButton" onclick="toggleSidebar()">
@@ -58,6 +59,44 @@
     </div>
   </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
+
+  <!--This is the sidebar for screens 900px and above -->
+  <div id="lgSidebar" class="lgSidebar" onmouseenter="hover('enter')" onmouseleave="hover('exit')">
+    <div class="lgSidebarCol" id="col1">
+      <div class="lgSidebarTitle">
+        Data
+      </div>
+      <div class="lgSidebarElement">
+        <i class=" fa-solid fa-water fa-xl"></i>
+      </div>
+      <div class="lgSidebarElement">
+        <i class=" fa-solid fa-house-crack fa-xl"></i>
+      </div>
+    </div>
+    <div class="lgSidebarCol" id="col2">
+      <div class="lgSidebarTitle">
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Hazards')">
+        <div>Hazards</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
+        <div>Exposures</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+    </div>
+  </div>
+  <div id="dataSidebar" class="lgSidebar">
+      <div>
+        <div class="lgSidebarElement lgSidebarText">
+          <div id="dataSidebarTitle"></div>
+          <i class="fa-solid fa-xmark fa-lg padIconRight" onclick="concealHoverOptions()"></i>
+        </div>
+      </div>
+      <div id="dataSidebarElements"></div>
+  </div>
+
+  <!-- This is the sidebar for small width screens -->
   <div id="sidebar" class="sidebar defaultSidebar">
     <div class="riskFactorTitleContainer">
       <div class="riskFactorTitle">Risk Factors</div>
@@ -148,7 +187,10 @@
       </div>
     </div>
   </div>
-    <div id="dataControls" class="dataControls">
+
+
+  <!-- These are the data controls for small width screens -->
+  <div id="dataControls" class="dataControls">
       <div tabindex="0" class="dataButtonContainer" onclick="toggleData('scenariosElement')">
         <div class="dataIconContainer">
           <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
@@ -180,6 +222,26 @@
         <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
       </div>
     </div>
+
+  <!-- These are the data controls for screens 900px and above -->
+    <div class="lgDataControlsContainer">
+      <div class="lgDataControls">
+        <div class="lgScenarioDiv">
+          <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
+          <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
+          <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
+          <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
+        </div>
+        <div class="lgTimelineDiv">
+          <!-- <div id="sliderControls" class="sliderControls timelineElement"> -->
+            <!-- <div class="sliderThumbLabel  timelineElement" id="sliderThumbLabel">1980</div> -->
+            <div id="lgSliderDiv"></div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+  <!-- These are the view controls, no media queries -->
   <div class="viewControlsContainer">
     <div class="viewControls">
       <div class="viewButtons" onclick="home()" tabindex="0">
@@ -205,9 +267,12 @@
         <div id="view">3D</div>
       </div>
     </div>
-
   </div>
+
+  <!-- 2D map -->
   <div id="viewDiv"></div>
+
+  <!-- 3D globe -->
   <div id="sceneDiv"></div>
 </body>
 <script src="https://js.arcgis.com/4.32/"></script>

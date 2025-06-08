@@ -1092,39 +1092,90 @@
     display: none;
   }
 
+  .lgSidebar {
+    display: none;
+  }
+
+  .hoverSidebar {
+    display: none;
+  }
+
+  .hoverOptions {
+    display: none;
+  }
+
+  .lgDataControls {
+    display: none;
+  }
+
   @media screen and (min-width: 900px) {
+    .sidebar, .hazardsSidebar, .exposuresSidebar {
+      display: none
+    }
+
     .dataControls {
-      font-family: "Inter", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 400;
-      font-style: normal;
-      position: fixed;
-      height: 55px;
-      width: 500px;
-      bottom: 0px;
-      left: 15px;
-      color: rgb(238, 238, 238);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding-top: 3px;
-      padding-bottom: 3px;
-      z-index: 5;
+      display: none;
     }
 
     .dataOptionsContainer {
-      position: fixed;
-      left: 15px;
-      bottom: 0px;
-      width: 500px;
-      height: 69px;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
-      backdrop-filter: saturate(180%) blur(20px); 
-      background-color: var(--blackGlass);    
-      z-index: 1;
+      display: none;
+    }
+
+    .lgDataControlsContainer {
+      width: 100%;
+      height: 60px;
+      position: absolute;
+      bottom: 15px;
+      z-index: 4;
       display: flex;
-      align-items: start;
+      justify-content: center;
+    }
+
+    .lgDataControls {
+      height: 100%;
+      width: 100%;
+      max-width: 800px;
+      backdrop-filter: saturate(180%) blur(20px); 
+      background-color: var(--blackGlass);  
+      border-radius: 20px;
+      display: flex;
+      margin-left: 70px;
+    }
+
+    .lgScenarioDiv {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 15px;
+    }
+
+    .lgTimelineDiv {
+      width: 100%;
+      padding-left: 30px;
+      padding-right: 30px;
+
+
+    }
+
+    #lgSliderDiv {
+      background: transparent;
+      color: white;
+    }
+
+    .esri-slider--horizontal .esri-slider__tick-label {
+      margin-top: -30px;
+    }
+
+    .esri-slider__tick {
+      margin-top: -15px;
+    }
+
+    .esri-slider__content {
+      margin-bottom: 20px;
+    }
+
+    .scenario {
+      height: 30px;
     }
 
     .header2 {
@@ -1135,10 +1186,289 @@
       display: flex;
     }
 
+    @keyframes growLgSidebar {
+      from {
+        width: 70px;
+      }
+      to {
+        width: 350px;
+      }
+    }
+
+    .growLgSidebar {
+      animation: growLgSidebar 0.3s ease forwards;
+    }
+
+    @keyframes shrinkLgSidebar {
+      from {
+        width: 350px;
+      }
+      to {
+        width: 70px;
+      }
+    }
+
+    .shrinkLgSidebar {
+      animation: shrinkLgSidebar 0.3s ease forwards;
+    }
+
+    .lgSidebar {
+      top: 59px;
+      height: calc(100% - 59px);
+      position: absolute;
+      backdrop-filter: saturate(180%) blur(20px); 
+      background-color: var(--blackGlass);
+      z-index: 10;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      gap: 0px;
+    }
+
+    @keyframes revealDataSidebar {
+      from {
+        left: -295px;
+      }
+      to {
+        left: 0px;
+      }
+    }
+
+    .revealDataSidebar {
+      animation: revealDataSidebar 0.3s ease forwards;
+    }
+
+    @keyframes concealDataSidebar {
+      from {
+        left: 0px;
+      }
+      to {
+        left: -350px;
+      }
+    }
+
+    .concealDataSidebar {
+      animation: concealDataSidebar 0.3s ease forwards;
+    }
+
+    
+
+    #dataSidebar {
+      left: -350px;
+      width: 280px;
+      flex-direction: column;
+      padding-left: 70px;
+    }
+
+    #dataSidebarTitle {
+      justify-content: flex-start;
+    }
+
+    .closeMenu {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lgSidebarRow {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .row1 {
+      padding-left: 15px;
+    }
+
+    .row2 {
+      border-top: 1px solid rgb(60, 60, 60);
+      gap: 10px;
+    }
+
+    .lgSidebarCol {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #col1 {
+      width: 70px;
+      align-items: center;
+    }
+
+    #col2 {
+      align-items: flex-start;
+      width: 0px;
+    }
+
+    .lgSidebarTitle {
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70px;
+      width: 100%;
+    }
+
+    .lgSidebarElement {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lgSidebarText {
+      width: 250px;
+    }
+
+    .padIconRight {
+      padding-right: 15px;
+    }
+
+    @keyframes revealHoverMenu {
+      from {
+        width: 0px;
+      }
+      to {
+        width: 300px;
+      }
+    }
+
+    .revealHoverMenu {
+      animation: revealHoverMenu 0.3s ease-in forwards;
+    }
+
+    @keyframes concealHoverMenu {
+      from {
+        width: 300px;
+      }
+      to {
+        width: 0px;
+      }
+    }
+
+    .concealHoverMenu {
+      animation: concealHoverMenu 0.3s ease-in forwards;
+    }
+
+    .hoverSidebar {
+      height: 100%;
+      top: 59px;
+      left: 80px;
+      width: 0px;
+      position: absolute;
+      backdrop-filter: saturate(180%) blur(20px); 
+      background-color: var(--blackGlass);
+      z-index: 5;
+      height: calc(100% - 59px);
+      display: flex;
+      overflow: hidden;
+    }
+
+    .hoverSection1 {
+      width: 250px
+    }
+
+    .hoverSection2 {
+      width: 50px;
+    }
+
+    .hoverEmptySpace {
+      height: 70px;
+      width: 100%;
+      border-bottom: 1px solid rgb(60, 60, 60);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .hoverChoiceContainer {
+      height: 70px;
+      width: 100%;
+      color: white;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgb(60, 60, 60);
+    }
+
+    .hoverElement {
+      color: white;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 70px;
+      gap: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @keyframes revealHoverOptions {
+      from {
+        transform: translateX(-380px);
+      }
+      to {
+        transform: translateX(80px);
+      }
+    }
+
+    .revealHoverOptions {
+      animation: revealHoverOptions 0.3s ease-in forwards;
+    }
+
+    @keyframes concealHoverOptions {
+      from {
+        transform: translateX(80px);
+      }
+      to {
+        transform: translateX(-380px);
+      }
+    }
+
+    .concealHoverOptions {
+      animation: concealHoverOptions 0.3s ease-in forwards;
+    }
+
+   .hoverOptions {
+      height: 100%;
+      top: 59px;
+      left: 80px;
+      width: 300px;
+      transform: translateX(-380px);
+      position: absolute;
+      backdrop-filter: saturate(180%) blur(20px); 
+      background-color: var(--blackGlass);
+      z-index: 5;
+      height: calc(100% - 59px);
+      display: flex;
+      overflow: hidden;
+    }
+
+    .hoverTitle {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      border-bottom: 1px solid rgb(60, 60, 60);
+      padding-left: 15px;
+      user-select: none;
+    }
+
     .sidebar {
       top: 59px;
       height: calc(100% - 59px);
       width: 550px;
+    }
+
+    .sidebarButton {
+      display: none;
     }
 
     .hazardsSidebar {
@@ -1155,6 +1485,7 @@
       top: 59px;
       height: calc(100% - 59px);
       width: 550px;
+      z-index: 10;
   }
 
     .searchButtonContainer {
@@ -1209,7 +1540,7 @@
     }
   }
 
-  @media screen and (max-height: 531px) and (min-width: 900px) {
+  @media screen and (max-height: 591px) and (min-width: 900px) {
 
     .viewControlsContainer {
       top: 79px;

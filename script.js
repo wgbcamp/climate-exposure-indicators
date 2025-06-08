@@ -276,11 +276,10 @@ require([
   "esri/rest/locator",
   "esri/geometry/SpatialReference",
   "esri/core/reactiveUtils",
-  "esri/widgets/TimeSlider",
   "esri/layers/VectorTileLayer",
   "esri/widgets/Slider"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, TimeSlider, VectorTileLayer, Slider) => {
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, VectorTileLayer, Slider) => {
 
 // assign feature layer 
   // var layer = new FeatureLayer({
@@ -374,6 +373,7 @@ globeMap = new Map({
 // remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
 globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
 
+// slider 
 const slider = new Slider({
   container: "sliderDiv",
   min: 1980,
@@ -414,6 +414,49 @@ reactiveUtils.watch(() => slider.values, (value) => {
     }
   }
 );
+
+//slider for 900px screens and above
+const lgSlider = new Slider({
+  container: "lgSliderDiv",
+  min: 1980,
+  max: 2080,
+  values: [1980],
+  steps: [1980,2030,2050,2080],
+  tickConfigs: [{
+    mode: "position",
+    values: [1980,2030,2050,2080],
+    labelsVisible: true
+  }],
+  visibleElements: {
+    rangeLabels: false
+  }
+})
+
+reactiveUtils.watch(() => lgSlider.values, (value) => {
+    for (var i=0; i<scenarios.length; i++) {
+      if (value == scenarios[i].year) {
+
+        globeMap.remove(globeVtLayer);
+        map.remove(vtlayer);
+
+        vtlayer = new VectorTileLayer({
+          url: scenarios[i].url
+        });
+
+        globeVtLayer = new VectorTileLayer({
+          url: scenarios[i].url
+        })
+
+        updateThumbLabel(value);
+
+        map.add(vtlayer);
+        globeMap.add(globeVtLayer);
+      }
+    }
+  }
+);
+
+
 
 // locateAddress function 
 locateAddress = (value) => {
@@ -901,5 +944,86 @@ const home = () => {
     zoom: 4,
   });
 }
+
+
+const hover = (value) => {
+  var lgSidebar = document.getElementById('lgSidebar');
+  if (value === 'enter') {
+    if (!lgSidebar.classList.contains('blocker')) {
+      lgSidebar.classList.add('growLgSidebar');
+      lgSidebar.classList.remove('shrinkLgSidebar');
+      lgSidebar.classList.add('blocker');
+      setTimeout(() => {
+        lgSidebar.classList.remove('blocker');
+      }, 350);
+    }
+  } else if (value === 'exit') {
+    if (!lgSidebar.classList.contains('blocker'))
+      lgSidebar.classList.replace('growLgSidebar','shrinkLgSidebar');
+      lgSidebar.classList.add('blocker');
+      setTimeout(() => {
+        lgSidebar.classList.remove('blocker');
+      }, 350);
+  }
+}
+
+const hazards = ["Riverine Flooding", "Coastal Flooding"];
+const exposures = ["Buildings", "GDP", "Urban GDP", "Population"];
+
+const toggleHoverOptions = (value) => {
+  var dataSidebarTitle = document.getElementById('dataSidebarTitle');
+  dataSidebarTitle.innerHTML = value;
+  
+  var dataSidebarElements = document.getElementById('dataSidebarElements');
+  dataSidebarElements.innerHTML = '';
+
+  var array;
+  if (value === 'Hazards') {
+    array = hazards;
+  } else if (value === 'Exposures') {
+    array = exposures;
+  }
+
+  for (var i=0; i<array.length; i++) {
+    var node = document.createElement('div');
+    node.innerHTML = `
+    <div class="lgSidebarElement lgSidebarText">
+      <div>${array[i]}</div>
+      <i class="fa-solid fa-chevron-right fa-lg padIconRight"></i>
+    </div>`;
+    dataSidebarElements.appendChild(node);
+  }
+
+  var dataSidebar = document.getElementById('dataSidebar');
+
+  if (dataSidebar.classList.contains('concealDataSidebar')) {
+    dataSidebar.classList.replace('concealDataSidebar', 'revealDataSidebar')
+  }
+  dataSidebar.classList.add('revealDataSidebar');
+}
+
+const concealHoverOptions = () => {
+  var dataSidebar = document.getElementById('dataSidebar');
+  dataSidebar.classList.add('concealDataSidebar');
+  dataSidebar.classList.remove('revealDataSidebar');
+}
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth < 900) {
+    var hoverOptions = document.getElementById('hoverOptions');
+    var hoverSidebar = document.getElementById('hoverSidebar');
+    hoverSidebar.classList.remove('concealHoverMenu');
+    hoverSidebar.classList.remove('revealHoverMenu');
+    hoverOptions.classList.remove('concealHoverOptions');
+    hoverOptions.classList.remove('revealHoverOptions');
+  } else if (window.innerWidth >= 900) {
+    var sidebar = document.getElementById('sidebar');
+    var hazardsSidebar = document.getElementById('hazardsSidebar');
+    var exposuresSidebar = document.getElementById('exposuresSidebar');
+    sidebar.classList.replace('enableSidebar', 'defaultSidebar');
+    hazardsSidebar.classList.replace('enableSidebar', 'defaultSidebar');
+    exposuresSidebar.classList.replace('enableSidebar', 'defaultSidebar');
+  }
+})
 
 showCountryList();
