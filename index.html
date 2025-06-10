@@ -24,40 +24,18 @@
           <div class="title">Global Exposure Indicators</div>
       </div>
       <div class="headerSection2">
-          <div class="chartMapDivContainer collapseMaxWidth">
+          <div class="chartMapDivContainer">
             <div id="mapDiv" class="chartMapDiv mapDiv cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
               <i class="fa-solid fa-globe fa-lg"></i>
-              <div>Map</div>
+              <div class="chartMapText">Map</div>
             </div>
             <div id="chartDiv" class="chartMapDiv chartDiv cmID" onclick="toggleMapChart(this.id)">
               <i class="fa-solid fa-chart-line"></i>
-              <div>Chart</div>
+              <div class="chartMapText">Chart</div>
             </div>
           </div>
-          <div id="searchButtonContainer" class="searchButtonContainer" onclick="toggleSearchBar()">
-            <i class="fas fa-search"></i>
-            <div>Search</div>
-          </div>
       </div>
     </div>
-  <div class="header2">
-    <div class="chartMapDivContainer ">
-      <div id="mapDiv" class="chartMapDiv mapDiv cmID  defaultSelectedButton" onclick="toggleMapChart(this.id)">
-        <i class="fa-solid fa-globe fa-lg"></i>
-        <div>Map</div>
-      </div>
-      <div id="chartDiv" class="chartMapDiv chartDiv cmID" onclick="toggleMapChart(this.id)">
-        <i class="fa-solid fa-chart-line"></i>
-        <div>Chart</div>
-      </div>
-    </div>
-    <div class="smallWidthSearchBar" onclick="tapSmallSearch();" onkeydown="if(event.key === 'Enter'){deactivateSmallSearch()};">
-      <div id="smallWidthSearchIcon" class="smallWidthSearchIcon" onclick="locateAddress(this.id)">
-        <i class="fa-solid fa-magnifying-glass fa-md"></i>
-      </div>
-      <input id="smallWidthSearchField" class="smallWidthSearchField" type="text" placeholder="search" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
-    </div>
-  </div>
   <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
 
   <!--This is the sidebar for screens 900px and above -->
@@ -72,6 +50,18 @@
       <div class="lgSidebarElement">
         <i class=" fa-solid fa-house-crack fa-xl"></i>
       </div>
+      <div class="lgSidebarElement" onclick="toggleSearchBar()">
+        <i class=" fa-solid fa-magnifying-glass fa-xl"></i>
+      </div>
+      <div class="lgSidebarElement">
+        <i class=" fa-solid fa-arrows-rotate fa-xl"></i>
+      </div>
+      <div class="lgSidebarElement ">
+        <i class=" fa-solid fa-scale-unbalanced fa-xl"></i>
+      </div>
+      <div class="lgSidebarElement ">
+        <i class=" fa-solid fa-database fa-xl"></i>
+      </div>
     </div>
     <div class="lgSidebarCol" id="col2">
       <div class="lgSidebarTitle">
@@ -82,6 +72,22 @@
       </div>
       <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
         <div>Exposures</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleSearchBar()">
+        <div>Search</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
+        <div>Live</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
+        <div>Compare</div>
+        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
+      </div>
+      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
+        <div>Data Sources</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
     </div>
@@ -99,22 +105,50 @@
   <!-- This is the sidebar for small width screens -->
   <div id="sidebar" class="sidebar defaultSidebar">
     <div class="riskFactorTitleContainer">
-      <div class="riskFactorTitle">Risk Factors</div>
+      <div class="riskFactorTitle cheese">Data</div>
       <div class="exitSidebar" onclick="toggleSidebar()">
         <i class="fa-solid fa-xmark fa-lg"></i>
       </div>
     </div>
-    <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest" onclick="toggleRiskFactorSidebar('hazardsSidebar')">
-        <i class="riskFactorChoiceIcon fa-solid fa-water fa-xl"></i>
+    <div class="riskFactorChoiceContainer" onclick="toggleRiskFactorSidebar('hazardsSidebar')">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-water fa-xl"></i>
         <div class="choiceTitle">Hazards</div>
       </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('hazardsSidebar')"></i>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
     </div>
-    <div class="riskFactorChoiceContainer">
-      <div class="riskFactorChoiceNest" onclick="toggleRiskFactorSidebar('exposuresSidebar')">
-        <i class="riskFactorChoiceIcon fa-solid fa-house-crack fa-xl"></i>
+    <div class="riskFactorChoiceContainer" onclick="toggleRiskFactorSidebar('exposuresSidebar')">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-house-crack fa-xl"></i>
         <div class="choiceTitle">Exposures</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    </div>
+    <div class="riskFactorChoiceContainer" onclick="toggleSearchBar()">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-magnifying-glass fa-xl"></i>
+        <div class="choiceTitle">Search</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    </div>
+    <div class="riskFactorChoiceContainer" onclick="">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-arrows-rotate fa-xl"></i>
+        <div class="choiceTitle">Live</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
+    </div>
+    <div class="riskFactorChoiceContainer" onclick="">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-scale-unbalanced fa-xl"></i>
+        <div class="choiceTitle">Compare</div>
+      </div>
+      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
+    </div>
+    <div class="riskFactorChoiceContainer" onclick="">
+      <div class="riskFactorChoiceNest">
+        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-database fa-xl"></i>
+        <div class="choiceTitle">Data Sources</div>
       </div>
       <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
     </div>
@@ -174,7 +208,7 @@
     </div>
     <div class="searchBar">
       <div class="searchBarSearchFieldContainer">
-        <i class="fa-solid fa-magnifying-glass fa-md"></i>
+        <i class="searchBarSearchIcon fa-solid fa-magnifying-glass fa-md"></i>
           <input id="searchBarSearchField" class="searchBarSearchField" type="text" placeholder="Search for a country" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
       </div>
     </div>

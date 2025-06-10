@@ -3,6 +3,13 @@
   :root {
     --blackGlass: rgba(8, 8, 8, 0.5);
     --glass: rgba(29, 29, 29, 0.7);
+    --fundBlue: #004C97;
+    --emptyShade: #FFFFFF;
+    --black: #000000;
+    --darkBlue: #001E60;
+    --mediumBlue: #0375BD;
+    --lightBlue: #009CDE;
+    --lightGray: #B1B3B3;
   }
 
   html,
@@ -57,14 +64,13 @@
 
   .chartMapDiv {
     width: 80px;
-    color: white;
+    color: var(--black);
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     user-select: none;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: rgba(100, 100, 100, 0.5);
+    background-color: var(--emptyShade);
   }
 
   .mapDiv {
@@ -87,7 +93,8 @@
   }
 
   .defaultSelectedButton {
-    background-color: #0a84ff;
+    background-color: var(--mediumBlue);
+    color: var(--emptyShade);
   }
 
   .selectedButton {
@@ -100,27 +107,31 @@
 
   @keyframes animateButtonSelection {
     from{
-    background-color: rgba(100, 100, 100, 0.5);
+    background-color: var(--emptyShade);
+    color: black;
     }
     to {
-      background-color: #0a84ff;
+      background-color: var(--mediumBlue);
+      color: white;
     }
   }
 
     @keyframes removeAnimateButtonSelection {
     from{
-      background-color: #0a84ff;
+      background-color: var(--mediumBlue);
+      color: white;
     }
     to {
-    background-color: rgba(100, 100, 100, 0.5);
+      background-color: var(--fundBlue);
+      color: black;
     }
   }
 
   .header {
     height: 51px;
     width: 100%;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);
+    background-color: var(--fundBlue);
+    color: white;
     padding-top: 5px;
     padding-bottom: 5px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -136,8 +147,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);
+    background-color: var(--emptyShade);
     z-index: 6;
     position: absolute;
     top: 61px;
@@ -154,10 +164,10 @@
 
   @keyframes hoverIn {
     from {
-      background-color: rgb(45, 45, 45);
+      background-color: var(--emptyShade);
     }
     to {
-      background-color: rgba(100, 100, 100, 0.6);
+      background-color: var(--lightGray);
     }
   }
 
@@ -229,8 +239,7 @@
   }
 
   .smallWidthSearchBar {
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--glass);
+    background-color: var(--emptyShade);
     height: 40.8px;
     width: 75%;
     border-radius: 10px;
@@ -243,7 +252,7 @@
   }
 
   .smallWidthSearchIcon {
-    color: white;
+    color: var(--black);
     padding-left: 10px;
   }
 
@@ -251,7 +260,7 @@
     background-color: rgba(255, 0, 0, 0);
     background: transparent;
     font-size: 16px;
-    color: white;
+    color: var(--black);
     margin-left:10px;
     margin-right: 35px;  
     border: unset;
@@ -302,8 +311,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);  
+    background-color: var(--emptyShade);
     border-radius: 10px;
   }
 
@@ -314,8 +322,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);  
+    background-color: var(--emptyShade);
     border-radius: 10px;
   }
 
@@ -326,14 +333,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);  
+    background-color: var(--emptyShade);
     border-radius: 10px;
   }
 
   .viewButtons {
     font-family: "Inter", sans-serif;
-    color: white;
+    color: var(--black);
     height: 45px;
     width: 82%;
     display: flex;
@@ -351,7 +357,6 @@
     height: 55px;
     width: 100%;
     bottom: 0px;
-    color: rgb(238, 238, 238);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -394,8 +399,8 @@
   }
 
   .scenario {
-    color: white;
-    background-color: rgb(85, 85, 85);
+    color: black;
+    background-color: var(--lightGray);
     font-size: 15px;
     font-weight: 600;
     border-radius: 20px;
@@ -406,6 +411,8 @@
     justify-content: center;
     border: 1px solid #00000000;
     cursor: pointer;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .activeScenario {
@@ -414,15 +421,16 @@
 
   @keyframes animateActiveScenario {
     from {
-      background-color: rgb(85, 85, 85);
+      background-color: var(--lightGray);
+      color: var(--black);
     }
     to {
-      background-color: #0a84ff;
+      background-color: var(--darkBlue);
+      color: var(--emptyShade);
     }
   }
 
   .sliderThumbLabel {
-    color: white;
     font-size: 20px;
     font-weight: 600;
     height: 75px;
@@ -451,8 +459,7 @@
     height: 69px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);    
+    background-color: var(--emptyShade);
     z-index: 1;
     display: flex;
     align-items: start;
@@ -469,12 +476,21 @@
     opacity: 0;
   }
 
+  .esri-slider__tick-label {
+    color: black;
+  }
+
   .esri-slider__segment, .esri-slider__segment-1 {
     background-color: white;
   }
 
   .esri-slider__tick {
-    background-color: white;
+    margin-top: -10px;
+    background-color: var(--lightGray);
+  }
+
+  .esri-slider--horizontal .esri-slider__tick {
+    height: 8px;
   }
 
   .esri-attribution {
@@ -698,12 +714,11 @@
 
   .sidebar {
     position: absolute;
-    top: 116px;
-    height: calc(100% - 116px);
+    top: 59px;
+    height: calc(100% - 59px);
     width: 100%;
     z-index: 5;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);
+    background-color: white;
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -776,13 +791,13 @@
   .riskFactorTitle {
     height: 50px;
     width: 100%;
-    color: white;
+    color: var(--black);
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-size: 18px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -790,11 +805,10 @@
   }
 
   .exitSidebar {
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
     padding-right: 15px;
     cursor: pointer;
   }
@@ -802,13 +816,13 @@
   .riskFactorChoiceContainer {
     height: 50px;
     width: 100%;
-    color: white;
+    color: var(--black);
     font-family: "Inter", sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
     padding-top: 16px;
     padding-bottom: 16px;
   }
@@ -835,8 +849,8 @@
 
   .hazardsSidebar {
     position: absolute;
-    top: 116px;
-    height: calc(100% - 116px);
+    top: 59px;
+    height: calc(100% - 59px);
     width: 100%;
     z-index: 6;
     overflow-x: hidden;
@@ -846,13 +860,12 @@
   
   .hazardsTitleContainer {
     display: flex;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
   }
 
   .hazardsTitle {
     height: 50px;
     width: 100%;
-    color: white;
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-size: 18px;
@@ -865,7 +878,6 @@
   }
 
   .exitHazards {
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -876,13 +888,12 @@
   .hazardsChoiceContainer {
     height: 50px;
     width: 100%;
-    color: white;
     font-family: "Inter", sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
     padding-top: 16px;
     padding-bottom: 16px;
   }
@@ -897,8 +908,8 @@
 
   .exposuresSidebar {
     position: absolute;
-    top: 116px;
-    height: calc(100% - 116px);
+    top: 59px;
+    height: calc(100% - 59px);
     width: 100%;
     z-index: 6;
     overflow-x: hidden;
@@ -908,13 +919,12 @@
 
   .exposuresTitleContainer {
     display: flex;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
   }
 
   .exposuresTitle {
     height: 50px;
     width: 100%;
-    color: white;
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-size: 18px;
@@ -927,7 +937,6 @@
   }
 
   .exitExposures {
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -938,13 +947,12 @@
   .exposuresChoiceContainer {
     height: 50px;
     width: 100%;
-    color: white;
     font-family: "Inter", sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    border-bottom: 1px solid var(--lightGray);
     padding-top: 16px;
     padding-bottom: 16px;
   }
@@ -957,14 +965,11 @@
     padding-left: 15px;
   }
 
-  .collapseMaxWidth {
-    display: none;
-  }
-
   .headerSection1 {
     display: flex;
     align-items: center;
     width: 100%;
+    min-width: 380px;
   }
 
   .headerSection2 {
@@ -976,29 +981,21 @@
 
   .searchSidebar {
     position: absolute;
-    top: 116px;
-    height: calc(100% - 116px);
+    top: 59px;
+    height: calc(100% - 59px);
     width: 100%;
     z-index: 6;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass); 
+    background-color: var(--emptyShade);
+    color: var(--black);
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: none;   
   }
 
-  .searchSidebarTitleContainer {
-    display: none;
-  }
-
-  .searchBar {
-    display: none;
-  }
-
   .searchSidebarTitle {
     height: 50px;
     width: 100%;
-    color: white;
+    color: var(--black);
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-size: 18px;
@@ -1011,7 +1008,6 @@
   }
 
   .exitSearchBar {
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1024,13 +1020,17 @@
     background-color: rgba(255, 0, 0, 0);
     background: transparent;
     font-size: 16px;
-    color: white;
+    color: black;
     margin-left: 10px;
     margin-right: 35px;  
     border: unset;
     outline: none;
     width: 100%;
     height: 100%;
+  }
+
+  .searchBarSearchField::placeholder {
+    color: var(--lightGray);
   }
 
   .searchBarSearchFieldContainer {
@@ -1040,12 +1040,16 @@
     width: 100%;
   }
 
+  .searchBarSearchIcon {
+    color: var(--lightGray);
+  }
+
   .countryResultsContainer {
     padding-top: 30px;
   }
 
   .countryResultsTitle {
-    color: white;
+    color: var(--black);
     font-size: 18px;
     font-weight: 700;
     margin-left: 15px;
@@ -1060,8 +1064,7 @@
 
   .countryResultsBorder {
     border-radius: 15px;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);  
+    border: 1px solid var(--lightGray);
     height: 500px;
     width: calc(100% - 30px);
     margin-left: 15px;
@@ -1082,6 +1085,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     cursor: pointer;
+    color: var(--black);
   }
 
   .countryStyle:hover {
@@ -1106,6 +1110,26 @@
 
   .lgDataControls {
     display: none;
+  }
+
+  .esri-slider__segment, .esri-slider__segment-1 {
+    background-color: var(--lightGray) !important;
+  }
+
+  .smallSidebarIcon {
+    width: 27px;
+  }
+
+  .searchBar {
+    display: flex;
+    border: 1px solid var(--lightGray);
+    color: var(--black);
+    height: 50px;
+    width: calc(100% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 15px;
+    align-items: center;
   }
 
   @media screen and (min-width: 900px) {
@@ -1135,11 +1159,12 @@
       height: 100%;
       width: 100%;
       max-width: 800px;
-      backdrop-filter: saturate(180%) blur(20px); 
-      background-color: var(--blackGlass);  
-      border-radius: 20px;
+      background-color: var(--emptyShade);
+      border-radius: 25px;
       display: flex;
       margin-left: 70px;
+      border: 1px solid var(--lightGray);
+      box-shadow: 0px 4px 20px 0px #0000002E;
     }
 
     .lgScenarioDiv {
@@ -1147,6 +1172,8 @@
       align-items: center;
       gap: 10px;
       padding-left: 15px;
+      padding-right: 20px;
+      border-right: 2px solid var(--lightGray);
     }
 
     .lgTimelineDiv {
@@ -1159,7 +1186,8 @@
 
     #lgSliderDiv {
       background: transparent;
-      color: white;
+      color: var(--black);
+      font-weight: 700;
     }
 
     .esri-slider--horizontal .esri-slider__tick-label {
@@ -1168,6 +1196,7 @@
 
     .esri-slider__tick {
       margin-top: -15px;
+      background-color: var(--lightGray);
     }
 
     .esri-slider__content {
@@ -1180,10 +1209,6 @@
 
     .header2 {
       display: none;
-    }
-    
-    .collapseMaxWidth {
-      display: flex;
     }
 
     @keyframes growLgSidebar {
@@ -1216,10 +1241,9 @@
       top: 59px;
       height: calc(100% - 59px);
       position: absolute;
-      backdrop-filter: saturate(180%) blur(20px); 
-      background-color: var(--blackGlass);
+      background-color: var(--emptyShade);
       z-index: 10;
-      color: white;
+      color: var(--black);
       display: flex;
       flex-direction: row;
       overflow: hidden;
@@ -1393,7 +1417,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgb(60, 60, 60);
+      border-bottom: 1px solid var(--lightGray);
     }
 
     .hoverElement {
@@ -1506,20 +1530,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(60, 60, 60);
-  }
-    
-  .searchBar {
-    display: flex;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--blackGlass);    
-    height: 50px;
-    width: calc(100% - 30px);
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 15px;
-    align-items: center;
   }
 
   }
@@ -1546,6 +1556,36 @@
       top: 79px;
     }
   } 
+
+  @media screen and (max-width: 600px) {
+
+    .title {
+      font-size: 12px;
+    }
+
+    .headerSection1 {
+      min-width: 260px;
+    }
+
+    .chartMapDivContainer {
+      justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+
+    .chartMapDiv {
+      width: 25px;
+    }
+
+    .chartMapText {
+      display: none;
+    }
+
+    .headerSection2, .chartMapDivContainer {
+      width: unset;
+    }
+  }
 
   /* needs to be evaluated & removed */
   @media screen and (min-width: 800px) {

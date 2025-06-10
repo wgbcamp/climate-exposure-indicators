@@ -348,7 +348,7 @@ reactiveUtils.when(() => view.stationary, () => {
 })
 
 globeMap = new Map({
-  basemap: "dark-gray"
+  basemap: "topo-3d"
 });
 
 // assign sceneView and add viewpoint properties
@@ -753,10 +753,6 @@ const toggleSidebar = () => {
     searchSideBar.classList.remove('enableSidebar');
   }
 
-  if (searchButtonContainer.classList.contains('selectedButton')) {
-    searchButtonContainer.classList.add('removeSelectedButton');
-    searchButtonContainer.classList.remove('selectedButton');
-  } 
 }
 
 //toggles risk factor sidebars
@@ -859,10 +855,10 @@ const toggleSearchBar = () => {
     }
   }
 
-  if (sidebar.classList.contains('enableSidebar')) {
-    sidebar.classList.add('disableSidebar');
-    sidebar.classList.remove('enableSidebar');
-  }
+  // if (sidebar.classList.contains('enableSidebar')) {
+  //   sidebar.classList.add('disableSidebar');
+  //   sidebar.classList.remove('enableSidebar');
+  // }
 
   var hazardsSidebar = document.getElementById('hazardsSidebar');
   if (hazardsSidebar.classList.contains('enableSidebar')) {
@@ -873,16 +869,7 @@ const toggleSearchBar = () => {
   if (exposuresSidebar.classList.contains('enableSidebar')) {
     exposuresSidebar.classList.remove('enableSidebar');
     exposuresSidebar.classList.add('disableSidebar');
-  }
-
-  if (!searchButtonContainer.classList.contains('selectedButton')) {
-    searchButtonContainer.classList.add('selectedButton');
-    searchButtonContainer.classList.remove('removeSelectedButton');
-  } else {
-    searchButtonContainer.classList.add('removeSelectedButton');
-    searchButtonContainer.classList.remove('selectedButton');
-  }
-    
+  }    
 }
 
 const tapSmallSearch = () => {
@@ -895,6 +882,11 @@ const tapSmallSearch = () => {
 const deactivateSmallSearch = () => {
   if (window.innerWidth <= 900) {
     toggleSearchBar();
+    var sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('enableSidebar')) {
+      sidebar.classList.add('disableSidebar');
+      sidebar.classList.remove('enableSidebar');
+    }
   }
 }
 
