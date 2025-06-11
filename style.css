@@ -1132,6 +1132,93 @@
     align-items: center;
   }
 
+  .chartView {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  .presentView {
+    animation: presentView 0.4s ease forwards;
+  }
+
+  @keyframes presentView {
+    0% {
+      z-index: -1;
+      opacity: 0;
+      }
+    1% {
+      z-index: 10;
+    }
+    100% {
+      opacity: 1;
+      z-index: 10;
+    }
+  }
+
+  .concealView {
+    animation: concealView 0.4s ease forwards;
+  }
+
+  @keyframes concealView {
+    0% {
+      z-index: 10;
+      opacity: 1;
+    }
+    100% {
+      z-index: -1;
+      opacity: 0;
+      }
+  }
+
+  .chartSearchTitleContainer {
+    width: 100%;
+    position: relative;
+    top: 90px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chartSearchTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    width: 90%;
+  }
+
+  .chartSearchContainer {
+    height: 25px;
+    width: 100%;
+    position: relative;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chartSearch {
+    width: 90%;
+    height: 30px;
+    border: 1px solid var(--lightGray);
+    border-radius: 5px;
+  }
+
+  #chartMapInstanceContainer {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 200px;
+  }
+
+  .chartMapInstance {
+    height: 100%;
+    width: 90%;
+  }
+
   @media screen and (min-width: 900px) {
     .sidebar, .hazardsSidebar, .exposuresSidebar {
       display: none

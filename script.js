@@ -5,6 +5,10 @@ var camera;
 var globeView;
 var map;
 var globeMap;
+var chart;
+var chartInstance;
+var chartEntries = [];
+var generateChartResults;
 
 // ISO 3066 countries array
 const countries = [
@@ -277,9 +281,10 @@ require([
   "esri/geometry/SpatialReference",
   "esri/core/reactiveUtils",
   "esri/layers/VectorTileLayer",
-  "esri/widgets/Slider"
+  "esri/widgets/Slider",
+  "esri/Basemap"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, VectorTileLayer, Slider) => {
+  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, VectorTileLayer, Slider, Basemap) => {
 
 // assign feature layer 
   // var layer = new FeatureLayer({
@@ -299,11 +304,15 @@ require([
     url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
   })
 
+  const customBasemap = new Basemap({
+    portalItem: {
+      id: "a66bfb7dd3b14228bf7ba42b138fe2ea"
+    }
+  });
+
 // assign map and add basemap and layer properties 
   map = new Map({
-    basemap: "dark-gray"
-    // layers: [layer]
-
+    basemap: 'dark-gray'
   });
   
   map.add(vtlayer);
@@ -348,7 +357,7 @@ reactiveUtils.when(() => view.stationary, () => {
 })
 
 globeMap = new Map({
-  basemap: "topo-3d"
+  basemap: "dark-gray"
 });
 
 // assign sceneView and add viewpoint properties
@@ -456,7 +465,25 @@ reactiveUtils.watch(() => lgSlider.values, (value) => {
   }
 );
 
-
+//CHART VIEW MAP INSTANCES
+chartInstance = (longitude, latitude) => {
+  chartEntries.push(
+    new MapView({
+      container: "chartMapInstance",
+      map: map,
+      zoom: 2,
+      center: [longitude, latitude],
+      constraints: {
+        minZoom: 3,
+        maxZoom: 10
+      },
+      spatialReference: {
+        wkid: 3857,
+        isWrappable: true
+      }
+    })
+  )
+};
 
 // locateAddress function 
 locateAddress = (value) => {
@@ -523,6 +550,43 @@ locateAddress = (value) => {
         alert("Not found.")
       }
     })
+  }
+}
+
+//GENERATE CHART RESULTS
+generateChartResults = (value) => {
+
+  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+  // parameters to send to esri Geocode Server
+  var params = {
+
+    // assign locateAddress function parameter to single line address property value
+    address: {
+      "SingleLine": value
+    },
+
+    // only retrieve one location result
+    maxLocations: 1
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", `https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Floods_riverine_people_all/FeatureServer/0/query?where=NAME_1=%27${value}%27&outFields=*&f=json`);
+  xhr.send();
+  xhr.onload = () => {
+    if (xhr.status == 200) {
+      console.log(xhr.response);
+      locator.addressToLocations(url, params)
+      .then((result) => {
+        if (result.length) {
+          var location = result[0].location;
+          chartInstance(location.longitude, location.latitude);
+        } 
+      })
+    } else {
+      console.log(`Error ${xhr.status}: ${xhr.statusText}`);
+      console.log("Request has failed!");
+    }
   }
 }
 
@@ -663,6 +727,9 @@ const applyScenario = (value) => {
 // toggle between map and chart views on click
 const toggleMapChart = (value) => {
   var list = document.querySelectorAll('div.cmID');
+  var chartView = document.getElementById('chartView');
+  var chartDiv = document.getElementById('chartDiv');
+
   for (var i=0; i<list.length; i++) {
     if ((list[i].classList.contains('selectedButton') 
       || list[i].classList.contains('defaultSelectedButton'))
@@ -676,6 +743,14 @@ const toggleMapChart = (value) => {
         
       }
     }
+  }
+
+  if (value == 'chartDiv' && chartDiv.classList.contains('selectedButton')) {
+    chartView.classList.add('presentView');
+    chartView.classList.remove('concealView');
+  } else {
+    chartView.classList.add('concealView');
+    chartView.classList.remove('presentView')
   }
 }
 
@@ -1017,5 +1092,8 @@ window.addEventListener("resize", () => {
     exposuresSidebar.classList.replace('enableSidebar', 'defaultSidebar');
   }
 })
+
+console.log(testme);
+
 
 showCountryList();

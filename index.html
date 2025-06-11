@@ -303,6 +303,20 @@
     </div>
   </div>
 
+  <div id="chartView" class="chartView viewIdentifier">
+    <div class="chartSearchTitleContainer">
+      <div class="chartSearchTitle">Search</div>
+    </div>
+    <div class="chartSearchContainer">
+      <input class="chartSearch" placeholder="Search for countries to compare" onkeydown="if(event.key === 'Enter') {generateChartResults(this.value)}">
+    </div>
+    <div id="chartMapInstanceContainer">
+      <div id="chartMapInstance" class="chartMapInstance">
+          
+      </div>
+    </div>
+  </div>
+
   <!-- 2D map -->
   <div id="viewDiv"></div>
 
