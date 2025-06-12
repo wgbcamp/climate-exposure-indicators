@@ -748,7 +748,7 @@ const toggleMapChart = (value) => {
   if (value == 'chartDiv' && chartDiv.classList.contains('selectedButton')) {
     chartView.classList.add('presentView');
     chartView.classList.remove('concealView');
-  } else {
+  } else if (chartView.classList.contains('presentView')) {
     chartView.classList.add('concealView');
     chartView.classList.remove('presentView')
   }
