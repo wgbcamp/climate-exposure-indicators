@@ -1219,6 +1219,20 @@
     width: 90%;
   }
 
+  #vegaInstanceContainer {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 300px;
+  }
+
+  .vegaInstance {
+    height: 100%;
+    width: 90%;
+  }
+
   @media screen and (min-width: 900px) {
     .sidebar, .hazardsSidebar, .exposuresSidebar {
       display: none

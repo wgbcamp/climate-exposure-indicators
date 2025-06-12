@@ -10,6 +10,204 @@ var chartInstance;
 var chartEntries = [];
 var generateChartResults;
 
+// vega specs
+var gadm0 = [];
+var gadm0Total = [
+  {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  }
+];
+var gadm1 = [];
+var gadm1Total = [
+    {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 1980,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2030,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2050,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'historical'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'rcp4p5'
+  },
+  {
+    period: 2080,
+    wExposed: 0,
+    scenario: 'rcp8p5'
+  }
+];
+
+var yourVlSpec = {
+  title: {
+    text: "Weighted Exposure By Scenario",
+    anchor: "middle",
+    fontSize: "24",
+    fontWeight: 700,
+    offset: 30
+  },
+  width: "container",
+  height: "container",
+  $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+  description: 'line chart',
+  data: {
+    values: gadm0Total
+  },
+  config: {
+    legend: {
+      layout: {
+        top: {
+          anchor: "middle"
+        }
+      }
+    }
+  },
+  mark: {
+    type: "line",
+    point: "true"
+  },
+  encoding: {
+    x: {
+      field: "period",
+      type: "ordinal",
+      axis: {
+        "labelAngle": 0,
+        titlePadding: 16,
+        titleFontSize: 16,
+        labelFontSize: 12
+
+      } 
+    },
+    y: {
+      field: "wExposed",
+      type: "quantitative",
+      axis: {
+        titlePadding: 16,
+        titleFontSize: 16,
+        labelFontSize: 12
+      }
+    },
+    color: {
+      field: "scenario",
+      type: "nominal",
+      scale: {
+        range: ["blue", "green", "orange"],
+        domain: ["historical", "rcp4p5", "rcp8p5"]
+      },
+      legend: {
+        orient: "bottom",
+        direction: "horizontal",
+        title: null,
+        symbolType: "stroke",
+        symbolStrokeWidth: 3,
+        symbolSize: 300,
+        labelFontSize: 16
+      }
+    }
+  },
+
+};
+
 // ISO 3066 countries array
 const countries = [
 "Aruba",
@@ -554,40 +752,109 @@ locateAddress = (value) => {
 }
 
 //GENERATE CHART RESULTS
-generateChartResults = (value) => {
+ generateChartResults = (value) => {
 
   var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
   // parameters to send to esri Geocode Server
   var params = {
-
     // assign locateAddress function parameter to single line address property value
     address: {
       "SingleLine": value
     },
-
     // only retrieve one location result
-    maxLocations: 1
+    maxLocations: 1,
+    outFields: ["CountryCode"]
   }
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", `https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Floods_riverine_people_all/FeatureServer/0/query?where=NAME_1=%27${value}%27&outFields=*&f=json`);
-  xhr.send();
-  xhr.onload = () => {
-    if (xhr.status == 200) {
-      console.log(xhr.response);
-      locator.addressToLocations(url, params)
-      .then((result) => {
-        if (result.length) {
-          var location = result[0].location;
-          chartInstance(location.longitude, location.latitude);
-        } 
-      })
-    } else {
-      console.log(`Error ${xhr.status}: ${xhr.statusText}`);
-      console.log("Request has failed!");
-    }
-  }
+  locator.addressToLocations(url, params)
+  .then((result) => {
+    if (result.length) {
+
+      console.log(result[0]);
+      const countryCode = result[0].attributes.CountryCode;
+      var location = result[0].location;
+      chartInstance(location.longitude, location.latitude);
+
+      var whereClause = `country_abr='${countryCode}' AND Admin_Filter IN ('gadm0', 'gadm1')`;
+      var queryString = `where=${encodeURIComponent(whereClause)}`;
+      var limit = 1000;
+      var offset = 0;
+      var allValues = [];
+      var hasMore = true;
+
+      console.log(`Country code: ${countryCode}`);
+
+      async function fetchAllRecords() {
+
+        while (hasMore) {
+
+          //SQL query
+          const url = `https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Floods_riverine_people_all/FeatureServer/0/query?${queryString}&outFields=*&f=json&resultRecordCount=${limit}&resultOffset=${offset}`;
+          const result = await fetch(url);
+          var jsonResult = await result.json();
+          
+          //gather all values and sort into appropriate arrays
+          allValues = allValues.concat(jsonResult.features);
+          if (jsonResult.features.length < limit) {
+            hasMore = false;
+            console.log("allValues:");
+            console.log(allValues);
+
+            //look through the allValues data, update gadm# array objects with sums
+            for (var i=0; i<allValues.length; i++) {
+              if (allValues[i].attributes.Admin_Filter == "gadm0") {
+                gadm0 = gadm0.concat(allValues[i]);
+                
+                for (var a=0; a<gadm0Total.length; a++) {
+                  if (allValues[i].attributes.period == gadm0Total[a].period) {
+                    if (allValues[i].attributes.scenario == gadm0Total[a].scenario) {
+                      gadm0Total[a].wExposed = gadm0Total[a].wExposed + allValues[i].attributes.wExposed;
+                    }
+                  }
+                }
+                
+              } else if (allValues[i].attributes.Admin_Filter == "gadm1") {
+                gadm1 = gadm1.concat(allValues[i]);
+
+                for (var a=0; a<gadm1Total.length; a++) {
+                  if (allValues[i].attributes.period == gadm1Total[a].period) {
+                    if (allValues[i].attributes.scenario == gadm1Total[a].scenario) {
+                      gadm1Total[a].wExposed = gadm1Total[a].wExposed + allValues[i].attributes.wExposed;
+                    }
+                  }
+                }
+              }
+            }
+
+            console.log("gadm0:");
+            console.log(gadm0);
+
+            console.log("gadm0Total:");
+            console.log(gadm0Total);
+
+            console.log("gadm1:");
+            console.log(gadm1);
+
+            console.log("gadm1Total:");
+            console.log(gadm1Total);
+
+            yourVlSpec.data.values = gadm0Total;
+            vegaEmbed('#vegaInstance', yourVlSpec)
+            console.log(yourVlSpec);
+
+          } else {
+            offset += limit;
+          }
+        }
+
+       
+      }
+      fetchAllRecords();  
+    } 
+  })
+
+
 }
 
 });
@@ -1093,7 +1360,5 @@ window.addEventListener("resize", () => {
   }
 })
 
-console.log(testme);
-
-
 showCountryList();
+

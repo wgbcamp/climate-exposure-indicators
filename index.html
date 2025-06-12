@@ -251,7 +251,7 @@
       </div>
       <div id="scenarioDiv" class="scenarioDiv scenariosElement default">
         <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
-        <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
+        <!-- <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div> -->
         <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
         <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
       </div>
@@ -262,7 +262,7 @@
       <div class="lgDataControls">
         <div class="lgScenarioDiv">
           <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
-          <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div>
+          <!-- <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div> -->
           <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
           <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
         </div>
@@ -315,6 +315,9 @@
           
       </div>
     </div>
+    <div id="vegaInstanceContainer">
+      <div id="vegaInstance" class="vegaInstance"></div>
+    </div>
   </div>
 
   <!-- 2D map -->
@@ -322,8 +325,14 @@
 
   <!-- 3D globe -->
   <div id="sceneDiv"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@6.0.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
+  <script src="https://js.arcgis.com/4.32/"></script>
+  <script src="script.js"></script>
 </body>
-<script src="https://js.arcgis.com/4.32/"></script>
-<script src="script.js"></script>
+
+
 
 </html>
