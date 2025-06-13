@@ -1143,7 +1143,7 @@
   .chartView {
     position: absolute;
     top: 59px;
-    height: 100%;
+    height: calc(100% - 59px);
     width: 100%;
     background-color: white;
     z-index: -1;
@@ -1287,7 +1287,12 @@
     bottom: 100px;
     right: 15px;
     z-index: 4;
+    pointer-events: none;
   }
+
+  .legendSizeLimiter {
+      height: 144px;
+    }
 
   @media screen and (min-width: 900px) {
     .sidebar, .hazardsSidebar, .exposuresSidebar {
@@ -1728,6 +1733,10 @@
       height: 40px;
     }
 
+    .legendSizeLimiter {
+      height: 110px;
+    }
+
   }
 
   @media screen and (max-height: 591px) and (min-width: 900px) {
@@ -1750,6 +1759,10 @@
     .chartMapDivContainer {
       justify-content: flex-end;
     }
+  }
+
+  .legendSizeLimiter {
+    height: 110px;
   }
 
   @media screen and (max-width: 500px) {

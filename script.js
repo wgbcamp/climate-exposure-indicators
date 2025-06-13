@@ -644,6 +644,8 @@ locateAddress = (value) => {
 //GENERATE CHART RESULTS
  generateChartResults = (value, position) => {
 
+  document.activeElement.blur();
+  
   var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
   // parameters to send to esri Geocode Server
