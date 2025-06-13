@@ -690,6 +690,15 @@ locateAddress = (value) => {
 
         while (hasMore) {
 
+          //reset gadm#Total exposure values
+          for (var i = 0; i < gadm0Total.length; i++) {
+            gadm0Total[i].wExposed = 0;
+          }
+          for (var i = 0; i < gadm1Total.length; i++) {
+            gadm1Total[i].wExposed = 0;
+          }
+
+
           //SQL query
           const url = `https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Floods_riverine_people_all/FeatureServer/0/query?${queryString}&outFields=*&f=json&resultRecordCount=${limit}&resultOffset=${offset}`;
           const result = await fetch(url);
@@ -740,9 +749,7 @@ locateAddress = (value) => {
             console.log("gadm1Total:");
             console.log(gadm1Total);
 
-            //update highcharts chart
-            // yourVlSpec.data.values = gadm0Total;
-              //WE LEFT OFF HERE
+            //set series array to blank values
             var seriesArray = [{
                 name: 'rcp4p5',
                 data: []
@@ -753,7 +760,7 @@ locateAddress = (value) => {
               }
             ];
 
-
+            // convert long data format to work in highcharts and push into seriesArray
             for (var i = 0; i < gadm0Total.length; i++) {
               for (var a = 0; a < seriesArray.length; a++) {
                 if (gadm0Total[i].scenario == seriesArray[a].name) {
@@ -762,23 +769,27 @@ locateAddress = (value) => {
               }
             }
 
+            //rename the scenarios
+            for (var i = 0; i < seriesArray.length; i++) {
+              if (seriesArray[i].name == 'rcp4p5') {
+                seriesArray[i].name = 'Disorderly';
+              }
+              if (seriesArray[i].name == 'rcp8p5') {
+                seriesArray[i].name = 'Hot House'
+              }
+            }
+            
+
             console.log('seriesArray: ');
             console.log(seriesArray);
 
-
-            // highchartValue.series[0].setData(seriesArray);
-
-
             //initialize highcharts
-            // vegaEmbed('#vegaInstance', yourVlSpec)
-            // console.log(yourVlSpec);
-
               highchartValue = Highcharts.chart(`highchartsInstance${position}`, {
                 chart: {
                   type: 'line'
                 },
                 title: {
-                  text: 'Weighted Exposure By Scenario'
+                  text: 'Exposure to Riverine Flooding'
                 },
                 xAxis: {
                   title: {
@@ -788,7 +799,7 @@ locateAddress = (value) => {
                 },
                 yAxis: {
                   title: {
-                    text: "wExposed"
+                    text: "Population count"
                   }
                 },
                 series: seriesArray
