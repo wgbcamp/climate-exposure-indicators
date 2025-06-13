@@ -388,36 +388,37 @@
   </div>
 
   <div id="chartView" class="chartView viewIdentifier">
+    <div class="chartTopBar">
+      <div class="chartSearchContainer">
+        <input class="chartSearch" placeholder="Search for countries to compare"
+          onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 1)}">
+      </div>
+      <div class="chartSearchTitle">Compare Countries</div>
+      <div class="chartSearchContainer">
+        <input class="chartSearch" placeholder="Search for countries to compare"
+          onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 2)}">
+      </div>
+    </div>
     <div class="chartColumnContainer">
-      <div class="chartColumn1">
-        <div class="chartSearchTitleContainer">
-          <div class="chartSearchTitle">Country search</div>
-        </div>
-        <div class="chartSearchContainer">
-          <input class="chartSearch" placeholder="Search for countries to compare" onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 1)}">
-        </div>
-        <div id="chartMapTitle1" class="chartMapTitle"></div>
+      <div class="chartColumn1">  
+        <div class="chartMapTitleContainer">
+          <div id="chartMapTitle1" class="chartMapTitle"></div>
+        </div>      
         <div id="chartMapInstanceContainer">
-          <div id="chartMapInstance1" class="chartMapInstance">
-              
+          <div id="chartMapInstance1" class="chartMapInstance"> 
           </div>
         </div>
         <div id="highchartsContainer">
           <div id="highchartsInstance1" class="highchartsInstance"></div>
         </div>
       </div>
+      <div class="divider"></div>
       <div class="chartColumn2">
-        <div class="chartSearchTitleContainer">
-          <div class="chartSearchTitle">Country search</div>
-        </div>
-        <div class="chartSearchContainer">
-          <input class="chartSearch" placeholder="Search for countries to compare"
-            onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 2)}">
-        </div>
-        <div id="chartMapTitle2" class="chartMapTitle"></div>
+        <div class="chartMapTitleContainer">
+          <div id="chartMapTitle2" class="chartMapTitle"></div>
+        </div>  
         <div id="chartMapInstanceContainer">
           <div id="chartMapInstance2" class="chartMapInstance">
-      
           </div>
         </div>
         <div id="highchartsContainer">
