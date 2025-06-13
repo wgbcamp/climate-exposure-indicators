@@ -304,19 +304,42 @@
   </div>
 
   <div id="chartView" class="chartView viewIdentifier">
-    <div class="chartSearchTitleContainer">
-      <div class="chartSearchTitle">Search</div>
-    </div>
-    <div class="chartSearchContainer">
-      <input class="chartSearch" placeholder="Search for countries to compare" onkeydown="if(event.key === 'Enter') {generateChartResults(this.value)}">
-    </div>
-    <div id="chartMapInstanceContainer">
-      <div id="chartMapInstance" class="chartMapInstance">
-          
+    <div class="chartColumnContainer">
+      <div class="chartColumn1">
+        <div class="chartSearchTitleContainer">
+          <div class="chartSearchTitle">Country search</div>
+        </div>
+        <div class="chartSearchContainer">
+          <input class="chartSearch" placeholder="Search for countries to compare" onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 1)}">
+        </div>
+        <div id="chartMapTitle1" class="chartMapTitle"></div>
+        <div id="chartMapInstanceContainer">
+          <div id="chartMapInstance1" class="chartMapInstance">
+              
+          </div>
+        </div>
+        <div id="highchartsContainer">
+          <div id="highchartsInstance1" class="highchartsInstance"></div>
+        </div>
       </div>
-    </div>
-    <div id="vegaInstanceContainer">
-      <div id="vegaInstance" class="vegaInstance"></div>
+      <div class="chartColumn2">
+        <div class="chartSearchTitleContainer">
+          <div class="chartSearchTitle">Country search</div>
+        </div>
+        <div class="chartSearchContainer">
+          <input class="chartSearch" placeholder="Search for countries to compare"
+            onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 2)}">
+        </div>
+        <div id="chartMapTitle2" class="chartMapTitle"></div>
+        <div id="chartMapInstanceContainer">
+          <div id="chartMapInstance2" class="chartMapInstance">
+      
+          </div>
+        </div>
+        <div id="highchartsContainer">
+          <div id="highchartsInstance2" class="highchartsInstance"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -326,9 +349,7 @@
   <!-- 3D globe -->
   <div id="sceneDiv"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vega@6.0.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://js.arcgis.com/4.32/"></script>
   <script src="script.js"></script>
 </body>

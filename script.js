@@ -5,22 +5,17 @@ var camera;
 var globeView;
 var map;
 var globeMap;
-var chart;
+var highchartValue;
 var chartInstance;
 var chartEntries = [];
 var generateChartResults;
 
-// vega specs
+// highcharts specs
 var gadm0 = [];
 var gadm0Total = [
   {
     period: 1980,
     wExposed: 0,
-    scenario: 'historical'
-  },
-  {
-    period: 1980,
-    wExposed: 0,
     scenario: 'rcp4p5'
   },
   {
@@ -31,11 +26,6 @@ var gadm0Total = [
   {
     period: 2030,
     wExposed: 0,
-    scenario: 'historical'
-  },
-  {
-    period: 2030,
-    wExposed: 0,
     scenario: 'rcp4p5'
   },
   {
@@ -46,22 +36,12 @@ var gadm0Total = [
   {
     period: 2050,
     wExposed: 0,
-    scenario: 'historical'
-  },
-  {
-    period: 2050,
-    wExposed: 0,
     scenario: 'rcp4p5'
   },
   {
     period: 2050,
     wExposed: 0,
     scenario: 'rcp8p5'
-  },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'historical'
   },
   {
     period: 2080,
@@ -76,11 +56,6 @@ var gadm0Total = [
 ];
 var gadm1 = [];
 var gadm1Total = [
-    {
-    period: 1980,
-    wExposed: 0,
-    scenario: 'historical'
-  },
   {
     period: 1980,
     wExposed: 0,
@@ -90,11 +65,6 @@ var gadm1Total = [
     period: 1980,
     wExposed: 0,
     scenario: 'rcp8p5'
-  },
-  {
-    period: 2030,
-    wExposed: 0,
-    scenario: 'historical'
   },
   {
     period: 2030,
@@ -109,22 +79,12 @@ var gadm1Total = [
   {
     period: 2050,
     wExposed: 0,
-    scenario: 'historical'
-  },
-  {
-    period: 2050,
-    wExposed: 0,
     scenario: 'rcp4p5'
   },
   {
     period: 2050,
     wExposed: 0,
     scenario: 'rcp8p5'
-  },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'historical'
   },
   {
     period: 2080,
@@ -137,76 +97,6 @@ var gadm1Total = [
     scenario: 'rcp8p5'
   }
 ];
-
-var yourVlSpec = {
-  title: {
-    text: "Weighted Exposure By Scenario",
-    anchor: "middle",
-    fontSize: "24",
-    fontWeight: 700,
-    offset: 30
-  },
-  width: "container",
-  height: "container",
-  $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-  description: 'line chart',
-  data: {
-    values: gadm0Total
-  },
-  config: {
-    legend: {
-      layout: {
-        top: {
-          anchor: "middle"
-        }
-      }
-    }
-  },
-  mark: {
-    type: "line",
-    point: "true"
-  },
-  encoding: {
-    x: {
-      field: "period",
-      type: "ordinal",
-      axis: {
-        "labelAngle": 0,
-        titlePadding: 16,
-        titleFontSize: 16,
-        labelFontSize: 12
-
-      } 
-    },
-    y: {
-      field: "wExposed",
-      type: "quantitative",
-      axis: {
-        titlePadding: 16,
-        titleFontSize: 16,
-        labelFontSize: 12
-      }
-    },
-    color: {
-      field: "scenario",
-      type: "nominal",
-      scale: {
-        range: ["blue", "green", "orange"],
-        domain: ["historical", "rcp4p5", "rcp8p5"]
-      },
-      legend: {
-        orient: "bottom",
-        direction: "horizontal",
-        title: null,
-        symbolType: "stroke",
-        symbolStrokeWidth: 3,
-        symbolSize: 300,
-        labelFontSize: 16
-      }
-    }
-  },
-
-};
 
 // ISO 3066 countries array
 const countries = [
@@ -664,10 +554,10 @@ reactiveUtils.watch(() => lgSlider.values, (value) => {
 );
 
 //CHART VIEW MAP INSTANCES
-chartInstance = (longitude, latitude) => {
+chartInstance = (longitude, latitude, position) => {
   chartEntries.push(
     new MapView({
-      container: "chartMapInstance",
+      container: `chartMapInstance${position}`,
       map: map,
       zoom: 2,
       center: [longitude, latitude],
@@ -752,7 +642,7 @@ locateAddress = (value) => {
 }
 
 //GENERATE CHART RESULTS
- generateChartResults = (value) => {
+ generateChartResults = (value, position) => {
 
   var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
@@ -774,7 +664,7 @@ locateAddress = (value) => {
       console.log(result[0]);
       const countryCode = result[0].attributes.CountryCode;
       var location = result[0].location;
-      chartInstance(location.longitude, location.latitude);
+      chartInstance(location.longitude, location.latitude, position);
 
       var whereClause = `country_abr='${countryCode}' AND Admin_Filter IN ('gadm0', 'gadm1')`;
       var queryString = `where=${encodeURIComponent(whereClause)}`;
@@ -784,6 +674,17 @@ locateAddress = (value) => {
       var hasMore = true;
 
       console.log(`Country code: ${countryCode}`);
+
+      //get country name from esri's servers
+      const worldCountriesURL = `https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/World_Countries/FeatureServer/0/query?where=ISO_CC='${countryCode}'&outFields=COUNTRY&f=json`;
+      fetch(worldCountriesURL)
+        .then(response => response.json())
+          .then(data => {
+            var chartMapTitle = document.getElementById(`chartMapTitle${position}`);
+            chartMapTitle.innerHTML = data.features[0].attributes.COUNTRY;
+            console.log(data.features[0].attributes.COUNTRY)
+          })
+
 
       async function fetchAllRecords() {
 
@@ -839,9 +740,60 @@ locateAddress = (value) => {
             console.log("gadm1Total:");
             console.log(gadm1Total);
 
-            yourVlSpec.data.values = gadm0Total;
-            vegaEmbed('#vegaInstance', yourVlSpec)
-            console.log(yourVlSpec);
+            //update highcharts chart
+            // yourVlSpec.data.values = gadm0Total;
+              //WE LEFT OFF HERE
+            var seriesArray = [{
+                name: 'rcp4p5',
+                data: []
+              },
+              {
+                name: 'rcp8p5',
+                data: []
+              }
+            ];
+
+
+            for (var i = 0; i < gadm0Total.length; i++) {
+              for (var a = 0; a < seriesArray.length; a++) {
+                if (gadm0Total[i].scenario == seriesArray[a].name) {
+                  seriesArray[a].data.push(gadm0Total[i].wExposed);
+                }
+              }
+            }
+
+            console.log('seriesArray: ');
+            console.log(seriesArray);
+
+
+            // highchartValue.series[0].setData(seriesArray);
+
+
+            //initialize highcharts
+            // vegaEmbed('#vegaInstance', yourVlSpec)
+            // console.log(yourVlSpec);
+
+              highchartValue = Highcharts.chart(`highchartsInstance${position}`, {
+                chart: {
+                  type: 'line'
+                },
+                title: {
+                  text: 'Weighted Exposure By Scenario'
+                },
+                xAxis: {
+                  title: {
+                    text: "period"
+                  },
+                  categories: [1980, 2030, 2050, 2080]
+                },
+                yAxis: {
+                  title: {
+                    text: "wExposed"
+                  }
+                },
+                series: seriesArray
+              })
+            
 
           } else {
             offset += limit;

@@ -1134,11 +1134,19 @@
 
   .chartView {
     position: absolute;
-    height: 100%;
+    height: calc(100% - 120px);
     width: 100%;
     background-color: white;
     z-index: -1;
     opacity: 0;
+    padding-top: 120px;
+    overflow: scroll;
+  }
+
+  .chartColumnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .presentView {
@@ -1176,8 +1184,6 @@
 
   .chartSearchTitleContainer {
     width: 100%;
-    position: relative;
-    top: 90px;
     display: flex;
     justify-content: center;
   }
@@ -1187,13 +1193,13 @@
     font-weight: 600;
     color: black;
     width: 90%;
+    text-align: center;
   }
 
   .chartSearchContainer {
     height: 25px;
     width: 100%;
-    position: relative;
-    top: 100px;
+    padding-top: 20px;
     display: flex;
     justify-content: center;
   }
@@ -1208,10 +1214,9 @@
   #chartMapInstanceContainer {
     height: 200px;
     width: 100%;
+    padding-top: 40px;
     display: flex;
     justify-content: center;
-    position: relative;
-    top: 200px;
   }
 
   .chartMapInstance {
@@ -1219,18 +1224,32 @@
     width: 90%;
   }
 
-  #vegaInstanceContainer {
+  .chartMapTitle {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  #highchartsContainer {
+    padding-top: 75px;
     height: 500px;
     width: 100%;
     display: flex;
     justify-content: center;
-    position: relative;
-    top: 300px;
   }
 
-  .vegaInstance {
+  .highchartsInstance {
     height: 100%;
     width: 90%;
+  }
+
+  .chartColumn1, .chartColumn2 {
+    width: 100%;
+  }
+
+  .highcharts-credits {
+    display: none;
   }
 
   @media screen and (min-width: 900px) {
@@ -1631,6 +1650,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .chartColumnContainer {
+    flex-direction: row;
+    gap: 10px;
   }
 
   }
