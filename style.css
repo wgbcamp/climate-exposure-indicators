@@ -10,6 +10,9 @@
     --mediumBlue: #0375BD;
     --lightBlue: #009CDE;
     --lightGray: #B1B3B3;
+    --selected: #002659;
+    --unselected: #6B9EE5;
+    --unselectedIcon: #002649;
   }
 
   html,
@@ -54,12 +57,11 @@
 
   .chartMapDivContainer {
     height: 40.8px;
-    width: 160px;
+    width: 180px;
     display: flex;
     align-items: center;
     margin-right: 10px;
     margin-left: 15px;
-    border-radius: 10px;
   }
 
   .chartMapDiv {
@@ -70,15 +72,17 @@
     gap: 10px;
     cursor: pointer;
     user-select: none;
-    background-color: var(--emptyShade);
+    background-color: var(--unselected);
+    font-weight: 900;
   }
 
   .mapDiv {
     height: 100%;
+    width: 100%;
     padding-right: 7px;
     padding-left: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
   }
 
   .chartDiv {    
@@ -86,14 +90,14 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     padding-left: 8px;
     padding-right: 10px;
   }
 
   .defaultSelectedButton {
-    background-color: var(--mediumBlue);
+    background-color: var(--selected);
     color: var(--emptyShade);
   }
 
@@ -107,23 +111,23 @@
 
   @keyframes animateButtonSelection {
     from{
-    background-color: var(--emptyShade);
-    color: black;
+    background-color: var(--unselected);
+    color: var(--unselectedIcon);
     }
     to {
-      background-color: var(--mediumBlue);
-      color: white;
+      background-color: var(--selected);
+      color: var(--emptyShade);
     }
   }
 
     @keyframes removeAnimateButtonSelection {
     from{
-      background-color: var(--mediumBlue);
-      color: white;
+      background-color: var(--selected);
+      color: var(--emptyShade);
     }
     to {
-      background-color: var(--fundBlue);
-      color: black;
+      background-color: var(--unselected);
+      color: var(--unselectedIcon);
     }
   }
 
@@ -1112,6 +1116,10 @@
     display: none;
   }
 
+  .lgDataLegendContainer {
+    display: none;
+  }
+
   .esri-slider__segment, .esri-slider__segment-1 {
     background-color: var(--lightGray) !important;
   }
@@ -1252,6 +1260,13 @@
     display: none;
   }
 
+  .legend {
+    position: absolute;
+    bottom: 100px;
+    right: 15px;
+    z-index: 4;
+  }
+
   @media screen and (min-width: 900px) {
     .sidebar, .hazardsSidebar, .exposuresSidebar {
       display: none
@@ -1265,18 +1280,31 @@
       display: none;
     }
 
-    .lgDataControlsContainer {
-      width: 100%;
-      height: 60px;
+    .lgDataLegendContainer {
       position: absolute;
       bottom: 15px;
       z-index: 4;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .lgLegendContainer {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+
+    .lgDataControlsContainer {
+      width: 100%;
+      height: 60px;
       display: flex;
       justify-content: center;
     }
 
     .lgDataControls {
-      height: 100%;
       width: 100%;
       max-width: 800px;
       background-color: var(--emptyShade);
@@ -1657,6 +1685,10 @@
     gap: 10px;
   }
 
+    .legend {
+      all: unset;
+      display: none;
+    }
   }
 
   @media screen and (max-height: 591px) {
@@ -1673,6 +1705,7 @@
     .dimensionControls {
       height: 40px;
     }
+
   }
 
   @media screen and (max-height: 591px) and (min-width: 900px) {
