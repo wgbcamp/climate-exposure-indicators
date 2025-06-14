@@ -822,24 +822,24 @@ reactiveUtils.watch(() => lgSlider.values, (value) => {
 );
 
 //CHART VIEW MAP INSTANCES
-chartInstance = (longitude, latitude, position) => {
-  chartEntries.push(
-    new MapView({
-      container: `chartMapInstance${position}`,
-      map: map,
-      zoom: 2,
-      center: [longitude, latitude],
-      constraints: {
-        minZoom: 3,
-        maxZoom: 10
-      },
-      spatialReference: {
-        wkid: 3857,
-        isWrappable: true
-      }
-    })
-  )
-};
+// chartInstance = (longitude, latitude, position) => {
+//   chartEntries.push(
+//     new MapView({
+//       container: `chartMapInstance${position}`,
+//       map: map,
+//       zoom: 2,
+//       center: [longitude, latitude],
+//       constraints: {
+//         minZoom: 3,
+//         maxZoom: 10
+//       },
+//       spatialReference: {
+//         wkid: 3857,
+//         isWrappable: true
+//       }
+//     })
+//   )
+// };
 
 // locateAddress function 
 locateAddress = (value) => {
@@ -932,16 +932,9 @@ locateAddress = (value) => {
     if (result.length) {
 
       console.log(result[0]);
-      const countryCode = result[0].attributes.CountryCode;
+      var countryCode = result[0].attributes.CountryCode;
       var location = result[0].location;
-      chartInstance(location.longitude, location.latitude, position);
-
-      var whereClause = `country_abr='${countryCode}' AND Admin_Filter IN ('gadm0', 'gadm1')`;
-      var queryString = `where=${encodeURIComponent(whereClause)}`;
-      var limit = 1000;
-      var offset = 0;
-      var allValues = [];
-      var hasMore = true;
+      // chartInstance(location.longitude, location.latitude, position);
 
       console.log(`Country code: ${countryCode}`);
 
@@ -956,7 +949,19 @@ locateAddress = (value) => {
           })
 
 
-      async function fetchAllRecords() {
+      async function fetchAllRecords(customQueryString, name, customPosition) {
+
+        const whereClause = `country_abr='${countryCode}' AND Admin_Filter IN ('gadm0', 'gadm1')`;
+        var queryString = `where=${encodeURIComponent(whereClause)}`;
+        var limit = 1000;
+        var offset = 0;
+        var allValues = [];
+        var hasMore = true;
+
+        if (customQueryString) {
+          document.getElementById(`chartMapTitle${position}`).innerHTML = name;
+          queryString = customQueryString;
+        }
 
         while (hasMore) {
 
@@ -973,7 +978,7 @@ locateAddress = (value) => {
           gadm1 = [];
 
           //assign mapChartArray
-          var mapChartArray = [];
+          // var mapChartArray = [];
 
           //SQL query
           const url = `https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Floods_riverine_people_all/FeatureServer/0/query?${queryString}&outFields=*&f=json&resultRecordCount=${limit}&resultOffset=${offset}`;
@@ -1037,10 +1042,22 @@ locateAddress = (value) => {
             ];
 
             // convert long data format to work in highcharts and push into seriesArray
-            for (var i = 0; i < gadm0Total.length; i++) {
-              for (var a = 0; a < seriesArray.length; a++) {
-                if (gadm0Total[i].scenario == seriesArray[a].name) {
-                  seriesArray[a].data.push(gadm0Total[i].wExposed);
+
+            // if customQueryString is specified, use gadm1 instead of gadm0
+            if (customQueryString) {
+              for (var i = 0; i < gadm1Total.length; i++) {
+                for (var a = 0; a < seriesArray.length; a++) {
+                  if (gadm1Total[i].scenario == seriesArray[a].name) {
+                    seriesArray[a].data.push(gadm1Total[i].wExposed);
+                  }
+                }
+              }
+            } else {
+              for (var i = 0; i < gadm0Total.length; i++) {
+                for (var a = 0; a < seriesArray.length; a++) {
+                  if (gadm0Total[i].scenario == seriesArray[a].name) {
+                    seriesArray[a].data.push(gadm0Total[i].wExposed);
+                  }
                 }
               }
             }
@@ -1059,6 +1076,9 @@ locateAddress = (value) => {
             console.log(seriesArray);
 
             //initialize highcharts
+            if (customQueryString) {
+              position = customPosition;
+            }
               highchartValue = Highcharts.chart(`highchartsInstance${position}`, {
                 chart: {
                   type: 'line'
@@ -1077,7 +1097,8 @@ locateAddress = (value) => {
                     text: "Population count"
                   }
                 },
-                series: seriesArray
+                series: seriesArray,
+                colors: ['#658D1B', '#910048']
               })
 
               // DEFAULT BEHAVIOR to be set with custom/world as the geojson
@@ -1143,6 +1164,8 @@ locateAddress = (value) => {
             //   mapChartValue.redraw();
             // }
 
+          if (!customQueryString) {
+
             //extract geojson data that is relevant to the selected country
             var regionalGeoJson = {
                 type: "FeatureCollection",
@@ -1157,10 +1180,20 @@ locateAddress = (value) => {
               }
 
               //extract series data that is relevant to the selected country
-              var regionalData = [];
+              var regionalData = []; 
               for (var i = 0; i < gadm1.length; i++) {
+                var existence = false;
                 if (countryCode == gadm1[i].attributes.country_abr) {
-                  regionalData.push([gadm1[i].attributes.NAME_1, gadm1[i].attributes.wExposed]);
+                  for (var a = 0; a < regionalData.length; a++) {
+                    if (regionalData[a][0] == gadm1[i].attributes.NAME_1) {
+                      existence = true;
+                      regionalData[a][1] = regionalData[a][1] + gadm1[i].attributes.wExposed;
+                      break;
+                    }
+                  }
+                  if (existence == false) {
+                    regionalData.push([gadm1[i].attributes.NAME_1, gadm1[i].attributes.wExposed]);
+                  }
                 }
               }
 
@@ -1176,6 +1209,17 @@ locateAddress = (value) => {
                 enabled: true,
                 enableDoubleClickZoomTo: false
               },
+              custom: {
+                mapIndex: position
+              },
+              tooltip: {
+                formatter: function () {
+                  return `<b>${this.point.NAME_1}</b>`;
+                },
+              },
+              legend: {
+                enabled: false
+              },
               series: [{
                 name: "Population count",
                 type: 'map',
@@ -1184,19 +1228,33 @@ locateAddress = (value) => {
                 joinBy: ['NAME_1', 0],
                 keys: ['NAME_1', 'value'],
                 point: {
-                  events: {
+                  events:  {
                     click: function () {
-
+                      loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1)  
                     }
                   }
+                    // click: loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1)  
+                    // click: console.log(this.series.chart.options)
                 },
+                color: '#0375BD',
                 states: {
                   hover: {
-                    color: '#BADA55'
+                    color: '#FF8200'
                   }
                 },
               }],
             });
+          }
+
+            // load the gadm1 information from the selected region in the map information
+            // into the line chart
+            function loadRegion(position, name) {
+
+              fetchAllRecords(`where=${encodeURIComponent(`NAME_1='${name}' AND Admin_Filter IN ('gadm1')`)}`, name, position);
+
+            }
+            
+
             // console.log("data for map");
             // console.log(mapChartArray);
 
