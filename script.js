@@ -1236,7 +1236,7 @@ locateAddress = (value) => {
                     // click: loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1)  
                     // click: console.log(this.series.chart.options)
                 },
-                color: '#0375BD',
+                color: '#009CDE',
                 states: {
                   hover: {
                     color: '#FF8200'
