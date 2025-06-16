@@ -54,16 +54,16 @@ var gadm0Total = [
     wExposed: 0,
     scenario: 'rcp8p5'
   },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'rcp4p5'
-  },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'rcp8p5'
-  }
+  // {
+  //   period: 2080,
+  //   wExposed: 0,
+  //   scenario: 'rcp4p5'
+  // },
+  // {
+  //   period: 2080,
+  //   wExposed: 0,
+  //   scenario: 'rcp8p5'
+  // }
 ];
 var gadm1 = [];
 var gadm1Total = [
@@ -97,16 +97,16 @@ var gadm1Total = [
     wExposed: 0,
     scenario: 'rcp8p5'
   },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'rcp4p5'
-  },
-  {
-    period: 2080,
-    wExposed: 0,
-    scenario: 'rcp8p5'
-  }
+  // {
+  //   period: 2080,
+  //   wExposed: 0,
+  //   scenario: 'rcp4p5'
+  // },
+  // {
+  //   period: 2080,
+  //   wExposed: 0,
+  //   scenario: 'rcp8p5'
+  // }
 ];
 
 // ISO 3066 countries array
@@ -1063,14 +1063,14 @@ locateAddress = (value) => {
             }
 
             //rename the scenarios in the seriesArray
-            for (var i = 0; i < seriesArray.length; i++) {
-              if (seriesArray[i].name == 'rcp4p5') {
-                seriesArray[i].name = 'Disorderly';
-              }
-              if (seriesArray[i].name == 'rcp8p5') {
-                seriesArray[i].name = 'Hot House'
-              }
-            }
+            // for (var i = 0; i < seriesArray.length; i++) {
+            //   if (seriesArray[i].name == 'rcp4p5') {
+            //     seriesArray[i].name = 'Disorderly';
+            //   }
+            //   if (seriesArray[i].name == 'rcp8p5') {
+            //     seriesArray[i].name = 'Hot House'
+            //   }
+            // }
             
             console.log('seriesArray: ');
             console.log(seriesArray);
@@ -1090,7 +1090,7 @@ locateAddress = (value) => {
                   title: {
                     text: "period"
                   },
-                  categories: [1980, 2030, 2050, 2080]
+                  categories: [1980, 2030, 2050]
                 },
                 yAxis: {
                   title: {
@@ -1229,19 +1229,30 @@ locateAddress = (value) => {
                 keys: ['NAME_1', 'value'],
                 point: {
                   events:  {
-                    click: function () {
-                      loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1)  
+                    click: function (event) {
+                      loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1);  
+                      event.point.select(!event.point.selected);
+
+                      chart.series[0].points.forEach(function (point) {
+                        if (!point.selected) {
+                          // point.update({ color: 'pink'})
+                        } else {
+                          // point.update({ color: 'green'})
+                        }
+                      })
                     }
                   }
-                    // click: loadRegion(this.series.chart.options.custom.mapIndex, this.point.NAME_1)  
-                    // click: console.log(this.series.chart.options)
                 },
                 color: '#009CDE',
                 states: {
                   hover: {
+                    color: '#0375BD'
+                  },
+                  select: {
                     color: '#FF8200'
                   }
                 },
+                allowPointSelect: true
               }],
             });
           }
@@ -1751,8 +1762,8 @@ const hover = (value) => {
   }
 }
 
-const hazards = ["Riverine Flooding", "Coastal Flooding"];
-const exposures = ["Buildings", "GDP", "Urban GDP", "Population"];
+const hazards = ["Riverine Flooding", "Coastal Flooding", "Heat Stress", "Frost", "Urban Heatwave", "Drought", "Extreme Precipitation"];
+const exposures = ["Buildings", "Cropland", "GDP", "Urban GDP", "Population"];
 
 const toggleHoverOptions = (value) => {
   var dataSidebarTitle = document.getElementById('dataSidebarTitle');
