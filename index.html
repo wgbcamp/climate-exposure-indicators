@@ -44,62 +44,52 @@
       <div class="lgSidebarTitle">
         Data
       </div>
-      <div class="lgSidebarElement">
-        <i class=" fa-solid fa-water fa-xl"></i>
+      <div class="lgSidebarIcon">
+        <i class=" fa-solid fa-water fa-xl" onclick="toggleHoverOptions('HAZARDS')"></i>
       </div>
-      <div class="lgSidebarElement">
-        <i class=" fa-solid fa-house-crack fa-xl"></i>
-      </div>
-      <div class="lgSidebarElement" onclick="toggleSearchBar()">
+      <div class="lgSidebarIcon" onclick="toggleSearchBar()">
         <i class=" fa-solid fa-magnifying-glass fa-xl"></i>
       </div>
-      <div class="lgSidebarElement">
-        <i class=" fa-solid fa-arrows-rotate fa-xl"></i>
+      <div class="lgSidebarIcon">
+        <i class=" fa-solid fa-arrows-rotate fa-xl" onclick="toggleHoverOptions('Exposures')"></i>
       </div>
-      <div class="lgSidebarElement ">
-        <i class=" fa-solid fa-scale-unbalanced fa-xl"></i>
-      </div>
-      <div class="lgSidebarElement ">
-        <i class=" fa-solid fa-database fa-xl"></i>
+      <div class="lgSidebarIcon">
+        <i class=" fa-solid fa-database fa-xl" onclick="toggleHoverOptions('Exposures')"></i>
       </div>
     </div>
     <div class="lgSidebarCol" id="col2">
       <div class="lgSidebarTitle">
       </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Hazards')">
-        <div>Hazards</div>
+      <div class="lgSidebarElement" onclick="toggleHoverOptions('HAZARDS')">
+        <div class="lgSidebarElementText">Hazards</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
-        <div>Exposures</div>
+      <div class="lgSidebarElement" onclick="toggleSearchBar()">
+        <div class="lgSidebarElementText">Search</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleSearchBar()">
-        <div>Search</div>
+      <div class="lgSidebarElement" onclick="toggleHoverOptions('Exposures')">
+        <div class="lgSidebarElementText">Live</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
-        <div>Live</div>
-        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
-      </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
-        <div>Compare</div>
-        <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
-      </div>
-      <div class="lgSidebarElement lgSidebarText" onclick="toggleHoverOptions('Exposures')">
-        <div>Data Sources</div>
+      <div class="lgSidebarElement" onclick="toggleHoverOptions('Exposures')">
+        <div class="lgSidebarElementText">Data Sources</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
     </div>
   </div>
   <div id="dataSidebar" class="lgSidebar">
-      <div>
-        <div class="lgSidebarElement lgSidebarText">
-          <div id="dataSidebarTitle"></div>
-          <i class="fa-solid fa-xmark fa-lg padIconRight" onclick="concealHoverOptions()"></i>
+        <div class="dataSidebarElement">
+          <div id="dataSidebarTitle">HAZARDS</div>
+          <div class="alignDataXmark">
+            <i class="fa-solid fa-xmark fa-lg" onclick="concealHoverOptions()"></i>
+          </div>
         </div>
-      </div>
-      <div id="dataSidebarElements"></div>
+        <div class="lgSidebarTitleBorderContainer">
+          <div class="lgSidebarTitleBorder"></div>
+        </div>
+        <div class="hazardsList" id="dataSidebarElements">
+        </div>
   </div>
 
   <!-- This is the sidebar for small width screens -->
@@ -135,13 +125,6 @@
       <div class="riskFactorChoiceNest">
         <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-arrows-rotate fa-xl"></i>
         <div class="choiceTitle">Live</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
-    </div>
-    <div class="riskFactorChoiceContainer" onclick="">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-scale-unbalanced fa-xl"></i>
-        <div class="choiceTitle">Compare</div>
       </div>
       <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
     </div>

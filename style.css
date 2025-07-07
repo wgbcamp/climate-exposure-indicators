@@ -13,6 +13,7 @@
     --selected: #002659;
     --unselected: #6B9EE5;
     --unselectedIcon: #002649;
+    --backgroundExposure: rgb(229, 235, 241);
   }
 
   html,
@@ -1429,7 +1430,7 @@
 
     .lgSidebar {
       top: 59px;
-      height: calc(100% - 59px);
+      height: calc(100% - 61px);
       position: absolute;
       background-color: var(--emptyShade);
       z-index: 10;
@@ -1438,6 +1439,22 @@
       flex-direction: row;
       overflow: hidden;
       gap: 0px;
+    }
+
+    .dataSidebarElement {
+      height: 70px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-right: 25px;
+      padding-bottom: 15px;
+    }
+
+    .alignDataXmark {
+      display: flex;
+      align-items: center;
+      height: 28px;
+      cursor: pointer;
     }
 
     @keyframes revealDataSidebar {
@@ -1469,14 +1486,19 @@
     
 
     #dataSidebar {
-      left: -350px;
-      width: 280px;
+      /* left: -350px */
+      left: 500px;
+      width: 350px;
       flex-direction: column;
-      padding-left: 70px;
+      border-bottom: 2px solid green;
     }
 
     #dataSidebarTitle {
       justify-content: flex-start;
+      align-items: flex-end;
+      font-weight: bold;
+      padding-left: 25px;
+      cursor: default;
     }
 
     .closeMenu {
@@ -1525,19 +1547,150 @@
       width: 100%;
     }
 
+    .lgSidebarIcon {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      cursor: pointer;
+    }
+
     .lgSidebarElement {
       height: 70px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
+      width: 250px;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .lgSidebarText {
-      width: 250px;
+    .lgSidebarElementText {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 300px;
+    }
+
+    
+
+    .lgSidebarTitleBorderContainer {
+      display: flex;
+      justify-content: center;
+      height: 2px;
+      width: 100%;
+    }
+
+    .lgSidebarTitleBorder {
+      height: 2px;
+      width: 95%;
+      background-color: var(--lightGray);
+    }
+
+    .hazardsList {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 20px;
+
+    }
+
+    .hazardsFlex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 25px;
+      padding-right: 20px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .hazards {
+      font-size: 18px;
+    }
+
+    .hazardContainer {
+      user-select: none;
+    }
+
+    .hazardExpanded {
+      background-color: var(--backgroundExposure);
+      color: var(--fundBlue);
+      font-weight: bold;
+      padding-bottom: 0px;
+      padding-top: 10px;
+    }
+
+    .exposureContainer {
+      height: 0px;
+      overflow: hidden;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .exposureTitle {
+      font-size: 16px;
+      padding-left: 45px;
+      color: var(--lightGray);
+      font-weight: bold;
+      cursor: default;
+    }
+
+    .exposures {
+      padding-left: 45px;
+      cursor: pointer;
+      font-weight: 300;
+      color: var(--black);
+    }
+
+    .unhideExposure {
+      animation: unhideExposure 0.1s ease-out forwards;
+
+    }
+
+    @keyframes unhideExposure {
+      from {
+        height: 0px;
+        margin-bottom: 50px;
+      }
+      to {
+        height: 310px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .hideExposure {
+      animation: hideExposure 0.1s ease-in forwards;
+    }
+
+    @keyframes hideExposure {
+      from {
+        height: 310px;
+        margin-bottom: 20px;
+      }
+      to {
+        height: 0px;
+        margin-bottom: 0px;
+      }
     }
 
     .padIconRight {
       padding-right: 15px;
+      cursor: pointer;
+    }
+
+    .alignToggleIcon {
+      display: flex;
+      align-items: center;
+      height: 20px;
+      width: 20px;
+      border-radius: 20px;
+      justify-content: center;
+      background-color: white;
     }
 
     @keyframes revealHoverMenu {

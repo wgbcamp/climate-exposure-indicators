@@ -1762,7 +1762,7 @@ const hover = (value) => {
   }
 }
 
-const hazards = ["Riverine Flooding", "Coastal Flooding", "Heat Stress", "Frost", "Urban Heatwave", "Drought", "Extreme Precipitation"];
+const hazards = ["Heat stress", "Urban heatwave", "Riverine flood", "Coastal flood", "Drought", "Sea level"];
 const exposures = ["Buildings", "Cropland", "GDP", "Urban GDP", "Population"];
 
 const toggleHoverOptions = (value) => {
@@ -1773,19 +1773,30 @@ const toggleHoverOptions = (value) => {
   dataSidebarElements.innerHTML = '';
 
   var array;
-  if (value === 'Hazards') {
+  if (value === 'HAZARDS') {
     array = hazards;
-  } else if (value === 'Exposures') {
-    array = exposures;
-  }
+  } 
 
   for (var i=0; i<array.length; i++) {
     var node = document.createElement('div');
     node.innerHTML = `
-    <div class="lgSidebarElement lgSidebarText">
-      <div>${array[i]}</div>
-      <i class="fa-solid fa-chevron-right fa-lg padIconRight"></i>
-    </div>`;
+      <div class="hazardContainer hazardCollapsed PLACEHOLDER">
+        <div class="hazardsFlex" onclick="toggleExposures('reveal', '${array[i]}')">
+          <div class="hazards">${array[i]}</div>
+          <div class="alignToggleIcon">
+            <i class="fa-solid fa-plus fa-xs exposurePlusMinus"></i>
+          </div>
+        </div>
+        <div class="exposureContainer ${array[i].replace(" ", "")}">
+          <div class="exposureTitle">EXPOSURES</div>
+          <div class="exposures">${exposures[0]}</div>
+          <div class="exposures">${exposures[1]}</div>
+          <div class="exposures">${exposures[2]}</div>
+          <div class="exposures">${exposures[3]}</div>
+          <div class="exposures">${exposures[4]}</div>
+        </div>
+      </div>
+      `;
     dataSidebarElements.appendChild(node);
   }
 
@@ -1820,6 +1831,37 @@ window.addEventListener("resize", () => {
     exposuresSidebar.classList.replace('enableSidebar', 'defaultSidebar');
   }
 })
+
+const toggleExposures = (status, identifier) => {
+
+  var exposureDivs = document.querySelectorAll('div.exposureContainer');
+  var symbolDivs = document.querySelectorAll('i.exposurePlusMinus');
+  var hazardDivs = document.querySelectorAll('div.hazardContainer');
+  var targetDivs = document.querySelectorAll(`.${identifier.replace(" ", "").toString()}`);
+  console.log(exposureDivs);
+  for (var i = 0; i < exposureDivs.length; i++) {
+    if (exposureDivs[i].classList.contains(`${identifier.replace(" ", "").toString()}`) && exposureDivs[i].classList.contains('unhideExposure')) {
+      exposureDivs[i].classList.add('hideExposure');
+      exposureDivs[i].classList.remove('unhideExposure');
+      symbolDivs[i].classList.replace('fa-minus', 'fa-plus');
+      hazardDivs[i].classList.replace('hazardExpanded', 'hazardCollapsed');
+    } else if (exposureDivs[i].classList.contains(`${identifier.replace(" ", "").toString()}`) && exposureDivs[i].classList.contains('hideExposure')) {
+      exposureDivs[i].classList.add('unhideExposure');
+      exposureDivs[i].classList.remove('hideExposure');
+      symbolDivs[i].classList.replace('fa-plus', 'fa-minus');
+      hazardDivs[i].classList.replace('hazardCollapsed', 'hazardExpanded');
+    } else if (exposureDivs[i].classList.contains(`${identifier.replace(" ", "").toString()}`)) {
+      exposureDivs[i].classList.add('unhideExposure');
+      symbolDivs[i].classList.replace('fa-plus', 'fa-minus');
+      hazardDivs[i].classList.replace('hazardCollapsed', 'hazardExpanded');
+    } else if (exposureDivs[i].classList.contains('unhideExposure')) {
+      exposureDivs[i].classList.add('hideExposure');
+      exposureDivs[i].classList.remove('unhideExposure');
+      symbolDivs[i].classList.replace('fa-minus', 'fa-plus');
+      hazardDivs[i].classList.replace('hazardExpanded', 'hazardCollapsed');
+    }
+  }
+}
 
 showCountryList();
 
