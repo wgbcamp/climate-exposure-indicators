@@ -1486,8 +1486,7 @@
     
 
     #dataSidebar {
-      /* left: -350px */
-      left: 500px;
+      left: -350px;
       width: 350px;
       flex-direction: column;
       border-bottom: 2px solid green;
