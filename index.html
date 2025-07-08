@@ -5,61 +5,65 @@
   <title>Global Exposure Indicators</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, interactive-widget=resizes-content" />
   <meta name="description" content="" />
+  <!-- ArcGIS 4 theme -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+  <!-- FontAwesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>  
+  <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body class="removeOutline">
-
-  <!-- This is the header bar -->
-    <div class="header">
-      <div class="headerSection1">
-          <div class="sidebarButton" onclick="toggleSidebar()">
-            <i class="fa-solid fa-sliders fa-lg"></i>
-          </div>
-          <div class="imfLogo">IMF</div>
-          <div class="title">Global Exposure Indicators</div>
-      </div>
-      <div class="headerSection2">
-          <div class="chartMapDivContainer">
-            <div id="mapDiv" class="chartMapDiv mapDiv cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
-              <i class="fa-solid fa-globe fa-lg"></i>
-              <div class="chartMapText">Map</div>
-            </div>
-            <div id="chartDiv" class="chartMapDiv chartDiv cmID" onclick="toggleMapChart(this.id)">
-              <i class="fa-solid fa-chart-line"></i>
-              <div class="chartMapText">Chart</div>
-            </div>
-          </div>
-      </div>
+  <div id="header" class="header absolute flex justify-between items-center z-20 h-61 w-full pt-5 pb-5 bg-(--fundBlue) shadow-[0_3px_6px_rgba(0,0,0,0.16)] shadow-[0_3px_6px_rgba(0,0,0,0.23)]">
+    <div class="flex items-center w-full  sm:min-w-200">
+        <div id="headerSidebarButton" class="text-white mr-15 ml-15 cursor-pointer md:hidden" onclick="toggleSidebar()">
+          <i class="fa-solid fa-sliders fa-lg"></i>
+        </div>
+        <div id="headerTitleText" class="text-white w-70 flex justify-center items-center font-[900] text-[18px] h-7/10 font-[Inter] font-sans cursor-pointer">IMF</div>
+        <div id="headerTitleText" class="text-white w-300 flex justify-start items-center font-[700] text-[12px] md:text-[18px] h-7/10 font-[Inter] font-sans cursor-default border-solid border-white border-l-2 pl-10 ml-2">Global Exposure Indicators</div>
     </div>
-  <div class="default" id="countrySelector" onclick="showCountryList()" onkeydown="if(event.key === 'Enter'){showCountryList()};"></div>
+    <div id="chartMapButtons" class="flex justify-end w-650 mr-15">
+        <div class="flex md:justify-center sm:justify-end items-center h-40 sm:w-auto md:w-180 mr-10">
+          <div id="mapDiv" class="h-full pl-10 pr-7 rounded-l-[15px] text-(--black) font-[900] flex items-center gap-10 cursor-pointer select-none bg-(--unselected) cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
+            <i class="fa-solid fa-globe fa-lg"></i>
+            <div class="hidden sm:block">Map</div>
+          </div>
+          <div id="chartDiv" class="h-full flex justify-center items-center gap-10 rounded-r-[15px] pl-8 pr-10 cursor-pointer select-none bg-(--unselected) font-[900] text-(--black) chartDiv cmID" onclick="toggleMapChart(this.id)">
+            <i class="fa-solid fa-chart-line"></i>
+            <div class="hidden sm:block">Chart</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+    <!-- Indicator for the currently selected hazard & exposure -->
+
 
   <!--This is the sidebar for screens 900px and above -->
-  <div id="lgSidebar" class="lgSidebar" onmouseenter="hover('enter')" onmouseleave="hover('exit')">
-    <div class="lgSidebarCol" id="col1">
-      <div class="lgSidebarTitle">
+  <div id="lgSidebar" class="h-full flex flex-row absolute top-59 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0" onmouseenter="hover('enter')" onmouseleave="hover('exit')">
+    <div id="col1" class="flex flex-col items-center w-70">
+      <div id="lgSidebarTitle" class="font-[800] text-[16px] flex justify-center items-center h-70 w-full">
         Data
       </div>
-      <div class="lgSidebarIcon">
+      <div class="h-70 flex items-center justify-around w-full cursor-pointer">
         <i class=" fa-solid fa-water fa-xl" onclick="toggleHoverOptions('HAZARDS')"></i>
       </div>
-      <div class="lgSidebarIcon" onclick="toggleSearchBar()">
+      <div class="h-70 flex items-center justify-around w-full cursor-pointer" onclick="toggleSearchBar()">
         <i class=" fa-solid fa-magnifying-glass fa-xl"></i>
       </div>
-      <div class="lgSidebarIcon">
+      <div class="h-70 flex items-center justify-around w-full cursor-pointer">
         <i class=" fa-solid fa-arrows-rotate fa-xl" onclick="toggleHoverOptions('Exposures')"></i>
       </div>
-      <div class="lgSidebarIcon">
+      <div class="h-70 flex items-center justify-around w-full cursor-pointer">
         <i class=" fa-solid fa-database fa-xl" onclick="toggleHoverOptions('Exposures')"></i>
       </div>
     </div>
-    <div class="lgSidebarCol" id="col2">
-      <div class="lgSidebarTitle">
-      </div>
+    <div id="col2" class="flex flex-col items-start w-0">
+      <div class="h-70 w-full"></div>
       <div class="lgSidebarElement" onclick="toggleHoverOptions('HAZARDS')">
         <div class="lgSidebarElementText">Hazards</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>

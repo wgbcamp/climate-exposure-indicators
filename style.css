@@ -1,6 +1,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
   :root {
+    --spacing: 1px;
     --blackGlass: rgba(8, 8, 8, 0.5);
     --glass: rgba(29, 29, 29, 0.7);
     --fundBlue: #004C97;
@@ -56,27 +57,6 @@
     height: calc(100% - 10px);
   }
 
-  .chartMapDivContainer {
-    height: 40.8px;
-    width: 180px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    margin-left: 15px;
-  }
-
-  .chartMapDiv {
-    width: 80px;
-    color: var(--black);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
-    background-color: var(--unselected);
-    font-weight: 900;
-  }
-
   .mapDiv {
     height: 100%;
     width: 100%;
@@ -84,17 +64,6 @@
     padding-left: 10px;
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
-  }
-
-  .chartDiv {    
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding-left: 8px;
-    padding-right: 10px;
   }
 
   .defaultSelectedButton {
@@ -130,32 +99,6 @@
       background-color: var(--unselected);
       color: var(--unselectedIcon);
     }
-  }
-
-  .header {
-    height: 51px;
-    width: 100%;
-    background-color: var(--fundBlue);
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 20;
-  }
-
-  .header2 {
-    height: 56px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background-color: var(--emptyShade);
-    z-index: 6;
-    position: absolute;
-    top: 61px;
   }
 
   .searchIcon {
@@ -588,20 +531,6 @@
     }
   }
 
-  .imfLogo {
-    color: white;
-    width: 70px;
-    display: flex;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 18px;
-    height: 70%;
-    display: flex;
-    align-items: center;
-    font-family: "Inter", sans-serif;
-    cursor: default;
-  }
-
   .fontawesome25px {
     width: 25px;
     cursor: pointer;
@@ -667,30 +596,10 @@
     height: 55%;
   }
 
-  /* .gradientTitleContainer {
-    font-size: 10px;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-  } */
-/* 
-  .gradientContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 12px;
-  } */
-
   .riskGradient {
     background: linear-gradient(90deg, #FEE130 0%, #CD6F8F 100%);
     width: 90%;
     height: 7px;
-  }
-
-  .countrySelector {
-    all: unset;
-    font-size: 0px;
   }
 
   .title {
@@ -708,13 +617,6 @@
     border-left: 2px solid white;
     padding-left: 10px;
     margin-left: 2px;
-  }
-
-  .sidebarButton {
-    color: white;
-    margin-left: 15px;
-    margin-right: 10px;
-    cursor: pointer;
   }
 
   .sidebar {
@@ -970,20 +872,6 @@
     padding-left: 15px;
   }
 
-  .headerSection1 {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-width: 380px;
-  }
-
-  .headerSection2 {
-    display: flex;
-    justify-content: flex-end;
-    width: 650px;
-    margin-right: 15px;
-  }
-
   .searchSidebar {
     position: absolute;
     top: 59px;
@@ -1098,10 +986,6 @@
   }
 
   .searchButtonContainer {
-    display: none;
-  }
-
-  .lgSidebar {
     display: none;
   }
 
@@ -1398,10 +1282,6 @@
       height: 30px;
     }
 
-    .header2 {
-      display: none;
-    }
-
     @keyframes growLgSidebar {
       from {
         width: 70px;
@@ -1519,40 +1399,6 @@
     .row2 {
       border-top: 1px solid rgb(60, 60, 60);
       gap: 10px;
-    }
-
-    .lgSidebarCol {
-      display: flex;
-      flex-direction: column;
-    }
-
-    #col1 {
-      width: 70px;
-      align-items: center;
-    }
-
-    #col2 {
-      align-items: flex-start;
-      width: 0px;
-    }
-
-    .lgSidebarTitle {
-      font-weight: 800;
-      font-size: 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 70px;
-      width: 100%;
-    }
-
-    .lgSidebarIcon {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      width: 100%;
-      cursor: pointer;
     }
 
     .lgSidebarElement {
@@ -1833,10 +1679,6 @@
       width: 550px;
     }
 
-    .sidebarButton {
-      display: none;
-    }
-
     .hazardsSidebar {
       top: 59px;
       width: 550px;
@@ -1918,14 +1760,6 @@
     .title {
       font-size: 12px;
     }
-
-    .headerSection1 {
-      min-width: 260px;
-    }
-
-    .chartMapDivContainer {
-      justify-content: flex-end;
-    }
   }
 
   .legendSizeLimiter {
@@ -1940,10 +1774,6 @@
 
     .chartMapText {
       display: none;
-    }
-
-    .headerSection2, .chartMapDivContainer {
-      width: unset;
     }
   }
 
@@ -1964,27 +1794,6 @@
       margin-right: 12px;
     }
 
-    .countrySelector {
-      position: absolute;
-      top: 75px;
-      right: 7px;
-      height: 280px;
-      width: 197px;
-      background-color: rgb(45, 45, 45);
-      border-radius: 30px;
-      overflow-y: scroll;
-      scrollbar-width: none;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      font-size: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      animation: fadeIn 0.1s forwards;
-      z-index: 3;
-      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    }
-
     @keyframes fadeIn {
       from {
           transform: scale(0%)
@@ -2001,25 +1810,6 @@
       to {
           transform: scale(0%)
       }
-    }
-
-    .noCountrySelector {
-      position: absolute;
-      top: 75px;
-      right: 7px;
-      height: 280px;
-      width: 197px;
-      background-color: rgb(45, 45, 45);
-      border-radius: 30px;
-      overflow-y: scroll;
-      scrollbar-width: none;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      font-size: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      animation: fadeOut 0.1s forwards;
     }
 
     .countryText {

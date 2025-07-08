@@ -1784,7 +1784,7 @@ const toggleHoverOptions = (value) => {
         <div class="hazardsFlex" onclick="toggleExposures('reveal', '${array[i]}')">
           <div class="hazards">${array[i]}</div>
           <div class="alignToggleIcon">
-            <i class="fa-solid fa-plus fa-xs exposurePlusMinus"></i>
+            <i class="fa-solid fa-plus fa-xs styleToggleIcon exposurePlusMinus"></i>
           </div>
         </div>
         <div class="exposureContainer ${array[i].replace(" ", "")}">
