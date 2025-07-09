@@ -1409,21 +1409,21 @@ const updateThumbLabel = (value) => {
 // when a data control is clicked, remove or add class
 var bgStatus = true;
 const toggleData = (value) => {
-  var list = document.querySelectorAll('div.sliderControls, div.scenarioDiv');
+  var list = document.querySelectorAll('div#sliderControls, div#scenarioDiv');
   var background = document.getElementById('dataOptionsContainer');
   var elementVisible = false;
  
   for (var i=0; i<list.length; i++){
-    if (list[i].classList.contains(value) && !list[i].classList.contains('unfadeDataButtons')) {
+    if (list[i].id == value && !list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('unfadeDataButtons');
       list[i].style.pointerEvents = 'auto';
       list[i].classList.remove('fadeDataButtons');
       elementVisible = true;
-    } else if (list[i].classList.contains(value) && list[i].classList.contains('unfadeDataButtons')) {
+    } else if (list[i].id == value && list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('fadeDataButtons');
       list[i].style.pointerEvents = 'none';
       list[i].classList.remove('unfadeDataButtons');
-    } else if (!list[i].classList.contains(value) && list[i].classList.contains('unfadeDataButtons')) {
+    } else if (list[i].id !== value && list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('fadeDataButtons');
       list[i].style.pointerEvents = 'none';
       list[i].classList.remove('unfadeDataButtons');
@@ -1441,12 +1441,13 @@ const toggleData = (value) => {
 
 // toggleScenario
 const applyScenario = (value) => {
-  var list = document.querySelectorAll('div.scenario');
+  var list = document.querySelectorAll('div#scenarioDiv div');
+  console.log(list);
   for (var i=0; i<list.length; i++) {
     if (list[i].classList.contains('activeScenario')) {
       list[i].classList.remove('activeScenario');
     }
-    if (list[i].classList.contains(value)) {
+    if (list[i].id == value) {
       list[i].classList.add('activeScenario');
     }
   }
@@ -1489,7 +1490,7 @@ const toggleSearchBar = () => {
   var sidebar = document.getElementById('sidebar');
   var dataControls = document.getElementById('dataControls');
   var dataOptionsContainer = document.getElementById('dataOptionsContainer');
-  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
+  var dataDivs = document.querySelectorAll('div#scenario, div#sliderControls');
 
   var searchButtonContainer = document.getElementById('searchButtonContainer');
 

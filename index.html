@@ -120,36 +120,35 @@
 
 
   <!-- These are the data controls for small width screens -->
-  <div id="dataControls" class="dataControls">
-      <div tabindex="0" class="dataButtonContainer" onclick="toggleData('scenariosElement')">
-        <div class="dataIconContainer">
+  <div id="dataControls" class="h-55 w-full fixed bottom-0 flex sm:hidden rounded-t-[10px] justify-around items-center bg-(--emptyShade) pt-3 pb-3 z-5 font-[Inter] font-sans font-[400] not-italic ">
+      <div tabindex="0" class="flex flex-col cursor-pointer" onclick="toggleData('scenarioDiv')">
+        <div class="h-25 flex justify-center items-center">
           <i class="fa-solid fa-bolt fa-lg fontawesome25px"></i>
         </div>  
-        <div class="dataName">Scenarios</div>
+        <div class="pt-4 text-[12px]">Scenarios</div>
       </div>
-      <div tabindex="0" class="dataButtonContainer">
-        <div class="dataIconContainer">
+      <div tabindex="0" class="flex flex-col cursor-pointer">
+        <div class="h-25 flex justify-center items-center">
           <i class="fa-solid fa-layer-group fa-lg fontawesome25px"></i>
         </div>
-        <div class="dataName">Indicators</div>
+        <div class="pt-4 text-[12px]">Indicators</div>
       </div>
-      <div tabindex="0" class="dataButtonContainer" onclick="toggleData('timelineElement')">
-        <div class="dataIconContainer">
+      <div tabindex="0" class="flex flex-col cursor-pointer" onclick="toggleData('sliderControls')">
+        <div class="h-25 flex justify-center items-center">
           <i class="fa-solid fa-timeline fa-lg fontawesome25px"></i>
         </div>
-        <div class="dataName">Timeline</div>
+        <div class="pt-4 text-[12px]">Timeline</div>
       </div>
     </div>
-    <div id="dataOptionsContainer" class="dataOptionsContainer timelineElement">
-      <div id="sliderControls" class="sliderControls timelineElement">
-        <div class="sliderThumbLabel  timelineElement" id="sliderThumbLabel">1980</div>
-        <div id="sliderDiv"></div>
+    <div id="dataOptionsContainer" class="h-61 w-full flex justify-center items-start fixed bottom-0 rounded-t-[10px] sm:hidden bg-(--emptyShade) z-1">
+      <div id="sliderControls" class="h-75 w-8/10 flex absolute bottom-55 z-3 pointer-events-none opacity-0">
+        <div id="sliderThumbLabel" class="h-75 w-2/10 left-0 flex justify-center items-center cursor-default z-2 rounded-tl-[10px] text-[20px] font-[600] ">1980</div>
+        <div id="sliderDiv" class="h-35 w-7/10 text-white z-2 bg-transparent"></div>
       </div>
-      <div id="scenarioDiv" class="scenarioDiv scenariosElement default">
-        <div class="scenario baseline" onclick="applyScenario('baseline')">Baseline</div>
-        <!-- <div class="scenario orderly" onclick="applyScenario('orderly')">Orderly</div> -->
-        <div class="scenario disorderly activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
-        <div class="scenario hotHouse" onclick="applyScenario('hotHouse')">Hot House</div>
+      <div id="scenarioDiv" class="w-full h-75 z-2 flex justify-center items-center gap-8 pointer-events-none cursor-pointer opacity-0 absolute bottom-55 default">
+        <div id="baseline" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]" onclick="applyScenario('baseline')">Baseline</div>
+        <div id="disorderly" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600] activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
+        <div id="hotHouse" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]" onclick="applyScenario('hotHouse')">Hot House</div>
       </div>
     </div>
 
