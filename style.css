@@ -42,30 +42,6 @@
     z-index: -10;
   }
 
-  .mapControlsFlexbox {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mapControlsContainer {
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
-  }
-
-  .mapDiv {
-    height: 100%;
-    width: 100%;
-    padding-right: 7px;
-    padding-left: 10px;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
-  }
-
   .defaultSelectedButton {
     background-color: var(--selected);
     color: var(--emptyShade);
@@ -73,10 +49,6 @@
 
   .selectedButton {
     animation: animateButtonSelection 0.1s ease-in forwards;
-  }
-
-  .removeSelectedButton {
-    animation: removeAnimateButtonSelection 0.1s ease-in forwards;
   }
 
   @keyframes animateButtonSelection {
@@ -88,156 +60,6 @@
       background-color: var(--selected);
       color: var(--emptyShade);
     }
-  }
-
-    @keyframes removeAnimateButtonSelection {
-    from{
-      background-color: var(--selected);
-      color: var(--emptyShade);
-    }
-    to {
-      background-color: var(--unselected);
-      color: var(--unselectedIcon);
-    }
-  }
-
-  .searchIcon {
-    height: 0;
-  }
-
-  .searchIcon:hover {
-    animation: hoverIn 0.5s forwards;
-    border-radius: 40px;
-  }
-
-  @keyframes hoverIn {
-    from {
-      background-color: var(--emptyShade);
-    }
-    to {
-      background-color: var(--lightGray);
-    }
-  }
-
-  .searchField {
-    font-size: 16px;
-    color: white;
-    background-color: rgba(45, 45, 45, 0);  
-    margin-right: 35px;  
-    border: unset;
-    outline: none;
-    width: 80%;
-  }
-
-  .emptySpace {
-    width: 100%;
-  }
-
-  .largeWidthSearchBar {
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: var(--glass);
-    height: 40.8px;
-    width: 75%;
-    border-radius: 10px;
-    padding-right: 10px;
-    margin-right: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
-  }
-
-  .largeWidthSearchIcon {
-    color: white;
-  }
-
-  .largeWidthSearchField {
-    background-color: rgba(255, 0, 0, 0);
-    background: transparent;
-    font-size: 16px;
-    color: white;
-    margin-left:10px;
-    margin-right: 35px;  
-    border: unset;
-    outline: none;
-    width: 80%;
-    height: 100%;
-  }
-
-  .countryListContainer {
-    position: fixed;
-    top: 45px;
-    width: 100%;
-    z-index: 6;
-    display: flex;
-    justify-content: flex-end;
-
-  }
-
-  .countryList {
-    /* 42.8 */
-    height: 300px;
-    width: 50px;
-    margin-right: 15px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    backdrop-filter: saturate(180%) blur(20px); 
-    background-color: red;
-  }
-
-  .smallWidthSearchBar {
-    background-color: var(--emptyShade);
-    height: 40.8px;
-    width: 75%;
-    border-radius: 10px;
-    padding-right: 10px;
-    margin-right: 15px;
-    display: flex;
-    align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
-    overflow: hidden;
-  }
-
-  .smallWidthSearchIcon {
-    color: var(--black);
-    padding-left: 10px;
-  }
-
-  .smallWidthSearchField {
-    background-color: rgba(255, 0, 0, 0);
-    background: transparent;
-    font-size: 16px;
-    color: var(--black);
-    margin-left:10px;
-    margin-right: 35px;  
-    border: unset;
-    outline: none;
-    width: 80%;
-    height: 100%;
-  }
-
-  .countryIcon {
-    height: 0;
-    width: 0;
-    opacity: 0;
-  }
-
-  .countryText {
-    opacity: 0;
-    width: 0;
-    font-size: 0px;
-  }
-
-  .countryMapChartContainer {
-    display: flex;
-  }
-
-  .imfContainer {
-    font-weight: 900;
-    border-right: 2px solid white;
-    padding-right: 5px;
-    margin-right: 5px;
   }
 
   .viewControlsContainer {
@@ -536,101 +358,6 @@
     cursor: pointer;
   }
 
-  .topRow {
-    height: 40%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .blank {
-    height: 100%;
-    width: 50%;
-  }
-
-  .dimensions {
-    height: 100%;
-    width: 40%;
-    max-width: 175px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 800;
-    background-color: white;
-    box-shadow: 0px 4px 20px 0px #0000002E;
-  }
-
-  .mapDimensions {
-    font-size: 16px;
-    height: 100%;
-    width: 40%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .granularity {
-    height: 100%;
-    width: 55%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .bottomRow {
-    width: 100%;
-    height: 60%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-
-
-  .riskLevelContainer {
-    background-color: white;
-    box-shadow: 0px 4px 20px 0px #0000002E;
-    width: 40%;
-    max-width: 175px;
-    height: 55%;
-  }
-
-  .riskGradient {
-    background: linear-gradient(90deg, #FEE130 0%, #CD6F8F 100%);
-    width: 90%;
-    height: 7px;
-  }
-
-  .title {
-    color: white;
-    width: 300px;
-    display: flex;
-    justify-content: start;
-    font-weight: 700;
-    font-size: 18px;
-    height: 70%;
-    display: flex;
-    align-items: center;
-    font-family: "Inter", sans-serif;
-    cursor: default;
-    border-left: 2px solid white;
-    padding-left: 10px;
-    margin-left: 2px;
-  }
-
-  .sidebar {
-    position: absolute;
-    top: 59px;
-    height: calc(100% - 59px);
-    width: 100%;
-    z-index: 5;
-    background-color: white;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-
   .defaultSidebar {
     transform: translateX(-100vw);
   }
@@ -691,283 +418,12 @@
     }
   }
 
-  .riskFactorTitleContainer {
-    display: flex;
-  }
-
-  .riskFactorTitle {
-    height: 50px;
-    width: 100%;
-    color: var(--black);
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--lightGray);
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: default;
-  }
-
-  .exitSidebar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--lightGray);
-    padding-right: 15px;
-    cursor: pointer;
-  }
-
-  .riskFactorChoiceContainer {
-    height: 50px;
-    width: 100%;
-    color: var(--black);
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--lightGray);
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  .riskFactorChoiceNest {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
-  }
-
-  .riskFactorChoiceIcon {
-    padding-left: 15px;
-  }
-
-  .riskFactorChoiceProceed {
-    padding-right: 15px;
-    cursor: pointer;
-  }
-
   .removeOutline {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .hazardsSidebar {
-    position: absolute;
-    top: 59px;
-    height: calc(100% - 59px);
-    width: 100%;
-    z-index: 6;
-    overflow-x: hidden;
-    overflow-y: scroll;
+  .scrollbarWidthFix {
     scrollbar-width: none;
-  }
-  
-  .hazardsTitleContainer {
-    display: flex;
-    border-bottom: 1px solid var(--lightGray);
-  }
-
-  .hazardsTitle {
-    height: 50px;
-    width: 100%;
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: default;
-  }
-
-  .exitHazards {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 15px;
-    cursor: pointer;
-  }
-
-  .hazardsChoiceContainer {
-    height: 50px;
-    width: 100%;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--lightGray);
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  .hazardsChoiceNest {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
-    padding-left: 15px;
-  }
-
-  .exposuresSidebar {
-    position: absolute;
-    top: 59px;
-    height: calc(100% - 59px);
-    width: 100%;
-    z-index: 6;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-
-  .exposuresTitleContainer {
-    display: flex;
-    border-bottom: 1px solid var(--lightGray);
-  }
-
-  .exposuresTitle {
-    height: 50px;
-    width: 100%;
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: default;
-  }
-
-  .exitExposures {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 15px;
-    cursor: pointer;
-  }
-
-  .exposuresChoiceContainer {
-    height: 50px;
-    width: 100%;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--lightGray);
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  .exposuresChoiceNest {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
-    padding-left: 15px;
-  }
-
-  .searchSidebar {
-    position: absolute;
-    top: 59px;
-    height: calc(100% - 59px);
-    width: 100%;
-    z-index: 6;
-    background-color: var(--emptyShade);
-    color: var(--black);
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;   
-  }
-
-  .searchSidebarTitle {
-    height: 50px;
-    width: 100%;
-    color: var(--black);
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: default;
-  }
-
-  .exitSearchBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 15px;
-    margin-left: 15px;
-    cursor: pointer;
-  }
-
-  .searchBarSearchField {
-    background-color: rgba(255, 0, 0, 0);
-    background: transparent;
-    font-size: 16px;
-    color: black;
-    margin-left: 10px;
-    margin-right: 35px;  
-    border: unset;
-    outline: none;
-    width: 100%;
-    height: 100%;
-  }
-
-  .searchBarSearchField::placeholder {
-    color: var(--lightGray);
-  }
-
-  .searchBarSearchFieldContainer {
-    display: flex;
-    color: white;
-    margin-left: 10px;
-    width: 100%;
-  }
-
-  .searchBarSearchIcon {
-    color: var(--lightGray);
-  }
-
-  .countryResultsContainer {
-    padding-top: 30px;
-  }
-
-  .countryResultsTitle {
-    color: var(--black);
-    font-size: 18px;
-    font-weight: 700;
-    margin-left: 15px;
-  }
-
-  .countryResults {
-    height: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-
-  .countryResultsBorder {
-    border-radius: 15px;
-    border: 1px solid var(--lightGray);
-    height: 500px;
-    width: calc(100% - 30px);
-    margin-left: 15px;
-    margin-top: 15px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
   }
 
   .countryStyle {
@@ -981,22 +437,6 @@
     color: var(--black);
   }
 
-  .countryStyle:hover {
-    animation: hoverIn 0.5s forwards;
-  }
-
-  .searchButtonContainer {
-    display: none;
-  }
-
-  .hoverSidebar {
-    display: none;
-  }
-
-  .hoverOptions {
-    display: none;
-  }
-
   .lgDataControls {
     display: none;
   }
@@ -1007,22 +447,6 @@
 
   .esri-slider__segment, .esri-slider__segment-1 {
     background-color: var(--lightGray) !important;
-  }
-
-  .smallSidebarIcon {
-    width: 27px;
-  }
-
-  .searchBar {
-    display: flex;
-    border: 1px solid var(--lightGray);
-    color: var(--black);
-    height: 50px;
-    width: calc(100% - 30px);
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 15px;
-    align-items: center;
   }
 
   .chartView {
@@ -1085,12 +509,6 @@
       z-index: -1;
       opacity: 0;
       }
-  }
-
-  .chartSearchTitleContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   .chartSearchTitle {
@@ -1177,10 +595,6 @@
     background-color: var(--lightGray);
   }
 
-  .highcharts-credits {
-    display: none;
-  }
-
   .legend {
     position: absolute;
     bottom: 100px;
@@ -1193,6 +607,140 @@
       height: 144px;
   }
 
+      @keyframes growLgSidebar {
+      from {
+        width: 70px;
+      }
+      to {
+        width: 350px;
+      }
+    }
+
+    @keyframes shrinkLgSidebar {
+      from {
+        width: 350px;
+      }
+      to {
+        width: 70px;
+      }
+    }
+
+    @keyframes revealDataSidebar {
+      from {
+        left: -295px;
+      }
+      to {
+        left: 0px;
+      }
+    }
+
+    @keyframes concealDataSidebar {
+      from {
+        left: 0px;
+      }
+      to {
+        left: -350px;
+      }
+    }
+
+    .hazardsList {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 20px;
+    }
+
+    .hazardsFlex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 25px;
+      padding-right: 20px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    
+    .exposureContainer {
+      height: 0px;
+      overflow: hidden;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .exposureTitle {
+      font-size: 16px;
+      padding-left: 45px;
+      color: var(--lightGray);
+      font-weight: bold;
+      cursor: default;
+    }
+
+    .exposures {
+      padding-left: 45px;
+      cursor: pointer;
+      font-weight: 300;
+      color: var(--black);
+    }
+
+    .unhideExposure {
+      animation: unhideExposure 0.1s ease-out forwards;
+
+    }
+
+    @keyframes unhideExposure {
+      from {
+        height: 0px;
+        margin-bottom: 50px;
+      }
+      to {
+        height: 310px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .hideExposure {
+      animation: hideExposure 0.1s ease-in forwards;
+    }
+
+    @keyframes hideExposure {
+      from {
+        height: 310px;
+        margin-bottom: 20px;
+      }
+      to {
+        height: 0px;
+        margin-bottom: 0px;
+      }
+    }
+
+    .hazards {
+      font-size: 18px;
+    }
+
+    .hazardContainer {
+      user-select: none;
+    }
+
+    .hazardExpanded {
+      background-color: var(--backgroundExposure);
+      color: var(--fundBlue);
+      font-weight: bold;
+      padding-bottom: 0px;
+      padding-top: 10px;
+    }
+
+    .alignToggleIcon {
+      display: flex;
+      align-items: center;
+      height: 20px;
+      width: 20px;
+      border-radius: 20px;
+      justify-content: center;
+      background-color: white;
+    }
 
   @media screen and (min-width: 900px) {
     .sidebar, .hazardsSidebar, .exposuresSidebar {
@@ -1282,104 +830,6 @@
       height: 30px;
     }
 
-    @keyframes growLgSidebar {
-      from {
-        width: 70px;
-      }
-      to {
-        width: 350px;
-      }
-    }
-
-    .growLgSidebar {
-      animation: growLgSidebar 0.3s ease forwards;
-    }
-
-    @keyframes shrinkLgSidebar {
-      from {
-        width: 350px;
-      }
-      to {
-        width: 70px;
-      }
-    }
-
-    .shrinkLgSidebar {
-      animation: shrinkLgSidebar 0.3s ease forwards;
-    }
-
-    .lgSidebar {
-      top: 59px;
-      height: calc(100% - 61px);
-      position: absolute;
-      background-color: var(--emptyShade);
-      z-index: 10;
-      color: var(--black);
-      display: flex;
-      flex-direction: row;
-      overflow: hidden;
-      gap: 0px;
-    }
-
-    .dataSidebarElement {
-      height: 70px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding-right: 25px;
-      padding-bottom: 15px;
-    }
-
-    .alignDataXmark {
-      display: flex;
-      align-items: center;
-      height: 28px;
-      cursor: pointer;
-    }
-
-    @keyframes revealDataSidebar {
-      from {
-        left: -295px;
-      }
-      to {
-        left: 0px;
-      }
-    }
-
-    .revealDataSidebar {
-      animation: revealDataSidebar 0.3s ease forwards;
-    }
-
-    @keyframes concealDataSidebar {
-      from {
-        left: 0px;
-      }
-      to {
-        left: -350px;
-      }
-    }
-
-    .concealDataSidebar {
-      animation: concealDataSidebar 0.3s ease forwards;
-    }
-
-    
-
-    #dataSidebar {
-      left: -350px;
-      width: 350px;
-      flex-direction: column;
-      border-bottom: 2px solid green;
-    }
-
-    #dataSidebarTitle {
-      justify-content: flex-start;
-      align-items: flex-end;
-      font-weight: bold;
-      padding-left: 25px;
-      cursor: default;
-    }
-
     .closeMenu {
       position: relative;
       display: flex;
@@ -1401,141 +851,9 @@
       gap: 10px;
     }
 
-    .lgSidebarElement {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      width: 250px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .lgSidebarElementText {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      width: 300px;
-    }
-
-    
-
-    .lgSidebarTitleBorderContainer {
-      display: flex;
-      justify-content: center;
-      height: 2px;
-      width: 100%;
-    }
-
-    .lgSidebarTitleBorder {
-      height: 2px;
-      width: 95%;
-      background-color: var(--lightGray);
-    }
-
-    .hazardsList {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding-top: 20px;
-
-    }
-
-    .hazardsFlex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-left: 25px;
-      padding-right: 20px;
-      height: 50px;
-      cursor: pointer;
-    }
-
-    .hazards {
-      font-size: 18px;
-    }
-
-    .hazardContainer {
-      user-select: none;
-    }
-
-    .hazardExpanded {
-      background-color: var(--backgroundExposure);
-      color: var(--fundBlue);
-      font-weight: bold;
-      padding-bottom: 0px;
-      padding-top: 10px;
-    }
-
-    .exposureContainer {
-      height: 0px;
-      overflow: hidden;
-      font-size: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-    }
-
-    .exposureTitle {
-      font-size: 16px;
-      padding-left: 45px;
-      color: var(--lightGray);
-      font-weight: bold;
-      cursor: default;
-    }
-
-    .exposures {
-      padding-left: 45px;
-      cursor: pointer;
-      font-weight: 300;
-      color: var(--black);
-    }
-
-    .unhideExposure {
-      animation: unhideExposure 0.1s ease-out forwards;
-
-    }
-
-    @keyframes unhideExposure {
-      from {
-        height: 0px;
-        margin-bottom: 50px;
-      }
-      to {
-        height: 310px;
-        margin-bottom: 20px;
-      }
-    }
-
-    .hideExposure {
-      animation: hideExposure 0.1s ease-in forwards;
-    }
-
-    @keyframes hideExposure {
-      from {
-        height: 310px;
-        margin-bottom: 20px;
-      }
-      to {
-        height: 0px;
-        margin-bottom: 0px;
-      }
-    }
-
     .padIconRight {
       padding-right: 15px;
       cursor: pointer;
-    }
-
-    .alignToggleIcon {
-      display: flex;
-      align-items: center;
-      height: 20px;
-      width: 20px;
-      border-radius: 20px;
-      justify-content: center;
-      background-color: white;
     }
 
     @keyframes revealHoverMenu {
@@ -1689,13 +1007,6 @@
       width: 550px;
     }
 
-    .searchSidebar {
-      top: 59px;
-      height: calc(100% - 59px);
-      width: 550px;
-      z-index: 10;
-  }
-
     .searchButtonContainer {
       border-radius: 10px;
       background-color: rgba(100, 100, 100, 0.5);
@@ -1708,12 +1019,6 @@
       padding-left: 10px;
       padding-right: 10px;
       cursor: pointer;    
-  }
-
-   .searchSidebarTitleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 
   .chartColumnContainer {

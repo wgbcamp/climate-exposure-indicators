@@ -20,7 +20,7 @@
 <body class="removeOutline">
   <div id="header" class="header absolute flex justify-between items-center z-20 h-61 w-full pt-5 pb-5 bg-(--fundBlue) shadow-[0_3px_6px_rgba(0,0,0,0.16)] shadow-[0_3px_6px_rgba(0,0,0,0.23)]">
     <div class="flex items-center w-full  sm:min-w-200">
-        <div id="headerSidebarButton" class="text-white mr-15 ml-15 cursor-pointer md:hidden" onclick="toggleSidebar()">
+        <div id="headerSidebarButton" class="text-white mr-15 ml-15 cursor-pointer md:hidden" onclick="">
           <i class="fa-solid fa-sliders fa-lg"></i>
         </div>
         <div id="headerTitleText" class="text-white w-70 flex justify-center items-center font-[900] text-[18px] h-7/10 font-[Inter] font-sans cursor-pointer">IMF</div>
@@ -43,8 +43,8 @@
     <!-- Indicator for the currently selected hazard & exposure -->
 
 
-  <!--This is the sidebar for screens 900px and above -->
-  <div id="lgSidebar" class="h-full flex flex-row absolute top-59 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0" onmouseenter="hover('enter')" onmouseleave="hover('exit')">
+
+  <div id="lgSidebar" class="h-[calc(100%-61px)] flex flex-row absolute top-59 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0" onmouseenter="hover('enter')" onmouseleave="hover('exit')">
     <div id="col1" class="flex flex-col items-center w-70">
       <div id="lgSidebarTitle" class="font-[800] text-[16px] flex justify-center items-center h-70 w-full">
         Data
@@ -64,152 +64,56 @@
     </div>
     <div id="col2" class="flex flex-col items-start w-0">
       <div class="h-70 w-full"></div>
-      <div class="lgSidebarElement" onclick="toggleHoverOptions('HAZARDS')">
-        <div class="lgSidebarElementText">Hazards</div>
+      <div class="h-70 flex items-center justify-around w-250 cursor-pointer select-none" onclick="toggleHoverOptions('HAZARDS')">
+        <div class="h-70 w-300 flex items-center justify-start">Hazards</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement" onclick="toggleSearchBar()">
-        <div class="lgSidebarElementText">Search</div>
+      <div class="h-70 flex items-center justify-around w-250 cursor-pointer select-none" onclick="toggleSearchBar()">
+        <div class="h-70 w-300 flex items-center justify-start">Search</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement" onclick="toggleHoverOptions('Exposures')">
-        <div class="lgSidebarElementText">Live</div>
+      <div class="h-70 flex items-center justify-around w-250 cursor-pointer select-none" onclick="toggleHoverOptions('Exposures')">
+        <div class="h-70 w-300 flex items-center justify-start">Live</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
-      <div class="lgSidebarElement" onclick="toggleHoverOptions('Exposures')">
-        <div class="lgSidebarElementText">Data Sources</div>
+      <div class="h-70 flex items-center justify-around w-250 cursor-pointer select-none" onclick="toggleHoverOptions('Exposures')">
+        <div class="h-70 w-300 flex items-center justify-start">Data Sources</div>
         <i class="fa-solid fa-chevron-right fa-lg chevron"></i>
       </div>
     </div>
   </div>
-  <div id="dataSidebar" class="lgSidebar">
-        <div class="dataSidebarElement">
-          <div id="dataSidebarTitle">HAZARDS</div>
-          <div class="alignDataXmark">
-            <i class="fa-solid fa-xmark fa-lg" onclick="concealHoverOptions()"></i>
-          </div>
-        </div>
-        <div class="lgSidebarTitleBorderContainer">
-          <div class="lgSidebarTitleBorder"></div>
-        </div>
-        <div class="hazardsList" id="dataSidebarElements">
-        </div>
-  </div>
-
-  <!-- This is the sidebar for small width screens -->
-  <div id="sidebar" class="sidebar defaultSidebar">
-    <div class="riskFactorTitleContainer">
-      <div class="riskFactorTitle cheese">Data</div>
-      <div class="exitSidebar" onclick="toggleSidebar()">
-        <i class="fa-solid fa-xmark fa-lg"></i>
+  <div id="dataSidebar" class="h-[calc(100%-61px)] w-350 flex flex-col absolute -left-350 top-59 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0">
+    <div class="h-70 flex items-end justify-between pr-25 pb-15">
+      <div id="dataSidebarTitle" class="flex justify-start items-end pl-25 font-bold cursor-default">HAZARDS</div>
+      <div class="h-28 flex items-center cursor-pointer">
+        <i class="fa-solid fa-xmark fa-lg" onclick="concealHoverOptions()"></i>
       </div>
     </div>
-    <div class="riskFactorChoiceContainer" onclick="toggleRiskFactorSidebar('hazardsSidebar')">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-water fa-xl"></i>
-        <div class="choiceTitle">Hazards</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
+    <div class="h-2 w-full flex justify-center">
+      <div class="h-2 w-95/100 bg-(--lightGray)"></div>
     </div>
-    <div class="riskFactorChoiceContainer" onclick="toggleRiskFactorSidebar('exposuresSidebar')">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-house-crack fa-xl"></i>
-        <div class="choiceTitle">Exposures</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
-    </div>
-    <div class="riskFactorChoiceContainer" onclick="toggleSearchBar()">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-magnifying-glass fa-xl"></i>
-        <div class="choiceTitle">Search</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg"></i>
-    </div>
-    <div class="riskFactorChoiceContainer" onclick="">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-arrows-rotate fa-xl"></i>
-        <div class="choiceTitle">Live</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
-    </div>
-    <div class="riskFactorChoiceContainer" onclick="">
-      <div class="riskFactorChoiceNest">
-        <i class="riskFactorChoiceIcon smallSidebarIcon fa-solid fa-database fa-xl"></i>
-        <div class="choiceTitle">Data Sources</div>
-      </div>
-      <i class="riskFactorChoiceProceed fa-solid fa-chevron-right fa-lg" onclick="toggleRiskFactorSidebar('exposuresSidebar')"></i>
+    <div class="flex flex-col justify-between pt-20" id="dataSidebarElements">
     </div>
   </div>
-  <div id="hazardsSidebar" class="hazardsSidebar defaultSidebar">
-    <div class="hazardsTitleContainer">
-      <div class="hazardsTitle">Hazards</div>
-      <div class="exitHazards" onclick="toggleRiskFactorSidebar('hazardsSidebar', 'exit')">
-        <i class="fa-solid fa-xmark fa-lg"></i>
-      </div>
-    </div>
-    <div class="hazardsChoiceContainer">
-      <div class="hazardsChoiceNest">
-        <div class="choiceTitle">Riverine Flooding</div>
-      </div>
-    </div>
-    <div class="hazardsChoiceContainer">
-      <div class="hazardsChoiceNest">
-        <div class="choiceTitle">Coastal Flooding</div>
-      </div>
-    </div>
-  </div>
-  <div id="exposuresSidebar" class="exposuresSidebar defaultSidebar">
-    <div class="exposuresTitleContainer">
-      <div class="exposuresTitle">Exposures</div>
-      <div class="exitExposures" onclick="toggleRiskFactorSidebar('exposuresSidebar', 'exit')">
-        <i class="fa-solid fa-xmark fa-lg"></i>
-      </div>
-    </div>
-    <div class="exposuresChoiceContainer">
-      <div class="exposuresChoiceNest">
-        <div class="choiceTitle">Buildings</div>
-      </div>
-    </div>
-    <div class="exposuresChoiceContainer">
-      <div class="exposuresChoiceNest">
-        <div class="choiceTitle">GDP</div>
-      </div>
-    </div>
-    <div class="exposuresChoiceContainer">
-      <div class="exposuresChoiceNest">
-        <div class="choiceTitle">Urban GDP</div>
-      </div>
-    </div>
-    <div class="exposuresChoiceContainer">
-      <div class="exposuresChoiceNest">
-        <div class="choiceTitle">Population</div>
-      </div>
-    </div>
-    <div class="exposuresChoiceContainer">
-      <div class="exposuresChoiceNest">
-        <div class="choiceTitle">Cropland</div>
-      </div>
-    </div>
-  </div>
-  <div id="searchSidebar" class="searchSidebar defaultSidebar">
-    <div class="searchSidebarTitleContainer">
-          <div class="searchSidebarTitle">Search</div>
-          <div class="exitSearchBar" onclick="">
+  <div id="searchSidebar" class="scrollbarWidthFix h-[calc(100%-61px)] w-full sm:w-350 absolute top-59 z-10 bg-(--emptyShade) text-(--black) overflow-x-hidden overflow-y-scroll  defaultSidebar">
+    <div class="flex items-center justify-between">
+          <div class="h-50 w-full flex items-center pl-15 pt-5 pb-5 text-(--black) font-[Inter] font-sans font-[700] text-[18px] cursor-default">Search</div>
+          <div class="flex justify-center items-center pr-15 ml-15 cursor-pointer">
             <i class="fa-solid fa-xmark fa-lg" onclick="toggleSearchBar()"></i>
           </div>
     </div>
-    <div class="searchBar">
-      <div class="searchBarSearchFieldContainer">
-        <i class="searchBarSearchIcon fa-solid fa-magnifying-glass fa-md"></i>
-          <input id="searchBarSearchField" class="searchBarSearchField" type="text" placeholder="Search for a country" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
+    <div id="searchBar" class="h-50 w-[calc(100%-30px)] ml-15 mr-15 rounded-[15px] flex items-center border-solid border-1 border-(--lightGray)">
+      <div class="w-full flex items-center ml-10 text-white">
+        <i class="text-(--lightGray) fa-solid fa-magnifying-glass fa-md"></i>
+        <input id="searchBarSearchField" class="w-full h-full bg-transparent text-[16px] text-(--black) ml-10 mr-35 border-0 outline-0" type="text" placeholder="Search for a country" onkeydown="if(event.key === 'Enter'){locateAddress(this.value)}" onkeyup="filterCountryList(this.value)" tabindex="0">
       </div>
     </div>
-    <div class="countryResultsContainer">
-      <div class="countryResultsTitle">
+    <div class="pt-30">
+      <div class="text-(--black) text-[18px] font-[700] ml-15">
         Country Results
       </div>
-      <div class="countryResultsBorder">
-        <div id="countryResults" class="countryResults"></div>
+      <div class="h-500 w-[calc(100%-30px)] flex justify-center flex-col relative overflow-hidden ml-15 mt-15 text-white rounded-[15px] border-[1px] border-solid border-(--lightGray)">
+        <div id="countryResults" class="h-full overflow-hidden overflow-y-hi"></div>
       </div>
     </div>
   </div>

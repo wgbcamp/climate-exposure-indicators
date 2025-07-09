@@ -1482,131 +1482,6 @@ const toggleMapChart = (value) => {
   }
 }
 
-// toggles sidebar that contain hazards and exposures
-const toggleSidebar = () => {
-  var sidebar = document.getElementById('sidebar');
-  var dataControls = document.getElementById('dataControls');
-  var dataOptionsContainer = document.getElementById('dataOptionsContainer');
-  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
-  const searchSideBar = document.getElementById('searchSidebar');
-
-  if (!sidebar.classList.contains('enableSidebar')) {
-    sidebar.classList.add('enableSidebar');
-    sidebar.classList.remove('disableSidebar', 'defaultSidebar');
-    dataControls.classList.add('disableDataControls');
-    dataControls.classList.remove('enableDataControls');
-   
-    
-    if (dataOptionsContainer.classList.contains('animateDataControls')) {
-      dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
-    } else {
-      dataOptionsContainer.classList.add('removeDataControlsWithoutAnimate');
-      dataOptionsContainer.classList.remove('hideDataControls');
-    }
-    dataOptionsContainer.classList.remove('animateDataControls');
-    
-    for (var i=0; i<dataDivs.length; i++) {
-      if (dataDivs[i].id == 'sliderControls') {
-        if (dataDivs[i].classList.contains('unfadeDataButtons')) {
-          dataDivs[i].classList.add('disableDataControls');
-        }
-      } else {
-        dataDivs[i].classList.add('disableDataControls');
-      }
-    }
-  } else {
-    sidebar.classList.add('disableSidebar');
-    sidebar.classList.remove('enableSidebar');
-    dataControls.classList.add('enableDataControls');
-    dataControls.classList.remove('disableDataControls');
-    // dataOptionsContainer.classList.add('enableDataControls');
-    // dataOptionsContainer.classList.remove('removeDataControls');
-    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
-      dataOptionsContainer.classList.add('animateDataControls');
-    } else {
-
-    }
-    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
-    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
-
-    for (var i=0; i<dataDivs.length; i++) {
-      dataDivs[i].classList.remove('disableDataControls');
-    }
-  }
-
-  //resets the state of the hazards and exposures sidebars
-  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
-  for (var i=0; i<riskFactor.length; i++) {
-    riskFactor[i].classList.remove('fadeDataButtons');
-    riskFactor[i].classList.add('unfadeDataButtons');
-  }
-  var hazardsSidebar = document.getElementById('hazardsSidebar');
-  if (hazardsSidebar.classList.contains('enableSidebar')) {
-    hazardsSidebar.classList.remove('enableSidebar');
-    hazardsSidebar.classList.add('disableSidebar');
-  }
-  var exposuresSidebar = document.getElementById('exposuresSidebar');
-  if (exposuresSidebar.classList.contains('enableSidebar')) {
-    exposuresSidebar.classList.remove('enableSidebar');
-    exposuresSidebar.classList.add('disableSidebar');
-  }
-
-  if (searchSideBar.classList.contains('enableSidebar')) {
-    searchSideBar.classList.add('disableSidebar');
-    searchSideBar.classList.remove('enableSidebar');
-  }
-
-}
-
-//toggles risk factor sidebars
-const toggleRiskFactorSidebar = (type, value) => {
-  var riskFactorSidebar = document.getElementById(type);
-  var sidebar = document.getElementById('sidebar');
-  var dataDivs = document.querySelectorAll('div.scenario, div.sliderControls');
-  var dataOptionsContainer = document.getElementById('dataOptionsContainer');
-  if (riskFactorSidebar.classList.contains('enableSidebar')) {
-    riskFactorSidebar.classList.add('disableSidebar');
-    riskFactorSidebar.classList.remove('enableSidebar');
-    sidebar.classList.remove('enableSidebar');
-    sidebar.classList.add('disableSidebar');
-  } else {
-    riskFactorSidebar.classList.add('enableSidebar');
-    riskFactorSidebar.classList.remove('defaultSidebar');
-    riskFactorSidebar.classList.remove('disableSidebar');
-  }
-  var riskFactor = document.querySelectorAll('div.riskFactorChoiceContainer, div.riskFactorTitleContainer');
-  for (var i=0; i<riskFactor.length; i++) {
-    if (riskFactor[i].classList.contains('unfadeDataButtons')) {
-      riskFactor[i].classList.remove('unfadeDataButtons');
-      riskFactor[i].classList.add('fadeDataButtons');
-    }
-  }
-  var dataControls = document.getElementById('dataControls');
-  if (value == 'exit') {
-    dataControls.classList.add('enableDataControls');
-    dataControls.classList.remove('disableDataControls');
-
-    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
-      dataOptionsContainer.classList.add('animateDataControls');
-    }
-    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
-    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
-
-   
-
-    for (var i=0; i<dataDivs.length; i++) {
-        if (dataDivs[i].classList.contains('disableDataControls')) {
-          dataDivs[i].classList.remove('disableDataControls');
-        }
-    }
-  }
-
-  if (searchButtonContainer.classList.contains('selectedButton')) {
-    searchButtonContainer.classList.add('removeSelectedButton');
-    searchButtonContainer.classList.remove('selectedButton');
-  } 
-}
-
 //toggle search side bar
 const toggleSearchBar = () => {
   const searchSideBar = document.getElementById('searchSidebar');
@@ -1657,11 +1532,6 @@ const toggleSearchBar = () => {
       dataDivs[i].classList.remove('disableDataControls');
     }
   }
-
-  // if (sidebar.classList.contains('enableSidebar')) {
-  //   sidebar.classList.add('disableSidebar');
-  //   sidebar.classList.remove('enableSidebar');
-  // }
 
   var hazardsSidebar = document.getElementById('hazardsSidebar');
   if (hazardsSidebar.classList.contains('enableSidebar')) {
@@ -1745,8 +1615,8 @@ const hover = (value) => {
   var lgSidebar = document.getElementById('lgSidebar');
   if (value === 'enter') {
     if (!lgSidebar.classList.contains('blocker')) {
-      lgSidebar.classList.add('growLgSidebar');
-      lgSidebar.classList.remove('shrinkLgSidebar');
+      lgSidebar.classList.add('animate-[growLgSidebar_0.2s_ease-out_forwards]');
+      lgSidebar.classList.remove('animate-[shrinkLgSidebar_0.2s_ease-in_forwards]');
       lgSidebar.classList.add('blocker');
       setTimeout(() => {
         lgSidebar.classList.remove('blocker');
@@ -1754,7 +1624,7 @@ const hover = (value) => {
     }
   } else if (value === 'exit') {
     if (!lgSidebar.classList.contains('blocker'))
-      lgSidebar.classList.replace('growLgSidebar','shrinkLgSidebar');
+      lgSidebar.classList.replace('animate-[growLgSidebar_0.2s_ease-out_forwards]','animate-[shrinkLgSidebar_0.2s_ease-in_forwards]');
       lgSidebar.classList.add('blocker');
       setTimeout(() => {
         lgSidebar.classList.remove('blocker');
@@ -1802,16 +1672,18 @@ const toggleHoverOptions = (value) => {
 
   var dataSidebar = document.getElementById('dataSidebar');
 
-  if (dataSidebar.classList.contains('concealDataSidebar')) {
-    dataSidebar.classList.replace('concealDataSidebar', 'revealDataSidebar')
+  dataSidebar.classList.remove('-left-350');
+
+  if (dataSidebar.classList.contains('animate-[concealDataSidebar_0.2s_ease-in_forwards]')) {
+    dataSidebar.classList.replace('animate-[concealDataSidebar_0.2s_ease-in_forwards]', 'animate-[revealDataSidebar_0.2s_ease-out_forwards]')
   }
-  dataSidebar.classList.add('revealDataSidebar');
+  dataSidebar.classList.add('animate-[revealDataSidebar_0.2s_ease-out_forwards]');
 }
 
 const concealHoverOptions = () => {
   var dataSidebar = document.getElementById('dataSidebar');
-  dataSidebar.classList.add('concealDataSidebar');
-  dataSidebar.classList.remove('revealDataSidebar');
+  dataSidebar.classList.add('animate-[concealDataSidebar_0.2s_ease-in_forwards]');
+  dataSidebar.classList.remove('animate-[revealDataSidebar_0.2s_ease-out_forwards]');
 }
 
 window.addEventListener("resize", () => {
