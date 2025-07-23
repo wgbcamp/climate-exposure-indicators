@@ -1341,7 +1341,7 @@ const showCountryList = () => {
 
     for (var i=0; i<countries.length; i++) {
     const node = document.createElement("div");
-    var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+    var divContent = `<div class="text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
     node.innerHTML = divContent;
     div.appendChild(node);
   }
@@ -1354,7 +1354,7 @@ const filterCountryList = (value) => {
   for (var i=0; i< countries.length; i++) {
     if (countries[i].toLowerCase().includes(value.toLowerCase())) {
       const node = document.createElement("div");
-      var divContent = `<div class="countryStyle" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+      var divContent = `<div class="text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
       node.innerHTML = divContent;
       div.appendChild(node);
     }
@@ -1390,16 +1390,16 @@ const switchView = () => {
 }
 
 // orients camera north
-const orientNorth = () => {
+// const orientNorth = () => {
 
-  view.goTo({
-    rotation: 0
-  });
+//   view.goTo({
+//     rotation: 0
+//   });
 
-  globeView.goTo({
-    heading: 0
-  })
-}
+//   globeView.goTo({
+//     heading: 0
+//   })
+// }
 
 // when slider is moved, update the value of the thumb label
 const updateThumbLabel = (value) => {
@@ -1599,17 +1599,17 @@ const geolocate = () => {
   navigator.geolocation.getCurrentPosition(success, error);
 }
 
-const home = () => {
-  view.goTo({
-    center: [-38.9465, 7.775],
-    zoom: 2
-  });
+// const home = () => {
+//   view.goTo({
+//     center: [-38.9465, 7.775],
+//     zoom: 2
+//   });
 
-  globeView.goTo({
-    center: [-38.9465, 7.775],
-    zoom: 4,
-  });
-}
+//   globeView.goTo({
+//     center: [-38.9465, 7.775],
+//     zoom: 4,
+//   });
+// }
 
 
 const hover = (value) => {
@@ -1621,7 +1621,7 @@ const hover = (value) => {
       lgSidebar.classList.add('blocker');
       setTimeout(() => {
         lgSidebar.classList.remove('blocker');
-      }, 350);
+      }, 50);
     }
   } else if (value === 'exit') {
     if (!lgSidebar.classList.contains('blocker'))
@@ -1629,9 +1629,13 @@ const hover = (value) => {
       lgSidebar.classList.add('blocker');
       setTimeout(() => {
         lgSidebar.classList.remove('blocker');
-      }, 350);
+      }, 50);
   }
 }
+
+document.addEventListener("mouseleave", () => {
+  hover('exit'); 
+});
 
 const hazards = ["Heat stress", "Urban heatwave", "Riverine flood", "Coastal flood", "Drought", "Sea level"];
 const exposures = ["Buildings", "Cropland", "GDP", "Urban GDP", "Population"];
@@ -1651,20 +1655,20 @@ const toggleHoverOptions = (value) => {
   for (var i=0; i<array.length; i++) {
     var node = document.createElement('div');
     node.innerHTML = `
-      <div class="hazardContainer hazardCollapsed PLACEHOLDER">
-        <div class="hazardsFlex" onclick="toggleExposures('reveal', '${array[i]}')">
-          <div class="hazards">${array[i]}</div>
+      <div class="hazardContainer hazardCollapsed">
+        <div class="flex justify-between items-center pl-25 pr-20 h-50 cursor-pointer" onclick="toggleExposures('reveal', '${array[i]}')">
+          <div class="text-[18px]">${array[i]}</div>
           <div class="alignToggleIcon">
             <i class="fa-solid fa-plus fa-xs styleToggleIcon exposurePlusMinus"></i>
           </div>
         </div>
-        <div class="exposureContainer ${array[i].replace(" ", "")}">
-          <div class="exposureTitle">EXPOSURES</div>
-          <div class="exposures">${exposures[0]}</div>
-          <div class="exposures">${exposures[1]}</div>
-          <div class="exposures">${exposures[2]}</div>
-          <div class="exposures">${exposures[3]}</div>
-          <div class="exposures">${exposures[4]}</div>
+        <div class="exposureContainer h-0 overflow-hidden text-[18px] flex flex-col justify-evenly ${array[i].replace(" ", "")}">
+          <div class="text-[16px] pl-45 text-(--lightGray) font-bold cursor-default">EXPOSURES</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[0]}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[1]}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[2]}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[3]}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[4]}</div>
         </div>
       </div>
       `;

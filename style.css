@@ -15,31 +15,7 @@
     --unselected: #6B9EE5;
     --unselectedIcon: #002649;
     --backgroundExposure: rgb(229, 235, 241);
-  }
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgb(29 34 36);
-    outline: none;
-  }
-
-  #viewDiv {
-    height: 100%;
-    z-index: 0;
-    background-color: rgb(29 34 36);
-  }
-
-  #sceneDiv {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background-color: rgb(29 34 36);
-    z-index: -10;
+    --backgroundMap: rgb(29, 34, 36);
   }
 
   .defaultSelectedButton {
@@ -60,80 +36,6 @@
       background-color: var(--selected);
       color: var(--emptyShade);
     }
-  }
-
-  .viewControlsContainer {
-    position: fixed;
-    top: 135px;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: 2;
-    gap: 10px;
-  }
-
-  .viewControls {
-    height: 135px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--emptyShade);
-    border-radius: 10px;
-  }
-
-  .dimensionControls {
-    height: 45px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--emptyShade);
-    border-radius: 10px;
-  }
-
-  .zoomControls {
-    height: 90px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--emptyShade);
-    border-radius: 10px;
-  }
-
-  .viewButtons {
-    font-family: "Inter", sans-serif;
-    color: var(--black);
-    height: 45px;
-    width: 82%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .scenario {
-    color: black;
-    background-color: var(--lightGray);
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 20px;
-    height: 36px;
-    width: 84px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #00000000;
-    cursor: pointer;
-    padding-left: 2px;
-    padding-right: 2px;
   }
 
   .activeScenario {
@@ -175,6 +77,12 @@
 
   .esri-view {
     --esri-view-outline: 0px solid rgba(0,0,0,0);
+  }
+
+  @media screen and (min-height: 640px) {
+    /* .animateDataControls {
+      all: unset;
+    } */
   }
 
   .animateDataControls {
@@ -259,11 +167,6 @@
     }
   }
 
-  .fontawesome25px {
-    width: 25px;
-    cursor: pointer;
-  }
-
   .defaultSidebar {
     transform: translateX(-100vw);
   }
@@ -324,64 +227,8 @@
     }
   }
 
-  .removeOutline {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .scrollbarWidthFix {
-    scrollbar-width: none;
-  }
-
-  .countryStyle {
-    font-size: 16px;
-    font-weight: 600;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    cursor: pointer;
-    color: var(--black);
-  }
-
-  .lgDataControls {
-    display: none;
-  }
-
-  .lgDataLegendContainer {
-    display: none;
-  }
-
   .esri-slider__segment, .esri-slider__segment-1 {
     background-color: var(--lightGray) !important;
-  }
-
-  .chartView {
-    position: absolute;
-    top: 59px;
-    height: calc(100% - 59px);
-    width: 100%;
-    background-color: white;
-    z-index: -1;
-    opacity: 0;
-    /* z-index: 10; */
-    overflow: scroll;
-  }
-  
-  .chartTopBar {
-    height: 100px;
-    width: 100%;
-    border-bottom: 1px solid var(--lightGray);
-    box-shadow: 0px 10px 65px 5px #00000024;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .chartColumnContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 
   .presentView {
@@ -415,102 +262,6 @@
       z-index: -1;
       opacity: 0;
       }
-  }
-
-  .chartSearchTitle {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--fundBlue);
-    width: 90%;
-    text-align: center;
-  }
-
-  .chartSearchContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .chartSearch {
-    width: 75%;
-    height: 30px;
-    border: 1px solid var(--lightGray);
-    border-radius: 5px;
-  }
-
-  #chartMapInstanceContainer {
-    height: 400px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .chartMapInstance {
-    height: 100%;
-    width: 90%;
-    background-color: var(--lightGray);
-  }
-
-  .chartMapTitleContainer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .chartMapTitle {
-    color: var(--fundBlue);
-    font-size: 32px;
-    font-weight: 700;
-    width: 90%;
-    height: 55px;
-  }
-
-  #highchartsContainer {
-    padding-top: 75px;
-    height: 500px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .highchartsInstance {
-    height: 100%;
-    width: 90%;
-  }
-
-  .chloroplethInstanceContainer {
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .chloroplethInstance {
-    height: 100%;
-    background-color: var(--lightGray);
-  }
-
-  .chartColumn1, .chartColumn2 {
-    width: 100%;
-    min-width: 250px;
-    margin-top: 20px;
-  }
-
-  .divider {
-    width: 1px;
-    background-color: var(--lightGray);
-  }
-
-  .legend {
-    position: absolute;
-    bottom: 100px;
-    right: 15px;
-    z-index: 4;
-    pointer-events: none;
-  }
-
-  .legendSizeLimiter {
-      height: 144px;
   }
 
       @keyframes growLgSidebar {
@@ -549,51 +300,8 @@
       }
     }
 
-    .hazardsList {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding-top: 20px;
-    }
-
-    .hazardsFlex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-left: 25px;
-      padding-right: 20px;
-      height: 50px;
-      cursor: pointer;
-    }
-
-    
-    .exposureContainer {
-      height: 0px;
-      overflow: hidden;
-      font-size: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-    }
-
-    .exposureTitle {
-      font-size: 16px;
-      padding-left: 45px;
-      color: var(--lightGray);
-      font-weight: bold;
-      cursor: default;
-    }
-
-    .exposures {
-      padding-left: 45px;
-      cursor: pointer;
-      font-weight: 300;
-      color: var(--black);
-    }
-
     .unhideExposure {
       animation: unhideExposure 0.1s ease-out forwards;
-
     }
 
     @keyframes unhideExposure {
@@ -620,14 +328,6 @@
         height: 0px;
         margin-bottom: 0px;
       }
-    }
-
-    .hazards {
-      font-size: 18px;
-    }
-
-    .hazardContainer {
-      user-select: none;
     }
 
     .hazardExpanded {
@@ -860,193 +560,4 @@
     .concealHoverOptions {
       animation: concealHoverOptions 0.3s ease-in forwards;
     }
-
-   .hoverOptions {
-      height: 100%;
-      top: 59px;
-      left: 80px;
-      width: 300px;
-      transform: translateX(-380px);
-      position: absolute;
-      backdrop-filter: saturate(180%) blur(20px); 
-      background-color: var(--blackGlass);
-      z-index: 5;
-      height: calc(100% - 59px);
-      display: flex;
-      overflow: hidden;
-    }
-
-    .hoverTitle {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      color: white;
-      font-weight: 800;
-      font-size: 16px;
-      border-bottom: 1px solid rgb(60, 60, 60);
-      padding-left: 15px;
-      user-select: none;
-    }
-
-    .sidebar {
-      top: 59px;
-      height: calc(100% - 59px);
-      width: 550px;
-    }
-
-    .hazardsSidebar {
-      top: 59px;
-      width: 550px;
-    }
-
-    .exposuresSidebar {
-      top: 59px;
-      width: 550px;
-    }
-
-    .searchButtonContainer {
-      border-radius: 10px;
-      background-color: rgba(100, 100, 100, 0.5);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      height: 40px;
-      width: 80px;
-      padding-left: 10px;
-      padding-right: 10px;
-      cursor: pointer;    
-  }
-
-  .chartColumnContainer {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-    .legend {
-      all: unset;
-      display: none;
-    }
-  }
-
-  @media screen and (max-height: 591px) {
-    .viewControlsContainer {
-      flex-direction: row;
-    }
-
-    .viewControls, .zoomControls {
-      flex-direction: row;
-      height: 40px;
-      width: 135px;
-    }
-
-    .dimensionControls {
-      height: 40px;
-    }
-
-    .legendSizeLimiter {
-      height: 110px;
-    }
-
-  }
-
-  @media screen and (max-height: 591px) and (min-width: 900px) {
-
-    .viewControlsContainer {
-      top: 79px;
-    }
-  } 
-
-  @media screen and (max-width: 600px) {
-
-    .title {
-      font-size: 12px;
-    }
-  }
-
-  .legendSizeLimiter {
-    height: 110px;
-  }
-
-  @media screen and (max-width: 500px) {
-
-    .chartMapDiv {
-      width: 25px;
-    }
-
-    .chartMapText {
-      display: none;
-    }
-  }
-
-  /* needs to be evaluated & removed */
-  @media screen and (min-width: 800px) {
-
-    .countryBar {
-      width: 120px;
-      height: unset;
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      color: white;
-      background-color: rgb(45, 45, 45);
-      border-radius: 40px;
-      height: 45px;
-      padding-left: 20px;
-      margin-right: 12px;
-    }
-
-    @keyframes fadeIn {
-      from {
-          transform: scale(0%)
-      }
-      to {
-          transform: scale(100%)
-      }
-    }
-
-     @keyframes fadeOut {
-      from {
-          transform: scale(100%)
-      }
-      to {
-          transform: scale(0%)
-      }
-    }
-
-    .countryText {
-      font-weight: 900;
-      font-size: unset;
-      padding-left: 12px;
-      opacity: unset;
-      width: unset;
-    }
-
-    .countryIcon {
-      height: unset;
-      width: unset;
-      opacity: 1;
-    }
-
-    .searchIcon {
-      padding-left: unset;
-      color: white;
-      border-radius: 40px;
-      width: 60px;
-      height: 45px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-
-    .searchField {
-      width: 90%;
-    }
-
-    .emptySpace {
-    order: unset;
-  }
-  }
+}
