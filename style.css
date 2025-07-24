@@ -338,78 +338,13 @@
       padding-top: 10px;
     }
 
-    .alignToggleIcon {
-      display: flex;
-      align-items: center;
-      height: 20px;
-      width: 20px;
-      border-radius: 20px;
-      justify-content: center;
-      background-color: white;
-    }
-
   @media screen and (min-width: 900px) {
-    .sidebar, .hazardsSidebar, .exposuresSidebar {
-      display: none
-    }
 
-    .lgDataLegendContainer {
-      position: absolute;
-      bottom: 15px;
-      z-index: 4;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 20px;
-    }
-
-    .lgLegendContainer {
-      display: flex;
-      justify-content: flex-end;
-      padding-right: 15px;
-    }
-
-    .lgDataControlsContainer {
-      width: 100%;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .lgDataControls {
-      width: 100%;
-      max-width: 800px;
-      background-color: var(--emptyShade);
-      border-radius: 25px;
-      display: flex;
-      margin-left: 70px;
-      border: 1px solid var(--lightGray);
-      box-shadow: 0px 4px 20px 0px #0000002E;
-    }
-
-    .lgScenarioDiv {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 15px;
-      padding-right: 20px;
-      border-right: 2px solid var(--lightGray);
-    }
-
-    .lgTimelineDiv {
-      width: 100%;
-      padding-left: 30px;
-      padding-right: 30px;
-
-
-    }
-
-    #lgSliderDiv {
+    /* #lgSliderDiv {
       background: transparent;
       color: var(--black);
       font-weight: 700;
-    }
+    } */
 
     .esri-slider--horizontal .esri-slider__tick-label {
       margin-top: -30px;
@@ -422,36 +357,6 @@
 
     .esri-slider__content {
       margin-bottom: 20px;
-    }
-
-    .scenario {
-      height: 30px;
-    }
-
-    .closeMenu {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lgSidebarRow {
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .row1 {
-      padding-left: 15px;
-    }
-
-    .row2 {
-      border-top: 1px solid rgb(60, 60, 60);
-      gap: 10px;
-    }
-
-    .padIconRight {
-      padding-right: 15px;
-      cursor: pointer;
     }
 
     @keyframes revealHoverMenu {
@@ -492,47 +397,6 @@
       height: calc(100% - 59px);
       display: flex;
       overflow: hidden;
-    }
-
-    .hoverSection1 {
-      width: 250px
-    }
-
-    .hoverSection2 {
-      width: 50px;
-    }
-
-    .hoverEmptySpace {
-      height: 70px;
-      width: 100%;
-      border-bottom: 1px solid rgb(60, 60, 60);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .hoverChoiceContainer {
-      height: 70px;
-      width: 100%;
-      color: white;
-      font-family: "Inter", sans-serif;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--lightGray);
-    }
-
-    .hoverElement {
-      color: white;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      height: 70px;
-      gap: 20px;
-      cursor: pointer;
-      user-select: none;
     }
 
     @keyframes revealHoverOptions {

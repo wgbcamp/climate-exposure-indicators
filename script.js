@@ -780,7 +780,7 @@ reactiveUtils.watch(() => slider.values, (value) => {
   }
 );
 
-//slider for 900px screens and above
+// //slider for 900px screens and above
 const lgSlider = new Slider({
   container: "lgSliderDiv",
   min: 1980,
@@ -1658,7 +1658,7 @@ const toggleHoverOptions = (value) => {
       <div class="hazardContainer hazardCollapsed">
         <div class="flex justify-between items-center pl-25 pr-20 h-50 cursor-pointer" onclick="toggleExposures('reveal', '${array[i]}')">
           <div class="text-[18px]">${array[i]}</div>
-          <div class="alignToggleIcon">
+          <div class="flex items-center h-20 w-20 rounded-[20px] justify-center bg-white">
             <i class="fa-solid fa-plus fa-xs styleToggleIcon exposurePlusMinus"></i>
           </div>
         </div>
