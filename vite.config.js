@@ -5,5 +5,5 @@ export default defineConfig(({ mode }) => ({
     plugins: [
         tailwindcss(),
     ],
-    base: '/gei'
+    base: '/climate-exposure-indicators'
 }));
