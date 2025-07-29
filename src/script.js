@@ -1,3 +1,16 @@
+// import fontawesome icons
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+// import arcgis components
+import "@arcgis/core/assets/esri/themes/light/main.css";
+import Map from "@arcgis/core/Map.js";
+import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer.js";
+import MapView from "@arcgis/core/views/MapView.js";
+import * as reactiveUtils from "@arcgis/core/core/reactiveUtils.js";
+import SceneView from "@arcgis/core/views/SceneView.js";
+import Slider from "@arcgis/core/widgets/Slider.js";
+import * as locator from "@arcgis/core/rest/locator.js";
+
 // global variables that are available to module import function and global functions
 var view;
 var locateAddress;
@@ -11,6 +24,187 @@ var chartEntries = [];
 var generateChartResults;
 var mapChartValue;
 // var topology;
+
+// assign map and add basemap and layer properties 
+  map = new Map({
+    basemap: 'dark-gray'
+  });
+  
+  var vtlayer = new VectorTileLayer({
+    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
+  });
+
+  map.add(vtlayer);
+
+// assign mapView and add viewpoint properties
+  view = new MapView({
+    container: "viewDiv",
+    map: map,
+    zoom: 2,
+    center: [-38.9465, 7.775],
+    constraints: {
+      minZoom: 3,
+      maxZoom: 10
+    },
+    spatialReference: {
+      wkid: 3857,
+    }
+  });
+
+// remove esri UI elements from mapView
+  view.ui.remove("zoom");
+
+  const minLat = -70;
+  const maxLat = 85;
+
+  reactiveUtils.when(() => view.stationary, () => {
+    const center = view.center;
+    const clampedLat = Math.max(Math.min(center.latitude, maxLat), minLat);
+
+    if (clampedLat !== center.latitude) {
+      view.center = {
+        latitude: clampedLat,
+        longitude: center.longitude
+      }
+
+      view.goTo({
+        center: [center.longitude, clampedLat.latitude]
+      });
+    }
+  })
+
+  globeMap = new Map({
+    basemap: "dark-gray"
+  });
+
+  // assign sceneView and add viewpoint properties
+  globeView = new SceneView({
+
+    map: globeMap,
+    container: "sceneDiv",
+    center: [-38.9465, 7.775],
+    zoom: 4,
+    constraints: {
+    altitude: {
+      min: 150000
+    }
+    },
+
+  });
+
+  var globeVtLayer = new VectorTileLayer({
+    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
+  });
+
+  // globeView.map.add(vtlayer);
+  globeMap.add(globeVtLayer);
+
+
+  // remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
+  globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
+
+  // slider 
+const slider = new Slider({
+  container: "sliderDiv",
+  min: 1980,
+  max: 2080,
+  values: [1980],
+  steps: [1980, 2030, 2050, 2080],
+  tickConfigs: [{
+    mode: "position",
+    values: [1980, 2030, 2050, 2080],
+    labelsVisible: true
+  }],
+
+  visibleElements: {
+    rangeLabels: false
+  }
+})
+
+reactiveUtils.watch(() => slider.values, (value) => {
+  for (var i = 0; i < scenarios.length; i++) {
+    if (value == scenarios[i].year) {
+
+      globeMap.remove(globeVtLayer);
+      map.remove(vtlayer);
+
+      vtlayer = new VectorTileLayer({
+        url: scenarios[i].url
+      });
+
+      globeVtLayer = new VectorTileLayer({
+        url: scenarios[i].url
+      })
+
+      updateThumbLabel(value);
+
+      map.add(vtlayer);
+      globeMap.add(globeVtLayer);
+    }
+  }
+}
+);
+
+// locateAddress function 
+locateAddress = (value) => {
+
+  // if search icon was clicked, then assign locateAddress parameter to the value of searchField div
+  console.log(value);
+
+  // url to connect to esri Geocode Server
+  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+  // parameters to send to esri Geocode Server
+  var params = {
+
+    // assign locateAddress function parameter to single line address property value
+    address: {
+      "SingleLine": value
+    },
+
+    // only retrieve one location result
+    maxLocations: 1
+  }
+
+  // if locateAddress function parameter is not blank, then run addressToLocations method
+  if (value !== "") {
+    locator.addressToLocations(url, params)
+      .then((result) => {
+      if (result.length) {
+        document.activeElement.blur();
+        var location = result[0].location;
+
+        // apply addressToLocations response to mapView viewpoint
+        view.goTo({
+          center: [location.longitude, location.latitude],
+          zoom: 3
+        });
+
+        // apply addressToLocations response to sceneView viewpoint
+        var setZoom = 4;
+
+        if (globeView.zoom > 4) {
+          setZoom = globeView.zoom;
+        }
+
+        globeView.goTo({
+          camera: {
+            position: [
+              location.longitude,
+              location.latitude,
+              50000
+            ]
+          },
+          center: [location.longitude, location.latitude],
+          zoom: setZoom
+        })
+      } else {
+        // display browser alert if no result was contained in addressToLocations response
+        alert("Not found.")
+      }
+    })
+  }
+}
 
 // highmaps specs
   // var highMapsTopology = async () => {
@@ -614,7 +808,7 @@ const isoCountries = [
 var geoJson;
 
 var loadGeoJson = async () => {
-  var getData = await fetch('./GADM_ADMIN1.json');
+  var getData = await fetch('/gei/GADM_ADMIN1.json');
   geoJson = await getData.json();
 }
 
@@ -641,273 +835,9 @@ require([
   "esri/widgets/Slider",
   "esri/Basemap"
 ], 
-  (Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, VectorTileLayer, Slider, Basemap) => {
-
-// assign feature layer 
-  // var layer = new FeatureLayer({
-  //   // portalItem: {
-  //   //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"
-  //   // }
-
-  //   url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Hex_Grid_50km/FeatureServer/0"    
-  // });
-  
-  var vtlayer = new VectorTileLayer({
-    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
-  });
-
-  var globeVtLayer = new VectorTileLayer({
-    url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"
-  })
-
-  const customBasemap = new Basemap({
-    portalItem: {
-      id: "a66bfb7dd3b14228bf7ba42b138fe2ea"
-    }
-  });
-
-// assign map and add basemap and layer properties 
-  map = new Map({
-    basemap: 'dark-gray'
-  });
-  
-  map.add(vtlayer);
-
-// assign mapView and add viewpoint properties
-  view = new MapView({
-    container: "viewDiv",
-    map: map,
-    zoom: 2,
-    center: [-38.9465, 7.775],
-    constraints: {
-      minZoom: 3,
-      maxZoom: 10
-    },
-    spatialReference: {
-      wkid: 3857,
-      isWrappable: true
-    }
-  });
-
-// remove esri UI elements from mapView
-  view.ui.remove("zoom");
-
-//
-const minLat = -70;
-const maxLat = 85;
-
-reactiveUtils.when(() => view.stationary, () => {
-  const center = view.center;
-  const clampedLat = Math.max(Math.min(center.latitude, maxLat), minLat);
-
-  if (clampedLat !== center.latitude) {
-    view.center = {
-      latitude: clampedLat,
-      longitude: center.longitude
-    }
-
-    view.goTo({
-      center: [center.longitude, clampedLat.latitude]
-    });
-  }
-})
-
-globeMap = new Map({
-  basemap: "dark-gray"
-});
-
-// assign sceneView and add viewpoint properties
-  globeView = new SceneView({
-
-    map: globeMap,
-    container: "sceneDiv",
-    center: [-38.9465, 7.775],
-    zoom: 4,
-    constraints: {
-     altitude: {
-      min: 150000
-     }
-    },
-
-  });
-
-  // globeView.map.add(vtlayer);
-  globeMap.add(globeVtLayer);
+  ( Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, Slider) => {
 
 
-// remove esri UI elements from globeView (the previous controls were zoom in/out, toggle pan & rotate controls, reset map orientation)
-globeView.ui.remove(["compass", "zoom", "pan", "navigation-toggle"]);
-
-// slider 
-const slider = new Slider({
-  container: "sliderDiv",
-  min: 1980,
-  max: 2080,
-  values: [1980],
-  steps: [1980,2030,2050,2080],
-  tickConfigs: [{
-    mode: "position",
-    values: [1980,2030,2050,2080],
-    labelsVisible: true
-  }],
-
-  visibleElements: {
-    rangeLabels: false
-  }
-})
-
-reactiveUtils.watch(() => slider.values, (value) => {
-    for (var i=0; i<scenarios.length; i++) {
-      if (value == scenarios[i].year) {
-
-        globeMap.remove(globeVtLayer);
-        map.remove(vtlayer);
-
-        vtlayer = new VectorTileLayer({
-          url: scenarios[i].url
-        });
-
-        globeVtLayer = new VectorTileLayer({
-          url: scenarios[i].url
-        })
-
-        updateThumbLabel(value);
-
-        map.add(vtlayer);
-        globeMap.add(globeVtLayer);
-      }
-    }
-  }
-);
-
-// //slider for 900px screens and above
-const lgSlider = new Slider({
-  container: "lgSliderDiv",
-  min: 1980,
-  max: 2080,
-  values: [1980],
-  steps: [1980,2030,2050,2080],
-  tickConfigs: [{
-    mode: "position",
-    values: [1980,2030,2050,2080],
-    labelsVisible: true
-  }],
-  visibleElements: {
-    rangeLabels: false
-  }
-})
-
-reactiveUtils.watch(() => lgSlider.values, (value) => {
-    for (var i=0; i<scenarios.length; i++) {
-      if (value == scenarios[i].year) {
-
-        globeMap.remove(globeVtLayer);
-        map.remove(vtlayer);
-
-        vtlayer = new VectorTileLayer({
-          url: scenarios[i].url
-        });
-
-        globeVtLayer = new VectorTileLayer({
-          url: scenarios[i].url
-        })
-
-        updateThumbLabel(value);
-
-        map.add(vtlayer);
-        globeMap.add(globeVtLayer);
-      }
-    }
-  }
-);
-
-//CHART VIEW MAP INSTANCES
-// chartInstance = (longitude, latitude, position) => {
-//   chartEntries.push(
-//     new MapView({
-//       container: `chartMapInstance${position}`,
-//       map: map,
-//       zoom: 2,
-//       center: [longitude, latitude],
-//       constraints: {
-//         minZoom: 3,
-//         maxZoom: 10
-//       },
-//       spatialReference: {
-//         wkid: 3857,
-//         isWrappable: true
-//       }
-//     })
-//   )
-// };
-
-// locateAddress function 
-locateAddress = (value) => {
-
-  // if search icon was clicked, then assign locateAddress parameter to the value of searchField div
-  if (value === "searchIcon") {
-    value = document.getElementById("searchField").value;
-  } else if (value === "smallWidthSearchIcon") {
-    value = document.getElementById("smallWidthSearchField").value;
-  } else if (value === "largeWidthSearchIcon") {
-    value = document.getElementById("largeWidthSearchField").value;
-  }
-
-  // url to connect to esri Geocode Server
-  var url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
-
-  // parameters to send to esri Geocode Server
-  var params = {
-
-    // assign locateAddress function parameter to single line address property value
-    address: {
-      "SingleLine": value
-    },
-
-    // only retrieve one location result
-    maxLocations: 1
-  }
-
-  // if locateAddress function parameter is not blank, then run addressToLocations method
-  if (value !== "") {
-    locator.addressToLocations(url, params)
-      .then((result) => {
-      if (result.length) {
-        document.activeElement.blur();
-        var location = result[0].location;
-
-        // apply addressToLocations response to mapView viewpoint
-        view.goTo({
-          center: [location.longitude, location.latitude],
-          zoom: 3
-        });
-
-        // apply addressToLocations response to sceneView viewpoint
-        var setZoom = 4;
-
-        if (globeView.zoom > 4) {
-          setZoom = globeView.zoom;
-        }
-
-        globeView.goTo({
-          camera: {
-            position: [
-              location.longitude,
-              location.latitude,
-              50000
-            ]
-          },
-          center: [location.longitude, location.latitude],
-          zoom: setZoom
-        })
-      } else {
-
-        // display browser alert if no result was contained in addressToLocations response
-        alert("Not found.")
-      }
-    })
-  }
-}
 
 //GENERATE CHART RESULTS
  generateChartResults = (value, position) => {
@@ -1341,7 +1271,7 @@ const showCountryList = () => {
 
     for (var i=0; i<countries.length; i++) {
     const node = document.createElement("div");
-    var divContent = `<div class="text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+    var divContent = `<div class="countryResultsIdentifier text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" tabindex="0">${countries[i]}</div>`;
     node.innerHTML = divContent;
     div.appendChild(node);
   }
@@ -1354,7 +1284,7 @@ const filterCountryList = (value) => {
   for (var i=0; i< countries.length; i++) {
     if (countries[i].toLowerCase().includes(value.toLowerCase())) {
       const node = document.createElement("div");
-      var divContent = `<div class="text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" onclick="locateAddress(this.id); deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" onkeydown="if(event.key === 'Enter'){ locateAddress(this.id); }" tabindex="0">${countries[i]}</div>`;
+      var divContent = `<div class="countryResultsIdentifier text-[16px] font-[600] pl-20 pr-20 pt-8 pb-8 cursor-pointer text-(--black)" id="${countries[i]}" deactivateSmallSearch(); fillInputWithResult(this.innerHTML);" tabindex="0">${countries[i]}</div>`;
       node.innerHTML = divContent;
       div.appendChild(node);
     }
@@ -1369,7 +1299,6 @@ const fillInputWithResult = (value) => {
     console.log(searchFields[i]);
   }
 }
-
 
 // switchView function toggles between mapView and sceneView div z-index
 const switchView = () => {
@@ -1388,6 +1317,7 @@ const switchView = () => {
     scene.style.zIndex = -1;
   }
 }
+
 
 // orients camera north
 // const orientNorth = () => {
@@ -1533,17 +1463,6 @@ const toggleSearchBar = () => {
       dataDivs[i].classList.remove('disableDataControls');
     }
   }
-
-  var hazardsSidebar = document.getElementById('hazardsSidebar');
-  if (hazardsSidebar.classList.contains('enableSidebar')) {
-    hazardsSidebar.classList.remove('enableSidebar');
-    hazardsSidebar.classList.add('disableSidebar');
-  }
-  var exposuresSidebar = document.getElementById('exposuresSidebar');
-  if (exposuresSidebar.classList.contains('enableSidebar')) {
-    exposuresSidebar.classList.remove('enableSidebar');
-    exposuresSidebar.classList.add('disableSidebar');
-  }    
 }
 
 const tapSmallSearch = () => {
@@ -1637,38 +1556,35 @@ document.addEventListener("mouseleave", () => {
   hover('exit'); 
 });
 
-const hazards = ["Heat stress", "Urban heatwave", "Riverine flood", "Coastal flood", "Drought", "Sea level"];
-const exposures = ["Buildings", "Cropland", "GDP", "Urban GDP", "Population"];
+const hazards = ["Heat-stress", "Urban-heatwave", "Riverine-flood", "Coastal-flood", "Drought", "Sea-level"];
+const exposures = ["Buildings", "Cropland", "GDP", "Urban-GDP", "Population"];
 
-const toggleHoverOptions = (value) => {
+const toggleHazards = () => {
   var dataSidebarTitle = document.getElementById('dataSidebarTitle');
-  dataSidebarTitle.innerHTML = value;
+  dataSidebarTitle.innerHTML = 'HAZARDS';
   
   var dataSidebarElements = document.getElementById('dataSidebarElements');
   dataSidebarElements.innerHTML = '';
 
-  var array;
-  if (value === 'HAZARDS') {
-    array = hazards;
-  } 
+  var array = hazards;
 
   for (var i=0; i<array.length; i++) {
     var node = document.createElement('div');
     node.innerHTML = `
-      <div class="hazardContainer hazardCollapsed">
-        <div class="flex justify-between items-center pl-25 pr-20 h-50 cursor-pointer" onclick="toggleExposures('reveal', '${array[i]}')">
-          <div class="text-[18px]">${array[i]}</div>
+      <div id=${array[i]} class="hazardContainer hazardCollapsed">
+        <div class="flex justify-between items-center pl-25 pr-20 h-50 cursor-pointer">
+          <div class="text-[18px]">${array[i].replace("-", " ")}</div>
           <div class="flex items-center h-20 w-20 rounded-[20px] justify-center bg-white">
             <i class="fa-solid fa-plus fa-xs styleToggleIcon exposurePlusMinus"></i>
           </div>
         </div>
-        <div class="exposureContainer h-0 overflow-hidden text-[18px] flex flex-col justify-evenly ${array[i].replace(" ", "")}">
+        <div id="exposureContainer" class="exposureContainer h-0 overflow-hidden text-[18px] flex flex-col justify-evenly ${array[i]}">
           <div class="text-[16px] pl-45 text-(--lightGray) font-bold cursor-default">EXPOSURES</div>
-          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[0]}</div>
-          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[1]}</div>
-          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[2]}</div>
-          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[3]}</div>
-          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[4]}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[0].replace("-", " ")}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[1].replace("-", " ")}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[2].replace("-", " ")}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[3].replace("-", " ")}</div>
+          <div class="pl-45 cursor-pointer font-light text-(--black)">${exposures[4].replace("-", " ")}</div>
         </div>
       </div>
       `;
@@ -1701,11 +1617,7 @@ window.addEventListener("resize", () => {
     hoverOptions.classList.remove('revealHoverOptions');
   } else if (window.innerWidth >= 900) {
     var sidebar = document.getElementById('sidebar');
-    var hazardsSidebar = document.getElementById('hazardsSidebar');
-    var exposuresSidebar = document.getElementById('exposuresSidebar');
     sidebar.classList.replace('enableSidebar', 'defaultSidebar');
-    hazardsSidebar.classList.replace('enableSidebar', 'defaultSidebar');
-    exposuresSidebar.classList.replace('enableSidebar', 'defaultSidebar');
   }
 })
 
@@ -1715,7 +1627,6 @@ const toggleExposures = (status, identifier) => {
   var symbolDivs = document.querySelectorAll('i.exposurePlusMinus');
   var hazardDivs = document.querySelectorAll('div.hazardContainer');
   var targetDivs = document.querySelectorAll(`.${identifier.replace(" ", "").toString()}`);
-  console.log(exposureDivs);
   for (var i = 0; i < exposureDivs.length; i++) {
     if (exposureDivs[i].classList.contains(`${identifier.replace(" ", "").toString()}`) && exposureDivs[i].classList.contains('unhideExposure')) {
       exposureDivs[i].classList.add('hideExposure');
@@ -1740,5 +1651,78 @@ const toggleExposures = (status, identifier) => {
   }
 }
 
+const loadCountryResults = (event) => {
+  locateAddress(event.target.id)
+}
+
+const hazardClicked = (event) => {
+  var targetID;
+  if (event.target.closest('.hazardContainer').id) {
+    targetID = event.target.closest('.hazardContainer').id;
+  }
+  if (!event.target.closest('.exposureContainer')) {
+    toggleExposures('reveal', targetID);
+  }  
+}
+
 showCountryList();
+
+// addeventlistener functions
+
+const clickIds = [
+  'view',
+  'searchButton',
+  'countryResults',
+  'searchButtonContainer',
+  'searchBarXmark',
+  'hazardsButtonContainer',
+  'hazardsButton',
+  'dataSidebarElements',
+  'hazardXmark'
+];
+
+const clickFunctions = [
+  switchView, 
+  toggleSearchBar,
+  loadCountryResults,
+  toggleSearchBar,
+  toggleSearchBar,
+  toggleHazards,
+  toggleHazards,
+  hazardClicked,
+  concealHoverOptions
+];
+
+clickIds.map((id, index) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.addEventListener('click', (event) => {
+      clickFunctions[index](event);
+    });
+  }
+})
+
+document.getElementById('searchBarSearchField').addEventListener('keydown', (event) => {
+  if (event.key === "Enter") {
+    locateAddress(document.getElementById('searchBarSearchField').value);
+  }
+});
+
+document.getElementById('searchBarSearchField').addEventListener('keyup', (event) => {
+  filterCountryList(document.getElementById('searchBarSearchField').value)
+});
+
+
+
+document.getElementById('lgSidebar').addEventListener('mouseenter', () => {
+  hover('enter');
+});
+
+document.getElementById('viewDiv').addEventListener('mouseenter', () => {
+  hover('exit');
+});
+
+document.getElementById('sceneDiv').addEventListener('mouseenter', () => {
+  hover('exit');
+});
 
