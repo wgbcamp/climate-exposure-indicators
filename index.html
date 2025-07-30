@@ -20,11 +20,11 @@
     </div>
     <div id="chartMapButtons" class="flex justify-end w-650 mr-15">
         <div class="flex md:justify-center sm:justify-end items-center h-40 sm:w-auto md:w-180 mr-10">
-          <div id="mapDiv" class="h-full pl-10 pr-7 rounded-l-[15px] text-(--black) font-[900] flex items-center gap-10 cursor-pointer select-none bg-(--unselected) cmID defaultSelectedButton" onclick="toggleMapChart(this.id)">
+          <div id="mapDiv" class="h-full pl-10 pr-7 rounded-l-[15px] text-(--black) font-[900] flex items-center gap-10 cursor-pointer select-none bg-(--unselected) cmID defaultSelectedButton">
             <i class="fa-solid fa-globe fa-lg"></i>
             <div class="hidden sm:block">Map</div>
           </div>
-          <div id="chartDiv" class="h-full flex justify-center items-center gap-10 rounded-r-[15px] pl-8 pr-10 cursor-pointer select-none bg-(--unselected) font-[900] text-(--black) chartDiv cmID" onclick="toggleMapChart(this.id)">
+          <div id="chartDiv" class="h-full flex justify-center items-center gap-10 rounded-r-[15px] pl-8 pr-10 cursor-pointer select-none bg-(--unselected) font-[900] text-(--black) chartDiv cmID">
             <i class="fa-solid fa-chart-line"></i>
             <div class="hidden sm:block">Chart</div>
           </div>
@@ -205,13 +205,11 @@
   <div id="chartView" class="absolute top-59 h-[calc(100%-59px)] w-full bg-white z-[-1] opacity-0 overflow-scroll">
     <div class="h-[100px] w-full border-solid border-[1px] border-(--lightGray) shadow-[0px 10px 65px 5px #00000024] flex items-center justify-around">
       <div class="w-full flex justify-center">
-        <input class="w-75/100 h-[30px] border-solid border-[1px] border-(--lightGray) rounded-[5px]" placeholder="Search for countries to compare" enterkeyhint="done"
-          onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 1)}">
+        <input id="chartInput1" class="w-75/100 h-[30px] border-solid border-[1px] border-(--lightGray) rounded-[5px]" placeholder="Search for countries to compare" enterkeyhint="done">
       </div>
       <div class="text-[22px] font-[900] text-(--fundBlue) w-9/10 text-center">Compare Countries</div>
       <div class="w-full flex justify-center">
-        <input class="w-75/100 h-[30px] border-solid border-[1px] border-(--lightGray) rounded-[5px]" placeholder="Search for countries to compare" enterkeyhint="done"
-          onkeydown="if(event.key === 'Enter') {generateChartResults(this.value, 2)}">
+        <input id="chartInput2" class="w-75/100 h-[30px] border-solid border-[1px] border-(--lightGray) rounded-[5px]" placeholder="Search for countries to compare" enterkeyhint="done">
       </div>
     </div>
     <div class="w-full flex flex-col gap-20 md:flex-row md:gap-10">

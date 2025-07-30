@@ -21,7 +21,6 @@ var globeMap;
 var highchartValue;
 var chartInstance;
 var chartEntries = [];
-var generateChartResults;
 var mapChartValue;
 // var topology;
 
@@ -808,7 +807,7 @@ const isoCountries = [
 var geoJson;
 
 var loadGeoJson = async () => {
-  var getData = await fetch('/gei/GADM_ADMIN1.json');
+  var getData = await fetch('/climate-exposure-indicators/GADM_ADMIN1.json');
   geoJson = await getData.json();
 }
 
@@ -821,26 +820,21 @@ const scenarios = [
   {year: 2080, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2080/VectorTileServer"}
 ]
 
-// import esri modules and define parameters
-require([
-  "esri/Map", 
-  "esri/views/MapView", 
-  "esri/layers/FeatureLayer", 
-  "esri/views/SceneView",
-  "esri/widgets/Legend",
-  "esri/rest/locator",
-  "esri/geometry/SpatialReference",
-  "esri/core/reactiveUtils",
-  "esri/layers/VectorTileLayer",
-  "esri/widgets/Slider",
-  "esri/Basemap"
-], 
-  ( Map, MapView, FeatureLayer, SceneView, Legend, locator, SpatialReference, reactiveUtils, Slider) => {
-
-
 
 //GENERATE CHART RESULTS
- generateChartResults = (value, position) => {
+ const generateChartResults = (value) => {
+
+  var position;
+  // var addressString = value
+  console.log(value.target);
+
+  if (value.target.id == 'chartInput1') {
+    position = 1;
+  }
+
+  if (value.target.id == 'chartInput2') {
+    position = 2;
+  }
 
   document.activeElement.blur();
 
@@ -850,7 +844,7 @@ require([
   var params = {
     // assign locateAddress function parameter to single line address property value
     address: {
-      "SingleLine": value
+      "SingleLine": value.target.value
     },
     // only retrieve one location result
     maxLocations: 1,
@@ -1246,10 +1240,6 @@ require([
 
 }
 
-
-
-});
-
 // switchMapChart function toggles between map and chart views
 const switchMapChart = () => {
 
@@ -1385,6 +1375,27 @@ const applyScenario = (value) => {
 
 // toggle between map and chart views on click
 const toggleMapChart = (value) => {
+
+  var valueID;
+
+  try {
+    if (value.target.closest('#mapDiv').id) {
+      console.log("MAP");
+      valueID = 'mapDiv';
+    }
+  } catch (error) {
+
+  }
+
+  try {
+    if (value.target.closest('#chartDiv').id) {
+      console.log("CHART");
+      valueID = 'chartDiv';
+    }
+  } catch (error) {
+
+  }
+
   var list = document.querySelectorAll('div.cmID');
   var chartView = document.getElementById('chartView');
   var chartDiv = document.getElementById('chartDiv');
@@ -1392,7 +1403,7 @@ const toggleMapChart = (value) => {
   for (var i=0; i<list.length; i++) {
     if ((list[i].classList.contains('selectedButton') 
       || list[i].classList.contains('defaultSelectedButton'))
-       && list[i].id !== value) {
+       && list[i].id !== valueID) {
       for (var a=0; a<list.length; a++) {
         if (list[a].classList.contains('defaultSelectedButton')) {
           list[a].classList.remove('defaultSelectedButton');
@@ -1404,7 +1415,7 @@ const toggleMapChart = (value) => {
     }
   }
 
-  if (value == 'chartDiv' && chartDiv.classList.contains('selectedButton')) {
+  if (valueID == 'chartDiv' && chartDiv.classList.contains('selectedButton')) {
     chartView.classList.add('presentView');
     chartView.classList.remove('concealView');
   } else if (chartView.classList.contains('presentView')) {
@@ -1484,27 +1495,36 @@ const deactivateSmallSearch = () => {
 }
 
 // zoom function
-const zoomIn = (value) => {
-  // view.goTo({
-  //   zoom: view.zoom++
-  // }, {
-  //   duration: 100,      
-  //   easing: "in-out-cubic"
-  // });
-  //   globeView.goTo({
-  //   zoom: 5
-  // }, {
-  //   duration: 100,      
-  //   easing: "in-out-cubic"
-  // });
-  view.zoom++;
-  globeView.zoom++;
+const zoomIn = () => {
+  view.goTo({
+    zoom: view.zoom + 1
+  }, {
+    duration: 100,      
+    easing: "out-cubic"
+  });
+    globeView.goTo({
+    zoom: globeView.zoom + 1
+  }, {
+    duration: 100,      
+    easing: "out-cubic"
+  });
 }
 
 const zoomOut = () => {
-  view.zoom--;
-  globeView.zoom--;
+  view.goTo({
+    zoom: view.zoom - 1
+  }, {
+    duration: 100,      
+    easing: "in-cubic"
+  });
+    globeView.goTo({
+    zoom: globeView.zoom - 1
+  }, {
+    duration: 100,      
+    easing: "in-cubic"
+  });
 }
+
 
 // acquire user geolocation
 const success = (value) => {
@@ -1708,7 +1728,7 @@ const clickFunctions = [
   zoomIn,
   zoomOut,
   toggleMapChart,
-
+  toggleMapChart
 ];
 
 clickIds.map((id, index) => {
@@ -1717,6 +1737,28 @@ clickIds.map((id, index) => {
     element.addEventListener('click', (event) => {
       clickFunctions[index](event);
     });
+  }
+})
+
+const inputIds = [
+  'chartInput1',
+  'chartInput2'
+];
+
+const inputFunctions = [
+  generateChartResults,
+  generateChartResults
+];
+
+inputIds.map((id, index) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.addEventListener('keydown', (event) => {
+      if (event.key === "Enter") {
+        console.log(inputFunctions)
+        inputFunctions[index](event);
+      }
+    })
   }
 })
 
