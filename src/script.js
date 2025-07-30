@@ -1604,7 +1604,7 @@ document.addEventListener("mouseleave", () => {
   hover('exit'); 
 });
 
-const hazards = ["Heat-stress", "Urban-heatwave", "Riverine-flood", "Coastal-flood", "Drought", "Sea-level"];
+const hazards = ["Heat-stress", "Urban-heatwave", "Riverine-flood", "Coastal-flood", "Drought", "Sea-level", "Human-conflict"];
 const exposures = ["Buildings", "Cropland", "GDP", "Urban-GDP", "Population"];
 
 const toggleHazards = () => {
