@@ -143,28 +143,28 @@
     }
 
   .fadeDataButtons {
-    animation: 0.1s linear fadeDataButtons forwards; 
+    animation: 0.3s linear fadeDataButtons forwards; 
   }
 
   .unfadeDataButtons {
-    animation: 0.1s linear unfadeDataButtons forwards;
+    animation: 0.3s linear unfadeDataButtons forwards;
     }
 
   @keyframes fadeDataButtons {
     from {
-      opacity: 1;
+      bottom: 55px;
     }
     to {
-      opacity: 0;
+      bottom: 0px;
     }
   }
 
   @keyframes unfadeDataButtons {
     from {
-      opacity: 0;
+      bottom: 0px;
     }
     to {
-      opacity: 1;
+      bottom: 55px;
     }
   }
 

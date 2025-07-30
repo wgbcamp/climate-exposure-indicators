@@ -1329,8 +1329,26 @@ const updateThumbLabel = (value) => {
 // when a data control is clicked, remove or add class
 var bgStatus = true;
 const toggleData = (value) => {
+  try {
+    if (value.target.closest('#scenariosButton').id == 'scenariosButton') {
+      console.log("Scenarios");
+      value = 'scenarioDiv';
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    if (value.target.closest('#timelineButton').id == 'timelineButton') {
+      console.log("Timeline");
+      value = 'sliderControls';
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  
   var list = document.querySelectorAll('div#sliderControls, div#scenarioDiv');
-  var background = document.getElementById('dataOptionsContainer');
+  // var background = document.getElementById('dataOptionsContainer');
   var elementVisible = false;
  
   for (var i=0; i<list.length; i++){
@@ -1350,13 +1368,13 @@ const toggleData = (value) => {
     }
   }
 
-  if (elementVisible == false) {
-    background.classList.add('hideDataControls');
-    background.classList.remove('animateDataControls');
-  } else {
-    background.classList.add('animateDataControls');
-    background.classList.remove('hideDataControls');
-  }
+  // if (elementVisible == false) {
+  //   background.classList.add('hideDataControls');
+  //   background.classList.remove('animateDataControls');
+  // } else {
+  //   background.classList.add('animateDataControls');
+  //   background.classList.remove('hideDataControls');
+  // }
 }
 
 // toggleScenario
@@ -1712,7 +1730,9 @@ const clickIds = [
   'zoomIn',
   'zoomOut',
   'mapDiv',
-  'chartDiv'
+  'chartDiv',
+  'scenariosButton',
+  'timelineButton'
 ];
 
 const clickFunctions = [
@@ -1728,7 +1748,9 @@ const clickFunctions = [
   zoomIn,
   zoomOut,
   toggleMapChart,
-  toggleMapChart
+  toggleMapChart,
+  toggleData,
+  toggleData
 ];
 
 clickIds.map((id, index) => {
@@ -1776,11 +1798,15 @@ document.getElementById('lgSidebar').addEventListener('mouseenter', () => {
   hover('enter');
 });
 
-document.getElementById('viewDiv').addEventListener('mouseenter', () => {
+document.getElementById('contentContainer').addEventListener('mousedown', () => {
   hover('exit');
 });
 
-document.getElementById('sceneDiv').addEventListener('mouseenter', () => {
-  hover('exit');
-});
+// document.getElementById('viewDiv').addEventListener('mouseenter', () => {
+//   hover('exit');
+// });
+
+// document.getElementById('sceneDiv').addEventListener('mouseenter', () => {
+//   hover('exit');
+// });
 
