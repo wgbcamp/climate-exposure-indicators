@@ -189,10 +189,10 @@
   <!-- These are the view controls, no media queries -->
   <div id="viewControlsContainer" class="top-135 right-15 flex flex-col items-center justify-center z-2 gap-10 fixed">
     <div class="h-90 w-40 flex items-center justify-center flex-col bg-(--emptyShade) rounded-[10px]">
-      <div class="font-[Inter] text-(--black) h-45 w-82/100 flex justify-center items-center font-[700] cursor-pointer" onclick="zoomInOut('+')">
+      <div id="zoomIn" class="font-[Inter] text-(--black) h-45 w-82/100 flex justify-center items-center font-[700] cursor-pointer">
         <div><i class="fa-solid fa-plus fa-lg"></i></div>
       </div>
-      <div class="font-[Inter] text-(--black) h-45 w-82/100 flex justify-center items-center font-[700] cursor-pointer" onclick="zoomInOut('-')">
+      <div id="zoomOut" class="font-[Inter] text-(--black) h-45 w-82/100 flex justify-center items-center font-[700] cursor-pointer">
         <div><i class="fa-solid fa-minus fa-lg"></i></div>
       </div>
     </div>

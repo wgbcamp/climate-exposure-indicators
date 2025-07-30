@@ -1484,16 +1484,26 @@ const deactivateSmallSearch = () => {
 }
 
 // zoom function
-const zoomInOut = (value) => {
-  if (value == '+') {
-    view.zoom++;
-    globeView.zoom++;
-  }
+const zoomIn = (value) => {
+  // view.goTo({
+  //   zoom: view.zoom++
+  // }, {
+  //   duration: 100,      
+  //   easing: "in-out-cubic"
+  // });
+  //   globeView.goTo({
+  //   zoom: 5
+  // }, {
+  //   duration: 100,      
+  //   easing: "in-out-cubic"
+  // });
+  view.zoom++;
+  globeView.zoom++;
+}
 
-  if (value == '-') {
-    view.zoom--;
-    globeView.zoom--;
-  }
+const zoomOut = () => {
+  view.zoom--;
+  globeView.zoom--;
 }
 
 // acquire user geolocation
@@ -1678,7 +1688,11 @@ const clickIds = [
   'hazardsButtonContainer',
   'hazardsButton',
   'dataSidebarElements',
-  'hazardXmark'
+  'hazardXmark',
+  'zoomIn',
+  'zoomOut',
+  'mapDiv',
+  'chartDiv'
 ];
 
 const clickFunctions = [
@@ -1690,7 +1704,11 @@ const clickFunctions = [
   toggleHazards,
   toggleHazards,
   hazardClicked,
-  concealHoverOptions
+  concealHoverOptions,
+  zoomIn,
+  zoomOut,
+  toggleMapChart,
+
 ];
 
 clickIds.map((id, index) => {
@@ -1711,8 +1729,6 @@ document.getElementById('searchBarSearchField').addEventListener('keydown', (eve
 document.getElementById('searchBarSearchField').addEventListener('keyup', (event) => {
   filterCountryList(document.getElementById('searchBarSearchField').value)
 });
-
-
 
 document.getElementById('lgSidebar').addEventListener('mouseenter', () => {
   hover('enter');
