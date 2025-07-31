@@ -105,24 +105,36 @@ var mapChartValue;
   // slider 
 const slider = new Slider({
   container: "sliderDiv",
-  min: 1980,
-  max: 2080,
-  values: [1980],
-  steps: [1980, 2030, 2050, 2080],
+  min: 1,
+  max: 4,
+  values: [1],
+  steps: 1,
   tickConfigs: [{
     mode: "position",
-    values: [1980, 2030, 2050, 2080],
-    labelsVisible: true
+    values: [1, 2, 3, 4],
+    labelsVisible: true,
+    tickVisible: true
   }],
-
   visibleElements: {
     rangeLabels: false
+  },
+  labelFormatFunction: (value) => {
+    switch (value) {
+      case 1:
+        return "Baseline";
+      case 2:
+        return "2030";
+      case 3:
+        return "2050";
+      case 4:
+        return "2100";
+    }
   }
 })
 
 reactiveUtils.watch(() => slider.values, (value) => {
   for (var i = 0; i < scenarios.length; i++) {
-    if (value == scenarios[i].year) {
+    if (value == scenarios[i].position) {
 
       globeMap.remove(globeVtLayer);
       map.remove(vtlayer);
@@ -135,7 +147,7 @@ reactiveUtils.watch(() => slider.values, (value) => {
         url: scenarios[i].url
       })
 
-      updateThumbLabel(value);
+      // updateThumbLabel(value);
 
       map.add(vtlayer);
       globeMap.add(globeVtLayer);
@@ -814,10 +826,10 @@ var loadGeoJson = async () => {
 loadGeoJson();
 
 const scenarios = [
-  {year: 1980, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"},
-  {year: 2030, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2030/VectorTileServer"},
-  {year: 2050, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2050/VectorTileServer"},
-  {year: 2080, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2080/VectorTileServer"}
+  {position: 1, year: 1980, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_historical_1980/VectorTileServer"},
+  {position: 2, year: 2030, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2030/VectorTileServer"},
+  {position: 3, year: 2050, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2050/VectorTileServer"},
+  {position: 4, year: 2080, url: "https://tiles.arcgis.com/tiles/weJ1QsnbMYJlCHdG/arcgis/rest/services/riverine_flood_grid_people_rcp4p5_2080/VectorTileServer"}
 ]
 
 
@@ -1322,9 +1334,9 @@ const switchView = () => {
 // }
 
 // when slider is moved, update the value of the thumb label
-const updateThumbLabel = (value) => {
-  document.getElementById("sliderThumbLabel").innerHTML = value;
-}
+// const updateThumbLabel = (value) => {
+//   document.getElementById("sliderThumbLabel").innerHTML = value;
+// }
 
 // when a data control is clicked, remove or add class
 const toggleData = (value) => {
@@ -1474,13 +1486,14 @@ const toggleSearchBar = () => {
     dataControls.classList.add('disableDataControls');
     dataControls.classList.remove('enableDataControls');
 
-    if (dataOptionsContainer.classList.contains('animateDataControls')) {
-    dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
-    } else {
-      dataOptionsContainer.classList.add('removeDataControlsWithoutAnimate');
-      dataOptionsContainer.classList.remove('hideDataControls');
-    }
-    dataOptionsContainer.classList.remove('animateDataControls');
+    // this used to fade the data controls at the bottom of the screen, intended for mobile devices
+    // if (dataOptionsContainer.classList.contains('animateDataControls')) {
+    // dataOptionsContainer.classList.add('removeDataControlsAfterAnimate');
+    // } else {
+    //   dataOptionsContainer.classList.add('removeDataControlsWithoutAnimate');
+    //   dataOptionsContainer.classList.remove('hideDataControls');
+    // }
+    // dataOptionsContainer.classList.remove('animateDataControls');
 
   } else {
     searchSideBar.classList.add('disableSidebar');
@@ -1490,13 +1503,14 @@ const toggleSearchBar = () => {
     dataControls.classList.add('enableDataControls');
     dataControls.classList.remove('disableDataControls');
 
-    if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
-      dataOptionsContainer.classList.add('animateDataControls');
-    } else {
+    // this used to fade the data controls at the bottom of the screen, intended for mobile devices
+    // if (dataOptionsContainer.classList.contains('removeDataControlsAfterAnimate')) {
+    //   dataOptionsContainer.classList.add('animateDataControls');
+    // } else {
 
-    }
-    dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
-    dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
+    // }
+    // dataOptionsContainer.classList.remove('removeDataControlsAfterAnimate');
+    // dataOptionsContainer.classList.remove('removeDataControlsWithoutAnimate');
 
   }
 
