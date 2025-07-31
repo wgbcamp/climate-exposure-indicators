@@ -244,6 +244,10 @@
     height: 45px !important;
   }
 
+  .esri-component {
+    height: 0 !important;
+  }
+
   .presentView {
     animation: presentView 0.4s ease forwards;
   }

@@ -134,18 +134,19 @@
             <div class="pt-4 text-[12px]">Timeline</div>
           </div>
         </div>
-        <div id="dataOptionsContainer" class="h-75 bottom-[-25px] w-[calc(100%-70px)] flex justify-center items-start fixed rounded-t-[10px] bg-(--emptyShade) z-1">
-          <div id="sliderControls" class="w-full h-75 flex items-start absolute bg-white z-3 sm:z-5">
-            <div id="sliderThumbLabel" class="h-60 w-2/10 left-0 flex justify-center items-center cursor-default z-2 rounded-tl-[10px] text-[20px] font-[600] ">1980</div>
-            <div id="sliderDiv" class="w-50 text-white z-2 bg-transparent"></div>
+        <div id="dataOptionsFlexContainer" class="flex justify-center">
+          <div id="dataOptionsContainer" class="h-75 bottom-[-25px] w-[calc(100%-70px)] flex justify-center items-start fixed rounded-t-[10px] sm:rounded-4xl sm:overflow-hidden sm:bottom-15 sm:max-w-8/10 md:max-w-8/10 lg:w-1000 lg:max-w-9/10 bg-(--emptyShade) z-1">
+            <div id="sliderControls" class="w-full h-75 flex items-start absolute bg-white z-3 sm:z-5">
+              <div id="sliderThumbLabel" class="h-60 w-2/10 left-0 flex justify-center items-center cursor-default z-2 rounded-tl-[10px] text-[20px] font-[600] ">1980</div>
+              <div id="sliderDiv" class="w-50 text-white z-2 bg-transparent"></div>
+            </div>
+            <div id="scenarioDiv" class="w-full h-75 flex absolute bg-white z-2 justify-center items-center gap-12 pointer-events-none cursor-pointer default">
+              <div id="baseline" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Baseline</div>
+              <div id="disorderly" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600] activeScenario">Disorderly</div>
+              <div id="hotHouse" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Hot House</div>
+            </div>
           </div>
-          <div id="scenarioDiv" class="w-full h-75 flex absolute bg-white z-2 justify-center items-center gap-12 pointer-events-none cursor-pointer default">
-            <div id="baseline" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Baseline</div>
-            <div id="disorderly" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600] activeScenario">Disorderly</div>
-            <div id="hotHouse" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Hot House</div>
-          </div>
-        </div>
-
+      </div>
       <!-- This is the legend for small width screens -->
       <div id="legendContainer" class="absolute bottom-140 right-15 z-4 pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 175" fill="none" class="h-144">
