@@ -1327,24 +1327,22 @@ const updateThumbLabel = (value) => {
 }
 
 // when a data control is clicked, remove or add class
-var bgStatus = true;
 const toggleData = (value) => {
-  try {
-    if (value.target.closest('#scenariosButton').id == 'scenariosButton') {
-      console.log("Scenarios");
-      value = 'scenarioDiv';
-    }
-  } catch (error) {
-    console.error(error);
-  }
 
-  try {
-    if (value.target.closest('#timelineButton').id == 'timelineButton') {
-      console.log("Timeline");
-      value = 'sliderControls';
+  const idArray = ['scenariosButton', 'timelineButton'];
+  const optionArray = ['scenarioDiv', 'sliderControls'];
+
+  for (var i = 0; i < idArray.length; i++) {
+    try {
+      if (value.target.closest(`#${idArray[i]}`)) {
+          value = optionArray[i];
+          console.log(value);
+          console.log(document.querySelectorAll('div#sliderControls, div#scenarioDiv'));
+          break;
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
   }
   
   var list = document.querySelectorAll('div#sliderControls, div#scenarioDiv');
@@ -1379,6 +1377,21 @@ const toggleData = (value) => {
 
 // toggleScenario
 const applyScenario = (value) => {
+
+  console.log(value.target.id);
+
+  const idArray = ['baseline', 'disorderly', 'hotHouse'];
+
+  for (var i=0; i<idArray.length; i++) {
+    try {
+      if (value.target.closest(`#${value.target.id}`).id == idArray[i]) {
+        value = idArray[i];
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   var list = document.querySelectorAll('div#scenarioDiv div');
   console.log(list);
   for (var i=0; i<list.length; i++) {
@@ -1604,7 +1617,7 @@ document.addEventListener("mouseleave", () => {
   hover('exit'); 
 });
 
-const hazards = ["Heat-stress", "Urban-heatwave", "Riverine-flood", "Coastal-flood", "Drought", "Sea-level", "Human-conflict"];
+const hazards = ["Heat-stress", "Urban-heatwave", "Riverine-flood", "Coastal-flood", "Drought", "Sea-level"];
 const exposures = ["Buildings", "Cropland", "GDP", "Urban-GDP", "Population"];
 
 const toggleHazards = () => {
@@ -1732,7 +1745,10 @@ const clickIds = [
   'mapDiv',
   'chartDiv',
   'scenariosButton',
-  'timelineButton'
+  'timelineButton',
+  'baseline',
+  'disorderly',
+  'hotHouse'
 ];
 
 const clickFunctions = [
@@ -1750,7 +1766,10 @@ const clickFunctions = [
   toggleMapChart,
   toggleMapChart,
   toggleData,
-  toggleData
+  toggleData,
+  applyScenario,
+  applyScenario,
+  applyScenario
 ];
 
 clickIds.map((id, index) => {

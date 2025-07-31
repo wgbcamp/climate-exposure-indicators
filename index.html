@@ -10,15 +10,15 @@
 </head>
 
 <body class="m-0 p-0 h-full w-full bg-[rgb(29, 34, 36)] outline-none font-[Inter]">
-  <div id="header" class="header absolute flex justify-between items-center z-20 h-61 w-full pt-5 pb-5 bg-(--fundBlue) shadow-[0_3px_6px_rgba(0,0,0,0.16)] shadow-[0_3px_6px_rgba(0,0,0,0.23)]">
+  <div id="header" class="header absolute flex justify-between items-center z-20 h-61 w-full pt-5 pb-5 bg-(--fundBlue) shadow-[0_3px_6px_rgba(0,0,0,0.23)]">
     <div class="flex items-center w-full  sm:min-w-200">
         <div id="headerSidebarButton" class="text-white mr-15 ml-15 cursor-pointer md:hidden" onclick="">
           <i class="fa-solid fa-sliders fa-lg"></i>
         </div>
-        <div id="headerTitleText" class="text-white w-70 flex justify-center items-center font-[900] text-[18px] h-7/10 font-[Inter] font-sans cursor-pointer">IMF</div>
-        <div id="headerTitleText" class="text-white w-300 flex justify-start items-center font-[700] text-[12px] md:text-[18px] h-7/10 font-[Inter] font-sans cursor-default border-solid border-white border-l-2 pl-10 ml-2">Global Exposure Indicators</div>
+        <div id="headerTitleText" class="text-white w-70 flex justify-center items-center font-[900] text-[18px] h-7/10 font-[Inter]  cursor-pointer">IMF</div>
+        <div id="headerTitleText" class="text-white w-160 sm:w-200 md:w-300 flex justify-start items-center font-[700] text-[12px] md:text-[18px] h-7/10 font-[Inter]  cursor-default border-solid border-white border-l-2 pl-10 ml-2">Global Exposure Indicators</div>
     </div>
-    <div id="chartMapButtons" class="flex justify-end w-650 mr-15">
+    <div id="chartMapButtons" class="flex justify-end w-650">
         <div class="flex md:justify-center sm:justify-end items-center h-40 sm:w-auto md:w-180 mr-10">
           <div id="mapDiv" class="h-full pl-10 pr-7 rounded-l-[15px] text-(--black) font-[900] flex items-center gap-10 cursor-pointer select-none bg-(--unselected) cmID defaultSelectedButton">
             <i class="fa-solid fa-globe fa-lg"></i>
@@ -37,8 +37,8 @@
   <div id="belowHeaderContainer" class="flex h-full">
         <!-- Indicator for the currently selected hazard & exposure -->
 
-    <div id="sidebarContainer" class="w-70 z-50">
-      <div id="lgSidebar" class="h-[calc(100%-61px)] flex flex-row absolute top-59 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0">
+    <div id="sidebarContainer" class="w-[70px] shrink-0 z-50">
+      <div id="lgSidebar" class="h-[calc(100%-61px)] flex flex-row absolute top-61 bg-(--emptyShade) z-10 text-(--black) overflow-hidden gap-0">
         <div id="col1" class="flex flex-col items-center w-70">
           <div id="lgSidebarTitle" class="h-70 w-full font-[800] text-[16px] flex justify-center items-center cursor-default">
             Data
@@ -114,8 +114,8 @@
     </div>
     <div id="contentContainer" class="w-full">
       <!-- These are the data controls for small width screens -->
-      <div id="dataControls" class="h-55 w-full fixed bottom-0 flex sm:hidden rounded-t-[10px] justify-around items-center bg-(--emptyShade) pt-3 pb-3 z-5 font-[Inter] font-sans font-[400] not-italic ">
-          <div id="scenariosButton" tabindex="0" class="flex flex-col cursor-pointer" onclick="toggleData('scenarioDiv')">
+      <div id="dataControls" class="h-55 w-[calc(100%-70px)] fixed bottom-0 flex sm:hidden rounded-t-[10px] justify-around items-center bg-(--emptyShade) pt-3 pb-3 z-5 font-[Inter] font-sans font-[400] not-italic ">
+          <div id="scenariosButton" tabindex="0" class="flex flex-col cursor-pointer">
             <div class="h-25 flex justify-center items-center">
               <i class="fa-solid fa-bolt fa-lg w-25 cursor-pointer"></i>
             </div>  
@@ -127,27 +127,27 @@
             </div>
             <div class="pt-4 text-[12px]">Indicators</div>
           </div>
-          <div id="timelineButton" tabindex="0" class="flex flex-col cursor-pointer" onclick="toggleData('sliderControls')">
+          <div id="timelineButton" tabindex="0" class="flex flex-col cursor-pointer">
             <div class="h-25 flex justify-center items-center">
               <i class="fa-solid fa-timeline fa-lg w-25 cursor-pointer"></i>
             </div>
             <div class="pt-4 text-[12px]">Timeline</div>
           </div>
         </div>
-        <div id="dataOptionsContainer" class="h-61 w-full flex justify-center items-start fixed bottom-0 rounded-t-[10px] bg-(--emptyShade) z-1">
-          <div id="sliderControls" class="h-75 w-full flex absolute bg-white z-3 sm:z-5 sm:w-7/10">
-            <div id="sliderThumbLabel" class="h-75 w-2/10 left-0 flex justify-center items-center cursor-default z-2 rounded-tl-[10px] text-[20px] font-[600] ">1980</div>
-            <div id="sliderDiv" class="h-35 w-7/10 text-white z-2 bg-transparent"></div>
+        <div id="dataOptionsContainer" class="h-75 bottom-[-25px] w-[calc(100%-70px)] flex justify-center items-start fixed rounded-t-[10px] bg-(--emptyShade) z-1">
+          <div id="sliderControls" class="w-full h-75 flex items-start absolute bg-white z-3 sm:z-5">
+            <div id="sliderThumbLabel" class="h-60 w-2/10 left-0 flex justify-center items-center cursor-default z-2 rounded-tl-[10px] text-[20px] font-[600] ">1980</div>
+            <div id="sliderDiv" class="w-50 text-white z-2 bg-transparent"></div>
           </div>
-          <div id="scenarioDiv" class="w-full h-75 z-2 flex justify-center items-center gap-8 pointer-events-none cursor-pointer opacity-0 absolute bottom-55 default">
-            <div id="baseline" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]" onclick="applyScenario('baseline')">Baseline</div>
-            <div id="disorderly" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600] activeScenario" onclick="applyScenario('disorderly')">Disorderly</div>
-            <div id="hotHouse" class="h-36 w-84 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]" onclick="applyScenario('hotHouse')">Hot House</div>
+          <div id="scenarioDiv" class="w-full h-75 flex absolute bg-white z-2 justify-center items-center gap-12 pointer-events-none cursor-pointer default">
+            <div id="baseline" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Baseline</div>
+            <div id="disorderly" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600] activeScenario">Disorderly</div>
+            <div id="hotHouse" class="h-45 w-98 flex items-center justify-center rounded-[20px] border-solid border-1 border-transparent cursor-pointer pl-2 pr-2 text-(--black) bg-(--lightGray) text-[15px] font-[600]">Hot House</div>
           </div>
         </div>
 
       <!-- This is the legend for small width screens -->
-      <div id="legendContainer" class="absolute bottom-90 right-15 z-4 pointer-events-none">
+      <div id="legendContainer" class="absolute bottom-140 right-15 z-4 pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 175" fill="none" class="h-144">
             <rect width="260" height="175" rx="20" fill="black" fill-opacity="0.75" />
             <path
@@ -204,7 +204,7 @@
           </div>
         </div>
       </div>
-      <div id="chartView" class="absolute top-59 h-[calc(100%-59px)] w-full bg-white z-[-1] opacity-0 overflow-scroll">
+      <div id="chartView" class="absolute top-59 h-[calc(100%-59px)] w-[calc(100%-70px)] bg-white z-[-1] opacity-0 overflow-scroll">
         <div class="h-[100px] w-full border-solid border-[1px] border-(--lightGray) shadow-[0px 10px 65px 5px #00000024] flex items-center justify-around">
           <div class="w-full flex justify-center">
             <input id="chartInput1" class="w-75/100 h-[30px] border-solid border-[1px] border-(--lightGray) rounded-[5px]" placeholder="Search for countries to compare" enterkeyhint="done">
@@ -244,9 +244,9 @@
       </div>
 
       <!-- 2D map -->
-      <div id="viewDiv" class="h-full z-0 bg-(--backgroundMap)"></div>
+      <div id="viewDiv" class="h-full  z-0 bg-(--backgroundMap) outline-none"></div>
       <!-- 3D globe -->
-      <div id="sceneDiv" class="h-full w-full absolute top-0 bg-(--backgroundMap) z-[-10]"></div>
+      <div id="sceneDiv" class="h-full w-[calc(100%-70px)] absolute top-0 bg-(--backgroundMap) z-[-10]"></div>
     </div>
   </div>
   <script src="https://code.highcharts.com/maps/highmaps.js"></script>

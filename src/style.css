@@ -80,6 +80,10 @@
     --esri-view-outline: 0px solid rgba(0,0,0,0);
   }
 
+  .esri-view-surface {
+    --esri-view-outline: 0px solid rgba(0,0,0,0);
+  }
+
   @media screen and (min-height: 640px) {
     /* .animateDataControls {
       all: unset;
@@ -143,11 +147,11 @@
     }
 
   .fadeDataButtons {
-    animation: 0.3s linear fadeDataButtons forwards; 
+    animation: 0.1s ease-in fadeDataButtons forwards; 
   }
 
   .unfadeDataButtons {
-    animation: 0.3s linear unfadeDataButtons forwards;
+    animation: 0.1s ease-out unfadeDataButtons forwards;
     }
 
   @keyframes fadeDataButtons {
@@ -155,16 +159,16 @@
       bottom: 55px;
     }
     to {
-      bottom: 0px;
+      bottom: -25px;
     }
   }
 
   @keyframes unfadeDataButtons {
     from {
-      bottom: 0px;
+      bottom: -25px;
     }
     to {
-      bottom: 55px;
+      bottom: 72px;
     }
   }
 
@@ -230,6 +234,14 @@
 
   .esri-slider__segment, .esri-slider__segment-1 {
     background-color: var(--lightGray) !important;
+  }
+
+  .esri-slider__content {
+    flex: 0.9 0 auto !important;
+  }
+
+  .esri-slider {
+    height: 45px !important;
   }
 
   .presentView {
