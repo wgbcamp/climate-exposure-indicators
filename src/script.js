@@ -1364,16 +1364,13 @@ const toggleData = (value) => {
   for (var i=0; i<list.length; i++){
     if (list[i].id == value && !list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('unfadeDataButtons');
-      list[i].style.pointerEvents = 'auto';
       list[i].classList.remove('fadeDataButtons');
       elementVisible = true;
     } else if (list[i].id == value && list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('fadeDataButtons');
-      list[i].style.pointerEvents = 'none';
       list[i].classList.remove('unfadeDataButtons');
     } else if (list[i].id !== value && list[i].classList.contains('unfadeDataButtons')) {
       list[i].classList.add('fadeDataButtons');
-      list[i].style.pointerEvents = 'none';
       list[i].classList.remove('unfadeDataButtons');
     }
   }
