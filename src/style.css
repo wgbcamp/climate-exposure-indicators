@@ -252,6 +252,10 @@
   .presentView {
     animation: presentView 0.4s ease forwards;
   }
+  
+  .highcharts-credits {
+    display: none !important;
+  }
 
   @keyframes presentView {
     0% {
