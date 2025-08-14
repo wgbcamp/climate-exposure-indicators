@@ -36,6 +36,8 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      - name: List artifact root
+        run: ls -R .
   deploy:
     environment:
       name: github-pages
